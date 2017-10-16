@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/ccasa"
+        android:title="@string/ccasa"
+        android:orderInCategory="98">
+    </item>
+    <item
+        android:id="@+id/nconexion"
+        android:title="@string/nconexion"
+        android:orderInCategory="99">
+
+    </item>
+    <item
+        android:id="@+id/econexion"
+        android:title="@string/econexion"
+        android:orderInCategory="100">
+    </item>
+    <item
+        android:id="@+id/acerca"
+        android:title="@string/acerca"
+        android:orderInCategory="101">
+    </item>
+
+</menu>
