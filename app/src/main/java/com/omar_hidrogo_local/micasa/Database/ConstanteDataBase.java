@@ -1,4 +1,4 @@
-package com.omar_hidrogo_local.micasa.pojo;
+package com.omar_hidrogo_local.micasa.Database;
 
 /**
  * Created by tmhidrooma on 16/10/2017.

@@ -16,9 +16,20 @@
 
     </item>
     <item
-        android:id="@+id/econexion"
         android:title="@string/econexion"
         android:orderInCategory="100">
+        <menu>
+            <item
+                android:id="@+id/cbluetooth"
+                android:title="@string/ebluetooth"
+                android:orderInCategory="1">
+            </item>
+            <item
+                android:id="@+id/cInternet"
+                android:title="@string/einternet"
+                android:orderInCategory="2">
+            </item>
+        </menu>
     </item>
     <item
         android:id="@+id/acerca"
