@@ -2,7 +2,9 @@ package com.omar_hidrogo_local.micasa.presenter;
 
 import android.content.Context;
 
+import com.omar_hidrogo_local.micasa.Database.ConstructorDevices;
 import com.omar_hidrogo_local.micasa.Devices_controller;
+import com.omar_hidrogo_local.micasa.fragment.Fragment_RecyclerView;
 import com.omar_hidrogo_local.micasa.fragment.IRecyclerViewFragmentView;
 import com.omar_hidrogo_local.micasa.pojo.Devices;
 
@@ -16,7 +18,7 @@ public class RecyclerViewFragmentPresent implements IRecyclerViewFragmentPresent
 
     private IRecyclerViewFragmentView iRecyclerViewFragmentView;
     private Context context;
-    private Devices_controller devices_controller;
+    private ConstructorDevices constructorDevices;
     private ArrayList<Devices> devices;
 
     public RecyclerViewFragmentPresent(IRecyclerViewFragmentView iRecyclerViewFragmentView, Context context){
@@ -27,8 +29,8 @@ public class RecyclerViewFragmentPresent implements IRecyclerViewFragmentPresent
 
     @Override
     public void obtenerDevicesDataBase() {
-        devices_controller = new Devices_controller(context);
-        devices = devices_controller.obtenerDatos();
+        constructorDevices = new ConstructorDevices();
+        devices = constructorDevices.obtenerDatos();
         mostrarDevicesRV();
     }
 
@@ -36,7 +38,7 @@ public class RecyclerViewFragmentPresent implements IRecyclerViewFragmentPresent
     public void mostrarDevicesRV() {
 
         //se inicializa el adaptador  con un lista de Dispositivos
-        iRecyclerViewFragmentView.inicializarAdaptadorRV(iRecyclerViewFragmentView.crearAdaptador(mascotas));
+        iRecyclerViewFragmentView.inicializarAdaptadorRV(iRecyclerViewFragmentView.crearAdaptador(devices));
         iRecyclerViewFragmentView.generarLinerLayoutVertical();
 
     }

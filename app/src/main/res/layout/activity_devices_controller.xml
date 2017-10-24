@@ -73,7 +73,8 @@
                 android:layout_height="match_parent"
                 android:text="Guardar Dispositivo "
                 android:textAllCaps="false"
-                android:background="@drawable/button_white"/>
+                android:background="@drawable/button_white"
+                android:onClick="saveDevice"/>
 
         </LinearLayout>
 

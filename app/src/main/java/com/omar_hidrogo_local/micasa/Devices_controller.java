@@ -1,5 +1,6 @@
 package com.omar_hidrogo_local.micasa;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.omar_hidrogo_local.micasa.Database.ConstanteDataBase;
+import com.omar_hidrogo_local.micasa.Database.ConstructorDevices;
 import com.omar_hidrogo_local.micasa.Database.DataBase;
 import com.omar_hidrogo_local.micasa.pojo.Devices;
 
@@ -23,17 +25,18 @@ import java.util.ArrayList;
 
 public class Devices_controller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    Activity activity;
+
     //declaracion de objetos en activity
     private Toolbar toolbar;  //barra superior aplicacion
     private Button btnsaveconnection;
     private EditText editText;
     private Spinner spiner;
     private Context context;
+    private ConstructorDevices constructorDevices;
+    private Devices_controller devices_controller;
 
-    public Devices_controller(Context context){
-        this.context = context;
 
-    }
 
 
     @Override
@@ -64,21 +67,33 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
         btnsaveconnection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataBase admin = new DataBase(Devices_controller.this, ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
-                SQLiteDatabase db =admin.getWritableDatabase();
+                /*DataBase admin = new DataBase(Devices_controller.this, ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
+                SQLiteDatabase db =admin.getWritableDatabase();*/
                 String nombredevice = editText.getText().toString();
                 String channeldevice = spiner.getItemAtPosition(spiner.getSelectedItemPosition()).toString();
-                ContentValues registro = new ContentValues();
+                constructorDevices = new ConstructorDevices();
+                //context = Devices_controller.this;
+                constructorDevices.insertarDevices(nombredevice, channeldevice);
+                /*ContentValues registro = new ContentValues();
                 registro.put(ConstanteDataBase.TABLE_DEVICES_NAME, nombredevice);
                 registro.put(ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID, channeldevice);
                 db.insert(ConstanteDataBase.TABLE_DEVICES, null, registro);
-                db.close();
+                db.close();*/
                 //startActivity(intent);
                 editText.setText("");
                 //startActivity(intent);
                 Toast.makeText(Devices_controller.this, "Se Guardo nuevo dispositivo",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void saveDevice(){
+
+        String nombredevice = editText.getText().toString();
+        String channeldevice = spiner.getItemAtPosition(spiner.getSelectedItemPosition()).toString();
+        ConstructorDevices constructorDevices = new ConstructorDevices();
+        constructorDevices.insertarDevices(nombredevice, channeldevice);
+
     }
 
 
@@ -93,10 +108,13 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
     }
 
 
-    public ArrayList<Devices> obtenerDatos(){
-        DataBase db = new DataBase(Devices_controller.this, ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
+
+
+    /*public ArrayList<Devices> obtenerDatos(){
         return db.obtenerTodasLasDevices();
-    }
+    }*/
+
+
 
 
 }

@@ -1,11 +1,13 @@
 package com.omar_hidrogo_local.micasa.Database;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.omar_hidrogo_local.micasa.Devices_controller;
 import com.omar_hidrogo_local.micasa.pojo.Devices;
 
 import java.util.ArrayList;
@@ -16,9 +18,25 @@ import java.util.ArrayList;
 
 
 public class DataBase extends SQLiteOpenHelper {
+
+    private Context context;
+    private DataBase dbadmin;
+
+    //se crea el constructor
+    /*public DataBase(Context context) {
+
+        //SE CREA BASE DE DATOS
+        super(context, ConstanteDataBase.DATABASE_NAME, null, ConstanteDataBase.DATABASE_VERSION);
+        this.context= context;
+    }*/
+
+
     public DataBase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
+
+
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -39,12 +57,12 @@ public class DataBase extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<Devices> obtenerTodasLasDevices(){
+    public ArrayList<Devices> obtenerTodasLasDevices(DataBase admin){
         ArrayList<Devices> devices = new ArrayList<>();
-
+        dbadmin = admin;
         //SE DECLARA LA QUERY DE SELECCIONAR TODA LA BASE DE DATOS
         String query = " SELECT * FROM "+ ConstanteDataBase.TABLE_DEVICES;
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = dbadmin.getWritableDatabase();
         Cursor registros = db.rawQuery(query, null);
 
         while (registros.moveToNext()){
@@ -71,6 +89,8 @@ public class DataBase extends SQLiteOpenHelper {
         db.close();
         return  devices;
     }
+
+
 
 
 

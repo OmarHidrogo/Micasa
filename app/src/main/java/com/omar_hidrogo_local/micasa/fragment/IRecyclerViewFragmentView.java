@@ -1,5 +1,8 @@
 package com.omar_hidrogo_local.micasa.fragment;
 
+import com.omar_hidrogo_local.micasa.adaptador.DevicesAdapter;
+import com.omar_hidrogo_local.micasa.pojo.Devices;
+
 import java.util.ArrayList;
 
 /**
@@ -12,8 +15,8 @@ public interface IRecyclerViewFragmentView {
     public void generarLinerLayoutVertical();
 
     //metodo para devolver mascotas Adaptador  genera un  adaptador
-    public  crearAdaptador(ArrayList<Mascota> mascotas);
+    public DevicesAdapter crearAdaptador(ArrayList<Devices> devices);
 
     //inicializa el adaptador con el recyclerview
-    public  void inicializarAdaptadorRV(MascotaAdaptador adaptador);
+    public  void inicializarAdaptadorRV(DevicesAdapter adaptador);
 }
