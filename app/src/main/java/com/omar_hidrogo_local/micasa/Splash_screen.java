@@ -70,8 +70,8 @@ public class Splash_screen extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.ccasa:
-                Intent intent = new Intent(this, Connection_internet.class);
-                this.startActivity(intent);
+                /*Intent intent = new Intent(this, Connection_internet.class);
+                this.startActivity(intent);*/
                 break;
             case R.id.nconexion:
                 Intent intent2 = new Intent(this, Devices_controller.class);
@@ -86,7 +86,7 @@ public class Splash_screen extends AppCompatActivity {
                 this.startActivity(intent5);
                 break;
             case R.id.acerca:
-                Intent intent4 = new Intent(this, Connection_internet.class);
+                Intent intent4 = new Intent(this, Acerca_de.class);
                 this.startActivity(intent4);
                 break;
         }

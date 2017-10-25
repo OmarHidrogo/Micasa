@@ -16,5 +16,8 @@ public class ConstanteDataBase {
     public static final String TABLE_DEVICES_ID = "id";
     public static final String TABLE_DEVICES_NAME = "nombre";
     public static final String TABLE_DEVICES_CHANNEL_ID = "channel";
+    public static final String TABLE_DEVICES_PHOTO ="photo";
+    public static final String TABLE_DEVICES_STATE ="state";
+    public static final String TABLE_DEVICES_ABOUT = "about";
 
 }

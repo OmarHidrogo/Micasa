@@ -9,12 +9,18 @@ public class Devices {
     private int id;
     private String nombre;
     private String channel;
+    private int photo;
+    private int state;
+    private String about;
 
 
     //Se declara constructor de las variables
-    public Devices(String nombre, String channel) {
+    public Devices(String nombre, String channel, int photo, int state, String about) {
         this.nombre = nombre;
         this.channel = channel;
+        this.photo = photo;
+        this.state = state;
+        this.about = about;
     }
 
     //Constructor vacio
@@ -45,5 +51,29 @@ public class Devices {
 
     public void setChannel(String channel) {
         this.channel = channel;
+    }
+
+    public int getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(int photo) {
+        this.photo = photo;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 }

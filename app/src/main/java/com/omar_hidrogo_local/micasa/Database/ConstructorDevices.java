@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
+import com.omar_hidrogo_local.micasa.Details_devices;
 import com.omar_hidrogo_local.micasa.Devices_controller;
 import com.omar_hidrogo_local.micasa.MainActivity;
 import com.omar_hidrogo_local.micasa.R;
@@ -42,12 +44,15 @@ public class ConstructorDevices extends Application {
         this.context = context;
     }*/
 
-    public void insertarDevices (String nombredevice, String channeldevice){
+    public void insertarDevices (String nombredevice, String channeldevice, int image, String about){
         admin = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
         SQLiteDatabase db =admin.getWritableDatabase();
         ContentValues registro = new ContentValues();
         registro.put(ConstanteDataBase.TABLE_DEVICES_NAME, nombredevice);
         registro.put(ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID, channeldevice);
+        registro.put(ConstanteDataBase.TABLE_DEVICES_PHOTO, image);
+        registro.put(ConstanteDataBase.TABLE_DEVICES_STATE, 0);
+        registro.put(ConstanteDataBase.TABLE_DEVICES_ABOUT, about);
         db.insert(ConstanteDataBase.TABLE_DEVICES, null, registro);
         db.close();
 
@@ -75,6 +80,9 @@ public class ConstructorDevices extends Application {
             deviceActual.setId(registros.getInt(0));
             deviceActual.setNombre(registros.getString(1));
             deviceActual.setChannel(registros.getString(2));
+            deviceActual.setPhoto(registros.getInt(3));
+            deviceActual.setState(registros.getInt(4));
+            deviceActual.setAbout(registros.getString(5));
 
            /* String queryLikes ="SELECT COUNT("+ConstanteDataBase.TABLE_LIKES_MASCOTAS_NUMERO_LIKES
                     +") as likes "+" FROM "+ ConstanteDataBase.TABLE_LIKES_MASCOTAS +
@@ -92,5 +100,41 @@ public class ConstructorDevices extends Application {
         }
         db.close();
         return  devices;
+    }
+
+    public void statusDevice(Devices device, int status, int image) {
+        admin = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
+        SQLiteDatabase db =admin.getWritableDatabase();
+        ContentValues registro = new ContentValues();
+        /*String query = "SELECT "+ConstanteDataBase.TABLE_DEVICES_PHOTO +" FROM " +ConstanteDataBase.TABLE_DEVICES+" WHERE "+
+                ConstanteDataBase.TABLE_DEVICES_ID +" = "+device;*/
+        registro.put(ConstanteDataBase.TABLE_DEVICES_STATE, status);
+        registro.put(ConstanteDataBase.TABLE_DEVICES_PHOTO, image);
+        db.update(ConstanteDataBase.TABLE_DEVICES,registro,ConstanteDataBase.TABLE_DEVICES_ID+ " = "+device.getId(),null);
+        db.close();
+
+    }
+
+
+    public void updateDevices (int id,String nombredevice, String channeldevice, int image, String about){
+        admin = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
+        SQLiteDatabase db =admin.getWritableDatabase();
+        ContentValues registro = new ContentValues();
+        registro.put(ConstanteDataBase.TABLE_DEVICES_NAME, nombredevice);
+        registro.put(ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID, channeldevice);
+        registro.put(ConstanteDataBase.TABLE_DEVICES_PHOTO, image);
+        registro.put(ConstanteDataBase.TABLE_DEVICES_STATE, 0);
+        registro.put(ConstanteDataBase.TABLE_DEVICES_ABOUT, about);
+        db.update(ConstanteDataBase.TABLE_DEVICES, registro,ConstanteDataBase.TABLE_DEVICES_ID+" = "+id,null);
+        db.close();
+    }
+
+    public void deleteDevices (int id){
+        admin = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
+        SQLiteDatabase db =admin.getWritableDatabase();
+
+        db.delete(ConstanteDataBase.TABLE_DEVICES, ConstanteDataBase.TABLE_DEVICES_ID+" = "+id, null);
+        db.close();
+
     }
 }
