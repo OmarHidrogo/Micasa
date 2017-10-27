@@ -1,5 +1,6 @@
 package com.omar_hidrogo_local.micasa;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,18 @@ import com.omar_hidrogo_local.micasa.fragment.Fragment_RecyclerView;
 import java.util.ArrayList;
 
 public class Splash_screen extends AppCompatActivity {
+
+
+    private static Splash_screen instance;
+
+    public Splash_screen(){
+        instance = this;
+    }
+
+    public static Context getContext(){
+        return  instance;
+    }
+
 
     private Toolbar toolbar;
     private ViewPager viewPager;
@@ -78,7 +91,7 @@ public class Splash_screen extends AppCompatActivity {
                 this.startActivity(intent2);
                 break;
             case R.id.cbluetooth:
-                Intent intent3 = new Intent(this, Connection_bluetooth.class);
+                Intent intent3 = new Intent(this, Device_Lists.class);
                 this.startActivity(intent3);
                 break;
             case R.id.cInternet:
