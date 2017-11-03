@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Select btSerial device from paired devices:"
+                android:text="Selecciona el Dispositivo a vincular"
                 android:visibility="gone"
                 android:background="#666"
                 android:textColor="#fff"
@@ -49,8 +49,9 @@
                 android:id="@+id/infoText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Si el dispositivo no esta en la lista  espera un momento."
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:text="Si el dispositivo no esta en la lista, es necesario primero vincular el dispositivo desde el administrador de Bluetooth"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

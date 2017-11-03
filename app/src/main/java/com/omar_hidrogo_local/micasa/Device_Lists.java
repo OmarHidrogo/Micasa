@@ -52,7 +52,7 @@ public class Device_Lists extends AppCompatActivity {
         checkBTState();
 
         textView1 = (TextView) findViewById(R.id.connecting);
-        textView1.setTextSize(40);
+        textView1.setTextSize(30);
         textView1.setText(" ");
 
         // Initialize array adapter for paired devices
@@ -110,7 +110,7 @@ public class Device_Lists extends AppCompatActivity {
         }
     };
 
-    private void checkBTState() {
+    public void checkBTState() {
         // Check device has Bluetooth and that it is turned on
         mBtAdapter=BluetoothAdapter.getDefaultAdapter(); // CHECK THIS OUT THAT IT WORKS!!!
         if(mBtAdapter==null) {

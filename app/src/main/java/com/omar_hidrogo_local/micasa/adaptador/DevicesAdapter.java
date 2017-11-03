@@ -1,29 +1,24 @@
 package com.omar_hidrogo_local.micasa.adaptador;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
+import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
-import android.support.annotation.DrawableRes;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.omar_hidrogo_local.micasa.Conunication.Bluettoth;
+import com.omar_hidrogo_local.micasa.Conunication.ConnectedThread;
 import com.omar_hidrogo_local.micasa.Database.ConstructorDevices;
 import com.omar_hidrogo_local.micasa.Details_devices;
 import com.omar_hidrogo_local.micasa.Device_Lists;
@@ -49,7 +44,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
     Handler bluetoothIn;
     final int handlerState = 0;
     private BluetoothAdapter btAdapter = null;
-    private BluetoothSocket btSocket = null;
+   // private BluetoothSocket btSocket;
     private StringBuilder recDataString = new StringBuilder();
 
     private ConnectedThread mConnectedThread;
@@ -60,8 +55,18 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
     private Activity activity;
     Context context;
 
+    private MainActivity mainActivity;
 
-    private ProgressDialog progress;
+  //  private ProgressDialog progress;
+    private Splash_screen splash_screen;
+
+//    private int v1 =0;
+
+
+
+    //Conexion RED
+    public static  final String TAG = "Inicio";
+    private String web_service = "http://ip arduino/arduino/13";
 
 
 
@@ -71,12 +76,17 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
         this.activity=activity;
     }
 
+    /*public DevicesAdapter(BluetoothSocket btSocket) {
+        this.btSocket = btSocket;
+    }*/
+
     //inflar el layout y pasa a view hlder para que el obtenga los datos
     @Override
     public DevicesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         //Ligar el Layout cardview_mascotas al Adaptador
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_device, parent, false);
+
 
         //Se envia el View al constructor  MascotasViewHolder
         return new DevicesViewHolder(v);
@@ -116,42 +126,26 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(activity," Has encendido el "+device.getNombre(),Toast.LENGTH_SHORT).show();
-                ConstructorDevices constructorDevices = new ConstructorDevices();
-                int status =1;
-                constructorDevices.statusDevice(device, status, image);
-                if(image==0){
-                    devicesViewHolder.imgFoto.setImageResource(R.drawable.focoencendido);
-                }else
-                    devicesViewHolder.imgFoto.setImageResource(R.drawable.aireencendido);
-                SharedPreferences miprefBluetooth = MainActivity.getContext().getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);   // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Bluetooth
-                address = miprefBluetooth.getString("cBluetooth", "");
-                BluetoothDevice device = btAdapter.getRemoteDevice(address);
-                try {
-                    btSocket = createBluetoothSocket(device);
-                } catch (IOException e) {
-                    //Toast.makeText(this, "La creacción del Socket fallo", Toast.LENGTH_LONG).show();
-                }
-                // Establish the Bluetooth socket connection.
-                try
-                {
-                    btSocket.connect();
-                } catch (IOException e) {
-                    try
-                    {
-                        btSocket.close();
-                    } catch (IOException e2)
-                    {
-                        //insert code to deal with this
-                    }
-                }
-                mConnectedThread = new ConnectedThread(btSocket);
-                mConnectedThread.start();
+                int d = Integer.parseInt(device.getChannel());
+                int v2= d+63;
+                char asciiv = (char) v2;
+                String vascii= String.valueOf((asciiv));
+                Bluettoth bluettoth = new Bluettoth();
+                bluettoth.cbt(vascii);
+                //bluettoth.conexion("1");*/
+                if(ConnectedThread.Success()==false) {
+                    Toast.makeText(activity, " Has encendido el " + device.getNombre(), Toast.LENGTH_SHORT).show();
+                    ConstructorDevices constructorDevices = new ConstructorDevices();
+                    int status = 1;
+                    constructorDevices.statusDevice(device, status, image);
+                    if (image == 0) {
+                        devicesViewHolder.imgFoto.setImageResource(R.drawable.focoencendido);
+                    } else
+                        devicesViewHolder.imgFoto.setImageResource(R.drawable.aireencendido);
+                }else{
 
-                //I send a character when resuming.beginning transmission to check device is connected
-                //If it is not an exception will be thrown in the write method and finish() will be called
-               // mConnectedThread.write("x");
-                mConnectedThread.write("1");    // Send "1" via Bluetooth
+                }
+
 
             }
         });
@@ -159,43 +153,28 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
         devicesViewHolder.btnapagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity," Has apagado el "+device.getNombre(),Toast.LENGTH_SHORT).show();
-                ConstructorDevices constructorDevices = new ConstructorDevices();
-                int status =0;
-                constructorDevices.statusDevice(device, status, image);
-                if(image==0){
-                    devicesViewHolder.imgFoto.setImageResource(R.drawable.focoapagado);
-                }else
-                    devicesViewHolder.imgFoto.setImageResource(R.drawable.aireapagado);
-                SharedPreferences miprefBluetooth = MainActivity.getContext().getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);   // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Bluetooth
-                address = miprefBluetooth.getString("cBluetooth", "");
-                btAdapter = BluetoothAdapter.getDefaultAdapter();       // get Bluetooth adapter
-                BluetoothDevice device = btAdapter.getRemoteDevice(address);
-                try {
-                    btSocket = createBluetoothSocket(device);
-                } catch (IOException e) {
-                    //Toast.makeText(this, "La creacción del Socket fallo", Toast.LENGTH_LONG).show();
-                }
-                // Establish the Bluetooth socket connection.
-                try
-                {
-                    btSocket.connect();
-                } catch (IOException e) {
-                    try
-                    {
-                        btSocket.close();
-                    } catch (IOException e2)
-                    {
-                        //insert code to deal with this
-                    }
-                }
-                mConnectedThread = new ConnectedThread(btSocket);
-                mConnectedThread.start();
 
-                //I send a character when resuming.beginning transmission to check device is connected
-                //If it is not an exception will be thrown in the write method and finish() will be called
-                // mConnectedThread.write("x");
-                mConnectedThread.write("2");    // Send "0" via Bluetooth
+                int d = Integer.parseInt(device.getChannel());
+                int v2= d+75;
+                char asciiv = (char) v2;
+                String vascii= String.valueOf((asciiv));
+                Bluettoth bluettoth = new Bluettoth();
+                bluettoth.cbt(vascii);
+
+                ConstructorDevices constructorDevices = new ConstructorDevices();
+                if(ConnectedThread.Success()==false){
+                    Toast.makeText(activity," Has apagado el "+device.getNombre(),Toast.LENGTH_SHORT).show();
+                    int status =0;
+                    constructorDevices.statusDevice(device, status, image);
+                    if(image==0){
+                        devicesViewHolder.imgFoto.setImageResource(R.drawable.focoapagado);
+                    }else
+                        devicesViewHolder.imgFoto.setImageResource(R.drawable.aireapagado);
+                }else{
+
+                }
+
+
 
             }
         });
@@ -244,59 +223,13 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
         }
     }
 
-    //cLASE DE CONNECT THREAD
-    private class ConnectedThread extends Thread{
-        private final InputStream mmInStream;
-        private final OutputStream mmOutStream;
-
-        private ConnectedThread (BluetoothSocket socket){
-            InputStream tmpIn = null;
-            OutputStream tmpOut = null;
-
-            try {
-                //Create I/O streams for connection
-                tmpIn = socket.getInputStream();
-                tmpOut = socket.getOutputStream();
-            } catch (IOException e) { }
-
-            mmInStream = tmpIn;
-            mmOutStream = tmpOut;
-        }
-
-       /*public void run() {
-            byte[] buffer = new byte[256];
-            int bytes;
-
-            // Keep looping to listen for received messages
-            while (true) {
-                try {
-                    bytes = mmInStream.read(buffer);         //read bytes from input buffer
-                    String readMessage = new String(buffer, 0, bytes);
-                    // Send the obtained bytes to the UI Activity via handler
-                    bluetoothIn.obtainMessage(handlerState, bytes, -1, readMessage).sendToTarget();
-                } catch (IOException e) {
-                    break;
-                }
-            }
-        }*/
-
-        //write method
-        public void write(String input) {
-            byte[] msgBuffer = input.getBytes();           //converts entered String into bytes
-            try {
-                mmOutStream.write(msgBuffer);                //write bytes over BT connection via outstream
-            } catch (IOException e) {
-                //if you cannot write, close the application
-                Toast.makeText(Splash_screen.getContext(), "La Conexión fallo", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
 
         return  device.createRfcommSocketToServiceRecord(BTMODULEUUID);
         //creates secure outgoing connecetion with BT device using UUID
     }
+
+
 
 
 

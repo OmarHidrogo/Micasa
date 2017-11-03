@@ -28,9 +28,6 @@ public class DeviceList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
 
-
-
-
         textConnectionStatus = (TextView) findViewById(R.id.connecting);
         textConnectionStatus.setTextSize(40);
 
@@ -40,6 +37,7 @@ public class DeviceList extends AppCompatActivity {
         // Find and set up the ListView for paired devices
         pairedListView = (ListView) findViewById(R.id.paired_devices);
         pairedListView.setAdapter(mPairedDevicesArrayAdapter);
+
 
     }
 
