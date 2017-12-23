@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         //Si la preferencia compartida esta basia se redireccionara a conectarse a un dispositivo
         if (cInternet.equals("") && cBluetooth.equals("")){
             AlertDialog.Builder messageConnection = new AlertDialog.Builder(MainActivity.this);
-            messageConnection.setMessage("Para continuar por favor selecciona metodo de conexion para el control de su casa")
+            messageConnection.setMessage("Para continuar por favor selecciona un metodo de conexion para el control de su casa")
                     .setCancelable(true)
                     .setPositiveButton("Internet", new DialogInterface.OnClickListener() {
                         @Override
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
 
         }else
         {
-
+            //si  ya existe un dispositivo bluetooth guardado va directo a la actividad de los dispositivos de la casa a controlar
             Intent intent = new Intent(MainActivity.this, Splash_screen.class);
             startActivity(intent);
             finish();

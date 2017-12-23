@@ -5,7 +5,7 @@
     <string name="btnsavedevice">Guardar Dispositivo</string>
 
 
-    <string name="nconexion">Conectar Dispositivo</string>
+    <string name="nconexion">Agregar Dispositivo</string>
     <string name="econexion">Editar Conexion</string>
     <string name="ebluetooth">Bluetooth</string>
     <string name="einternet">Internet</string>
