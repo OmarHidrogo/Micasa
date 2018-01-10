@@ -135,7 +135,24 @@ public class MainActivity extends AppCompatActivity {
                     .setNegativeButton("Bluetooth", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            habilitarBluetooth();
+                           // habilitarBluetooth();
+
+                            SharedPreferences miprefInternet = getSharedPreferences("cInternet", Context.MODE_PRIVATE);
+                            SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);
+                            String cInternet = miprefInternet.getString("cInternet", "");
+                            String cBluetooth = miprefBluetooth.getString("cBluetooth", "");
+                            if(cInternet.equals("") && cBluetooth.equals("")) {
+                                Intent intent = new Intent(MainActivity.this, Device_Lists.class);
+                                startActivity(intent);
+                                finish();
+
+                            }else
+                            {
+                                //si  ya existe un dispositivo bluetooth guardado va directo a la actividad de los dispositivos de la casa a controlar
+                                Intent intent = new Intent(MainActivity.this, Splash_screen.class);
+                                startActivity(intent);
+                                finish();
+                            }
 
                         }
                     });
@@ -145,7 +162,11 @@ public class MainActivity extends AppCompatActivity {
 
         }else{
             //Toast.makeText(MainActivity.this, "Ingrese las conexiones a controlar", Toast.LENGTH_LONG).show();
-            habilitarBluetooth();
+           // habilitarBluetooth();
+            //si  ya existe un dispositivo bluetooth guardado va directo a la actividad de los dispositivos de la casa a controlar
+            Intent intent = new Intent(MainActivity.this, Splash_screen.class);
+            startActivity(intent);
+            finish();
 
         }
         return;
