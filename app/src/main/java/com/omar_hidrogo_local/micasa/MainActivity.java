@@ -30,7 +30,7 @@ import java.util.logging.LogRecord;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BluetoothAdapter btAdapter = null;
+    //private BluetoothAdapter btAdapter = null;
     private static final String TAG = "DeviceListActivity";
 
    /* //Bluetooth
@@ -73,9 +73,6 @@ public class MainActivity extends AppCompatActivity {
     public Devices_controller devices_controller;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,10 +113,64 @@ public class MainActivity extends AppCompatActivity {
         String cBluetooth = miprefBluetooth.getString("cBluetooth", "");
         SharedPreferences miprefIdb= getSharedPreferences("db", Context.MODE_PRIVATE);     // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Internet
         String db = miprefIdb.getString("db", ""); // se inicializa vacio
+        SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
+        String mconex = miprefConexion.getString("mconex", "");
 
+        if(mconex ==""){
+            AlertDialog.Builder messageConnection = new AlertDialog.Builder(MainActivity.this);
+            messageConnection.setMessage("Para continuar por favor selecciona un metodo de conexion para el control de su casa")
+                    .setCancelable(true)
+                    .setPositiveButton("Internet", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            Intent intent = new Intent(MainActivity.this, Connection_internet.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Bluetooth", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // habilitarBluetooth();
+
+                            //miprefInternet = getSharedPreferences("cInternet", Context.MODE_PRIVATE);
+                            //miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);
+                           // String cInternet = miprefInternet.getString("cInternet", "");
+                           // String cBluetooth = miprefBluetooth.getString("cBluetooth", "");
+                            //if(cInternet.equals("") && cBluetooth.equals("")) {
+
+                                Intent intent = new Intent(MainActivity.this, Device_Lists.class);
+                                startActivity(intent);
+                                finish();
+                            /*}/*else
+                            {
+                                //si  ya existe un dispositivo bluetooth guardado va directo a la actividad de los dispositivos de la casa a controlar
+                                Intent intent = new Intent(MainActivity.this, Splash_screen.class);
+                                startActivity(intent);
+                                finish();
+                            }*/
+
+                        }
+                    });
+            AlertDialog titulo = messageConnection.create();
+            titulo.setTitle("Alerta!");
+            titulo.show();
+
+        }else{
+            //Toast.makeText(MainActivity.this, "Ingrese las conexiones a controlar", Toast.LENGTH_LONG).show();
+            // habilitarBluetooth();
+            //si  ya existe un dispositivo bluetooth guardado va directo a la actividad de los dispositivos de la casa a controlar
+            Intent intent = new Intent(MainActivity.this, Splash_screen.class);
+            startActivity(intent);
+            finish();
+
+        }
+        return;
+        }
 
         //Si la preferencia compartida esta basia se redireccionara a conectarse a un dispositivo
-        if (cInternet.equals("") && cBluetooth.equals("")){
+        /*if (cInternet.equals("") && cBluetooth.equals("")){
             AlertDialog.Builder messageConnection = new AlertDialog.Builder(MainActivity.this);
             messageConnection.setMessage("Para continuar por favor selecciona un metodo de conexion para el control de su casa")
                     .setCancelable(true)
@@ -137,15 +188,15 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                            // habilitarBluetooth();
 
-                            SharedPreferences miprefInternet = getSharedPreferences("cInternet", Context.MODE_PRIVATE);
-                            SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);
+                             //miprefInternet = getSharedPreferences("cInternet", Context.MODE_PRIVATE);
+                             //miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);
                             String cInternet = miprefInternet.getString("cInternet", "");
                             String cBluetooth = miprefBluetooth.getString("cBluetooth", "");
                             if(cInternet.equals("") && cBluetooth.equals("")) {
+
                                 Intent intent = new Intent(MainActivity.this, Device_Lists.class);
                                 startActivity(intent);
                                 finish();
-
                             }else
                             {
                                 //si  ya existe un dispositivo bluetooth guardado va directo a la actividad de los dispositivos de la casa a controlar
@@ -171,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return;
 
-    }
+    }*/
 
     public void habilitarBluetooth(){
         solicitarPermiso();
@@ -263,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
                 this.startActivity(intent5);
                 break;
             case R.id.acerca:
-                Intent intent4 = new Intent(this, Connection_internet.class);
+                Intent intent4 = new Intent(this, Acerca_de.class);
                 this.startActivity(intent4);
                 break;
         }
@@ -272,45 +323,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void checkBTState() {
-        // Check device has Bluetooth and that it is turned on
-        btAdapter=BluetoothAdapter.getDefaultAdapter(); // CHECK THIS OUT THAT IT WORKS!!!
-        if(btAdapter==null) {
-            Toast.makeText(getBaseContext(), "Device does not support Bluetooth", Toast.LENGTH_SHORT).show();
-        } else {
-            if (btAdapter.isEnabled()) {
-                Log.d(TAG, "...Bluetooth ON...");
-            } else {
-                //Prompt user to turn on Bluetooth
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, 1);
-                /*AlertDialog.Builder messageConnection = new AlertDialog.Builder(Splash_screen.getContext());
-                messageConnection.setMessage("Deseas que esta aplicacion envie solititud ")
-                        .setCancelable(true)
-                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
 
-                                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                                startActivityForResult(enableBtIntent, 1);
-                            }
-                        })
-                        .setNegativeButton("Bluetooth", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-
-                            }
-                        });
-                AlertDialog titulo = messageConnection.create();
-                titulo.setTitle("Atencion!");
-                titulo.show();*/
-
-
-            }
-        }
-
-    }
 
 
 

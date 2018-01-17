@@ -17,6 +17,7 @@ public class Connection_internet extends AppCompatActivity {
     private Button btnSaveDeviceInternet;
     private EditText etDeviceInternet;
     private Toolbar toolbar;  //barra superior aplicacion
+    public MainActivity mainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +43,21 @@ public class Connection_internet extends AppCompatActivity {
 
                     //crear Share preference
                     SharedPreferences miprefInternet = getSharedPreferences("cInternet", Context.MODE_PRIVATE);
+                    SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
                     //editar preferencia
                     SharedPreferences.Editor editor = miprefInternet.edit();
+                    SharedPreferences.Editor editor1 = miprefConexion.edit();
                     //vincular edit text donde se agragara conexion a controlar
                     etDeviceInternet = (EditText) findViewById(R.id.etDeviceInternet);
                     //guardar conexion en la preferencia
                     String deviceInternet = etDeviceInternet.getText().toString();
                     editor.putString("cInternet", deviceInternet);
+                    editor1.putString("mconex", "1");
                     editor.commit();
+                    editor1.commit();
 
                     Toast.makeText(Connection_internet.this, "El dispositivo IP fue guardado", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Connection_internet.this, MainActivity.class);
+                    Intent intent = new Intent(Connection_internet.this, Splash_screen.class);
                     startActivity(intent);
                     finish();
                 }

@@ -17,8 +17,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.PagerAdapter;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,15 +27,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.omar_hidrogo_local.micasa.Conunication.Bluettoth;
-import com.omar_hidrogo_local.micasa.Conunication.ConnectedThread;
-import com.omar_hidrogo_local.micasa.adaptador.DevicesAdapter;
 import com.omar_hidrogo_local.micasa.adaptador.PageAdapter;
 import com.omar_hidrogo_local.micasa.fragment.Fragment_RecyclerView;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -81,7 +74,9 @@ public class Splash_screen extends AppCompatActivity {
         return btSocket1;
     }
 
-    private MainActivity mainActivity;
+    public String mconex;
+
+    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +97,8 @@ public class Splash_screen extends AppCompatActivity {
             bar.setDisplayShowTitleEnabled(false);
         }
 
+        SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
+       mconex = miprefConexion.getString("mconex", "");
         //habilitarBluetooth();
        // btAdapter = BluetoothAdapter.getDefaultAdapter();       // get Bluetooth adapter
        /* checkBTState();
@@ -135,34 +132,44 @@ public class Splash_screen extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         //mainActivity.habilitarBluetooth();
-
-        btAdapter = BluetoothAdapter.getDefaultAdapter();       // get Bluetooth adapter
-        checkBTState();
-
-        SharedPreferences miprefBluetooth = MainActivity.getContext().getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);   // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Bluetooth
-        address = miprefBluetooth.getString("cBluetooth", "");
-        // btAdapter = BluetoothAdapter.getDefaultAdapter();       // get Bluetooth adapter
-        //Device_Lists device_lists = new Device_Lists();
-        //device_lists.checkBTState();
-        BluetoothDevice device = btAdapter.getRemoteDevice(address);
-        try {
-            btSocket = createBluetoothSocket(device);
-        } catch (IOException e) {
-            Toast.makeText(getBaseContext(), "Se desvinculo el dispositivo bluetooth", Toast.LENGTH_LONG).show();
+        if(mconex !="0") {
+            checkBTState();
+        }else {
+            Toast.makeText(getBaseContext(), "la conexion esta por internet", Toast.LENGTH_LONG).show();
         }
-        // Establish the Bluetooth socket connection.
-        try
-        {
-            btSocket.connect();
-        } catch (IOException e) {
+          /* btAdapter = BluetoothAdapter.getDefaultAdapter();       // get Bluetooth adapter
+
+
+            SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);  // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Bluetooth
+            address = miprefBluetooth.getString("cBluetooth", "");
+            // btAdapter = BluetoothAdapter.getDefaultAdapter();       // get Bluetooth adapter
+            //Device_Lists device_lists = new Device_Lists();
+            //device_lists.checkBTState();
+            BluetoothDevice device = btAdapter.getRemoteDevice(address);
+            try {
+                btSocket = createBluetoothSocket(device);
+            } catch (IOException e) {
+                Toast.makeText(getBaseContext(), "Se desvinculo el dispositivo bluetooth", Toast.LENGTH_LONG).show();
+            }
+            // Establish the Bluetooth socket connection.
             try
             {
-                btSocket.close();
-            } catch (IOException e2)
-            {
-                //insert code to deal with this
+                btSocket.connect();
+            } catch (IOException e) {
+                try
+                {
+                    btSocket.close();
+                } catch (IOException e2)
+                {
+                    //insert code to deal with this
+                }
             }
-        }
+        }else{
+            Toast.makeText(this, "no se guardo el bluetooth", Toast.LENGTH_LONG).show();
+        }*/
+
+
+
 
     }
 
@@ -240,8 +247,67 @@ public class Splash_screen extends AppCompatActivity {
                 Log.d(TAG, "...Bluetooth ON...");
             } else {
                 //Prompt user to turn on Bluetooth
-               Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, 1);
+                Log.d(TAG, "...Pregunta para Bluetooth ON...");
+                AlertDialog.Builder messageConnection = new AlertDialog.Builder(Splash_screen.getContext());
+                messageConnection.setMessage("La aplicacion esta configurada para conectarse por Bluetooth, desea activar el Bluetooth")
+                        .setCancelable(false)
+                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                habilitarBluetooth();
+                                //Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                                //startActivityForResult(enableBtIntent, 1);
+
+                                btAdapter = BluetoothAdapter.getDefaultAdapter();       // get Bluetooth adapter
+
+                                SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);  // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Bluetooth
+                                address = miprefBluetooth.getString("cBluetooth", "");
+                                // btAdapter = BluetoothAdapter.getDefaultAdapter();       // get Bluetooth adapter
+                                //Device_Lists device_lists = new Device_Lists();
+                                //device_lists.checkBTState();
+                                BluetoothDevice device = btAdapter.getRemoteDevice(address);
+                                try {
+                                    btSocket = createBluetoothSocket(device);
+                                } catch (IOException e) {
+                                    Toast.makeText(getBaseContext(), "Se desvinculo el dispositivo bluetooth", Toast.LENGTH_LONG).show();
+                                }
+                                // Establish the Bluetooth socket connection.
+                                try
+                                {
+                                    btSocket.connect();
+                                } catch (IOException e) {
+                                    try
+                                    {
+                                        btSocket.close();
+                                    } catch (IOException e2)
+                                    {
+                                        //insert code to deal with this
+                                    }
+                                }
+                            }
+
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor1 = miprefConexion.edit();
+                                editor1.putString("mconex", "");
+                                editor1.commit();
+                                Intent intent = new Intent(Splash_screen.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+
+                            }
+                        });
+                AlertDialog titulo = messageConnection.create();
+                titulo.setTitle("Alerta!");
+                titulo.show();
+            }
+
+
+              /* Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBtIntent, 1);*/
                 /*AlertDialog.Builder messageConnection = new AlertDialog.Builder(Splash_screen.getContext());
                 messageConnection.setMessage("Deseas que esta aplicacion envie solititud ")
                         .setCancelable(true)
@@ -265,7 +331,7 @@ public class Splash_screen extends AppCompatActivity {
                 titulo.show();*/
 
 
-            }
+
         }
 
     }

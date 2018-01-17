@@ -93,14 +93,17 @@ public class Device_Lists extends AppCompatActivity {
 
             //crear Share preference
             SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);
+            SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
             //editar preferencia
             SharedPreferences.Editor editor = miprefBluetooth.edit();
+            SharedPreferences.Editor editor1 = miprefConexion.edit();
             //vincular edit text donde se agragara conexion a controlar
-
-            //guardar conexion en la preferencia
             String devicebluetooth = address;
+            //guardar conexion en la preferencia
             editor.putString("cBluetooth", devicebluetooth);
+            editor1.putString("mconex", "1");
             editor.commit();
+            editor1.commit();
 
 
             // Make an intent to start next activity while taking an extra which is the MAC address.
