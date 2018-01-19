@@ -33,26 +33,11 @@ public class MainActivity extends AppCompatActivity {
     //private BluetoothAdapter btAdapter = null;
     private static final String TAG = "DeviceListActivity";
 
-   /* //Bluetooth
-    Handler bluetoothIn;
-    final int handlerState = 0;
-    private BluetoothAdapter btAdapter = null;
-    private BluetoothSocket btSocket = null;
-    private StringBuilder recDataString = new StringBuilder();
-
-    private ConnectedThread mConnectedThread;
-
-    // SPP UUID service - this should work for most devices
-    private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-
-    // String for MAC address
-    private static String address = null;*/
-
-
-    private static MainActivity instance;
+   private static MainActivity instance;
 
     public MainActivity(){
         instance = this;
+
     }
 
     public static Context getContext(){
@@ -63,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int CODIGO_SOLICITUD_PERMISO = 1;
     public static final int CODIGO_SOLICITUD_HABILITAR_BLUETOOTH = 0;
     public Context context;
+
+
     public static Activity activity;
     private Menu menu;
 
@@ -71,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
     private Splash_screen splash_screen;
 
     public Devices_controller devices_controller;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,9 +100,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences miprefIdb= getSharedPreferences("db", Context.MODE_PRIVATE);     // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Internet
         String db = miprefIdb.getString("db", ""); // se inicializa vacio
         SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
-        String mconex = miprefConexion.getString("mconex", "");
+        int mconex = miprefConexion.getInt("mconex", 0);
 
-        if(mconex ==""){
+        if(mconex ==0){
             AlertDialog.Builder messageConnection = new AlertDialog.Builder(MainActivity.this);
             messageConnection.setMessage("Para continuar por favor selecciona un metodo de conexion para el control de su casa")
                     .setCancelable(true)

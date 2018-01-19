@@ -101,7 +101,7 @@ public class Device_Lists extends AppCompatActivity {
             String devicebluetooth = address;
             //guardar conexion en la preferencia
             editor.putString("cBluetooth", devicebluetooth);
-            editor1.putString("mconex", "1");
+            editor1.putInt("mconex", 1);
             editor.commit();
             editor1.commit();
 
@@ -123,6 +123,7 @@ public class Device_Lists extends AppCompatActivity {
                 Log.d(TAG, "...Bluetooth ON...");
             } else {
                 //Prompt user to turn on Bluetooth
+                //mBtAdapter.enable();
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(enableBtIntent, 1);
 

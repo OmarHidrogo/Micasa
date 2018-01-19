@@ -52,7 +52,7 @@ public class Connection_internet extends AppCompatActivity {
                     //guardar conexion en la preferencia
                     String deviceInternet = etDeviceInternet.getText().toString();
                     editor.putString("cInternet", deviceInternet);
-                    editor1.putString("mconex", "1");
+                    editor1.putInt("mconex", 2);
                     editor.commit();
                     editor1.commit();
 

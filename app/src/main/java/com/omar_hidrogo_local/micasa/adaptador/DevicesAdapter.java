@@ -53,11 +53,14 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
 
     ArrayList<Devices> devices;
     private Activity activity;
+
     Context context;
 
     private MainActivity mainActivity;
 
-  //  private ProgressDialog progress;
+
+
+    //  private ProgressDialog progress;
     private Splash_screen splash_screen;
 
 //    private int v1 =0;
@@ -67,8 +70,6 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
     //Conexion RED
     public static  final String TAG = "Inicio";
     private String web_service = "http://ip arduino/arduino/13";
-
-
 
 
     public DevicesAdapter(ArrayList<Devices> devices, Activity activity){
@@ -83,6 +84,8 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
     //inflar el layout y pasa a view hlder para que el obtenga los datos
     @Override
     public DevicesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+
 
         //Ligar el Layout cardview_mascotas al Adaptador
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_device, parent, false);
@@ -125,27 +128,31 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
         devicesViewHolder.btnencender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences miprefConexion = MainActivity.getContext().getSharedPreferences("mconex", Context.MODE_PRIVATE);
+                int mconex = miprefConexion.getInt("mconex", 0);
+                if(mconex == 1){
+                    int d = Integer.parseInt(device.getChannel());
+                    int v2= d+63;
+                    char asciiv = (char) v2;
+                    String vascii= String.valueOf((asciiv));
+                    Bluettoth bluettoth = new Bluettoth();
+                    bluettoth.cbt(vascii);
+                    //bluettoth.conexion("1");*/
+                    if(ConnectedThread.Success()==false) {
+                        Toast.makeText(activity, " Has encendido el " + device.getNombre(), Toast.LENGTH_SHORT).show();
+                        ConstructorDevices constructorDevices = new ConstructorDevices();
+                        int status = 1;
+                        constructorDevices.statusDevice(device, status, image);
+                        if (image == 0) {
+                            devicesViewHolder.imgFoto.setImageResource(R.drawable.focoencendido);
+                        } else
+                            devicesViewHolder.imgFoto.setImageResource(R.drawable.aireencendido);
+                    }else{
 
-                int d = Integer.parseInt(device.getChannel());
-                int v2= d+63;
-                char asciiv = (char) v2;
-                String vascii= String.valueOf((asciiv));
-                Bluettoth bluettoth = new Bluettoth();
-                bluettoth.cbt(vascii);
-                //bluettoth.conexion("1");*/
-                if(ConnectedThread.Success()==false) {
-                    Toast.makeText(activity, " Has encendido el " + device.getNombre(), Toast.LENGTH_SHORT).show();
-                    ConstructorDevices constructorDevices = new ConstructorDevices();
-                    int status = 1;
-                    constructorDevices.statusDevice(device, status, image);
-                    if (image == 0) {
-                        devicesViewHolder.imgFoto.setImageResource(R.drawable.focoencendido);
-                    } else
-                        devicesViewHolder.imgFoto.setImageResource(R.drawable.aireencendido);
+                    }
                 }else{
 
                 }
-
 
             }
         });
@@ -153,7 +160,9 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
         devicesViewHolder.btnapagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SharedPreferences miprefConexion = MainActivity.getContext().getSharedPreferences("mconex", Context.MODE_PRIVATE);
+                int mconex = miprefConexion.getInt("mconex", 0);
+                if(mconex == 1){
                 int d = Integer.parseInt(device.getChannel());
                 int v2= d+75;
                 char asciiv = (char) v2;
@@ -170,6 +179,9 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
                         devicesViewHolder.imgFoto.setImageResource(R.drawable.focoapagado);
                     }else
                         devicesViewHolder.imgFoto.setImageResource(R.drawable.aireapagado);
+                }else{
+
+                }
                 }else{
 
                 }
