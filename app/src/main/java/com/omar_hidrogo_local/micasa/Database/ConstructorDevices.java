@@ -17,6 +17,7 @@ import com.omar_hidrogo_local.micasa.MainActivity;
 import com.omar_hidrogo_local.micasa.R;
 import com.omar_hidrogo_local.micasa.pojo.Devices;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -44,7 +45,7 @@ public class ConstructorDevices extends Application {
         this.context = context;
     }*/
 
-    public void insertarDevices (String nombredevice, String channeldevice, int image, String about){
+    public void insertarDevices (String nombredevice, String channeldevice, int image, int watts, String about){
         admin = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
         SQLiteDatabase db =admin.getWritableDatabase();
         ContentValues registro = new ContentValues();
@@ -52,6 +53,7 @@ public class ConstructorDevices extends Application {
         registro.put(ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID, channeldevice);
         registro.put(ConstanteDataBase.TABLE_DEVICES_PHOTO, image);
         registro.put(ConstanteDataBase.TABLE_DEVICES_STATE, 0);
+        registro.put(ConstanteDataBase.TABLE_DEVICES_WATTS, watts);
         registro.put(ConstanteDataBase.TABLE_DEVICES_ABOUT, about);
         db.insert(ConstanteDataBase.TABLE_DEVICES, null, registro);
         db.close();
@@ -82,7 +84,8 @@ public class ConstructorDevices extends Application {
             deviceActual.setChannel(registros.getString(2));
             deviceActual.setPhoto(registros.getInt(3));
             deviceActual.setState(registros.getInt(4));
-            deviceActual.setAbout(registros.getString(5));
+            deviceActual.setWatts(registros.getInt(5));
+            deviceActual.setAbout(registros.getString(6));
 
            /* String queryLikes ="SELECT COUNT("+ConstanteDataBase.TABLE_LIKES_MASCOTAS_NUMERO_LIKES
                     +") as likes "+" FROM "+ ConstanteDataBase.TABLE_LIKES_MASCOTAS +
@@ -116,7 +119,7 @@ public class ConstructorDevices extends Application {
     }
 
 
-    public void updateDevices (int id,String nombredevice, String channeldevice, int image, String about){
+    public void updateDevices (int id,String nombredevice, String channeldevice, int image, int watts, String about){
         admin = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
         SQLiteDatabase db =admin.getWritableDatabase();
         ContentValues registro = new ContentValues();
@@ -124,6 +127,7 @@ public class ConstructorDevices extends Application {
         registro.put(ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID, channeldevice);
         registro.put(ConstanteDataBase.TABLE_DEVICES_PHOTO, image);
         registro.put(ConstanteDataBase.TABLE_DEVICES_STATE, 0);
+        registro.put(ConstanteDataBase.TABLE_DEVICES_WATTS, watts);
         registro.put(ConstanteDataBase.TABLE_DEVICES_ABOUT, about);
         db.update(ConstanteDataBase.TABLE_DEVICES, registro,ConstanteDataBase.TABLE_DEVICES_ID+" = "+id,null);
         db.close();
@@ -136,5 +140,22 @@ public class ConstructorDevices extends Application {
         db.delete(ConstanteDataBase.TABLE_DEVICES, ConstanteDataBase.TABLE_DEVICES_ID+" = "+id, null);
         db.close();
 
+    }
+
+    public void insertarHistorial(int iddevice, int state){
+        admin = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_HISTORY, null, ConstanteDataBase.DATABASE_VERSION);
+        SQLiteDatabase db = admin.getWritableDatabase();
+        ContentValues registroConsumo = new ContentValues();
+        //FECHA ACTUAL
+        Date datetime = new Date();
+        //SE CAMBIA EL MODO DE LA FECHA PARA GUARDARLA EN LA BASE DE DATOS
+        SimpleDateFormat dateFormatformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDateString = dateFormatformat.format(datetime);
+        registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_DEVICE_ID, iddevice);
+        registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_DEVICE_STATE, state);
+        registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_TIME,formattedDateString);
+
+        db.insert(ConstanteDataBase.TABLE_HISTORY, null, registroConsumo);
+        db.close();
     }
 }

@@ -41,17 +41,37 @@ public class DataBase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        //SE CREA QUERY PARA CREAR LA TABLA MASCOTAS
+        //SE CREA QUERY PARA CREAR LA TABLA DISPOSITIVOS
         String queryCrearTablaDevices = "CREATE TABLE "+ConstanteDataBase.TABLE_DEVICES + "("+
                 ConstanteDataBase.TABLE_DEVICES_ID        + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 ConstanteDataBase.TABLE_DEVICES_NAME    + " TEXT, "+
                 ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID      + " INTEGER, "+
                 ConstanteDataBase.TABLE_DEVICES_PHOTO    + " INTEGER, "+
                 ConstanteDataBase.TABLE_DEVICES_STATE    + " INTEGER, "+
+                ConstanteDataBase.TABLE_DEVICES_WATTS    + " INTEGER, "+
                 ConstanteDataBase.TABLE_DEVICES_ABOUT    + " TEXT "+
                 ")";
 
         db.execSQL(queryCrearTablaDevices);
+
+        /*//SE CREA QUERY TABLA DE ENERGIA
+        String queryCrearTablaEnergy = "CREATE TABLE "+ConstanteDataBase.TABLE_ENERGY+"("+
+                ConstanteDataBase.TABLE_ENERGY_ID       + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                ConstanteDataBase.TABLE_ENERGY_DEVICE_ID+ " INTEGER, "+
+                ConstanteDataBase.TABLE_ENERGY_WATTS+ " INTEGER "+
+                ")";
+
+        db.execSQL(queryCrearTablaEnergy);*/
+
+        //SE CREA QUERY PARA CREAR TABLA HISTORIAL DE ESTADO DEL DISPOSITIVO
+        String queryCrearTablaHistorial = "CREATE TABLE "+ConstanteDataBase.TABLE_HISTORY+"("+
+                ConstanteDataBase.TABLE_HISTORY_ID      + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                ConstanteDataBase.TABLE_HISTORY_DEVICE_ID+ " INTEGER, "+
+                ConstanteDataBase.TABLE_HISTORY_DEVICE_STATE+ " INTEGER, "+
+                ConstanteDataBase.TABLE_HISTORY_TIME+ " INTEGER "+
+                ")";
+
+        db.execSQL(queryCrearTablaHistorial);
 
     }
 

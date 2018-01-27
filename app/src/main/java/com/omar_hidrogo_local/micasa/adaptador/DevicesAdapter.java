@@ -22,6 +22,7 @@ import com.omar_hidrogo_local.micasa.Conunication.ConnectedThread;
 import com.omar_hidrogo_local.micasa.Database.ConstructorDevices;
 import com.omar_hidrogo_local.micasa.Details_devices;
 import com.omar_hidrogo_local.micasa.Device_Lists;
+import com.omar_hidrogo_local.micasa.Device_consumption;
 import com.omar_hidrogo_local.micasa.MainActivity;
 import com.omar_hidrogo_local.micasa.Splash_screen;
 import com.omar_hidrogo_local.micasa.pojo.Devices;
@@ -142,15 +143,29 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
                         Toast.makeText(activity, " Has encendido el " + device.getNombre(), Toast.LENGTH_SHORT).show();
                         ConstructorDevices constructorDevices = new ConstructorDevices();
                         int status = 1;
+                        int iddevice = device.getId();
                         constructorDevices.statusDevice(device, status, image);
+                        constructorDevices.insertarHistorial(iddevice, status);
                         if (image == 0) {
                             devicesViewHolder.imgFoto.setImageResource(R.drawable.focoencendido);
                         } else
-                            devicesViewHolder.imgFoto.setImageResource(R.drawable.aireencendido);
-                    }else{
+                        { devicesViewHolder.imgFoto.setImageResource(R.drawable.aireencendido);}
+
+                    }
+                    else{
 
                     }
                 }else{
+                    Toast.makeText(activity, " Has encendido el " + device.getNombre(), Toast.LENGTH_SHORT).show();
+                    ConstructorDevices constructorDevices = new ConstructorDevices();
+                    int status = 1;
+                    int iddevice = device.getId();
+                    constructorDevices.statusDevice(device, status, image);
+                    constructorDevices.insertarHistorial(iddevice, status);
+                    if (image == 0) {
+                        devicesViewHolder.imgFoto.setImageResource(R.drawable.focoencendido);
+                    } else
+                    { devicesViewHolder.imgFoto.setImageResource(R.drawable.aireencendido);}
 
                 }
 
@@ -174,16 +189,30 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
                 if(ConnectedThread.Success()==false){
                     Toast.makeText(activity," Has apagado el "+device.getNombre(),Toast.LENGTH_SHORT).show();
                     int status =0;
+                    int iddevice = device.getId();
                     constructorDevices.statusDevice(device, status, image);
+                    constructorDevices.insertarHistorial(iddevice, status);
                     if(image==0){
                         devicesViewHolder.imgFoto.setImageResource(R.drawable.focoapagado);
                     }else
-                        devicesViewHolder.imgFoto.setImageResource(R.drawable.aireapagado);
-                }else{
+                    {devicesViewHolder.imgFoto.setImageResource(R.drawable.aireapagado);}
 
                 }
-                }else{
+                else{
 
+                }
+
+                }else{
+                    ConstructorDevices constructorDevices = new ConstructorDevices();
+                    Toast.makeText(activity," Has apagado el "+device.getNombre(),Toast.LENGTH_SHORT).show();
+                    int status =0;
+                    int iddevice = device.getId();
+                    constructorDevices.statusDevice(device, status, image);
+                    constructorDevices.insertarHistorial(iddevice, status);
+                    if(image==0){
+                        devicesViewHolder.imgFoto.setImageResource(R.drawable.focoapagado);
+                    }else
+                    {devicesViewHolder.imgFoto.setImageResource(R.drawable.aireapagado);}
                 }
 
 
@@ -191,6 +220,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
             }
         });
 
+        //ENVIO DE DATOS DEL DISPOSITIVO CREADO PARA SER EDITADO O ELIMINADO
         devicesViewHolder.btnInf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,7 +230,24 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
                 intent.putExtra("channel", device.getChannel());
                 intent.putExtra("photo", device.getPhoto());
                 intent.putExtra("state", device.getState());
+                intent.putExtra("watts", device.getWatts());
                 intent.putExtra("about", device.getAbout());
+                activity.startActivity(intent);
+            }
+        });
+
+        //ENVIO DE INFORMCACION DEL DISPOSITIVO A DEVICE_CONSUMPTION
+        devicesViewHolder.btnInfConsumo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, Device_consumption.class);
+                intent.putExtra("id", device.getId());
+                intent.putExtra("name", device.getNombre());
+                intent.putExtra("channel", device.getChannel());
+                intent.putExtra("photo", device.getPhoto());
+                intent.putExtra("state", device.getState());
+                intent.putExtra("about", device.getAbout());
+                intent.putExtra("watts", device.getWatts());
                 activity.startActivity(intent);
             }
         });
@@ -220,6 +267,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
         private Button btnencender;
         private Button btnapagar;
         private Button btnInf;
+        private Button btnInfConsumo;
         private TextView tvchannel;
 
         //Constructor heredado de RecyclerView.ViewHolder
@@ -232,6 +280,8 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
             btnapagar = (Button) itemView.findViewById(R.id.btnapagar);
             btnInf = (Button) itemView.findViewById(R.id.btnInf);
             tvchannel = (TextView) itemView.findViewById(R.id.tvchannel);
+            btnInfConsumo = (Button) itemView.findViewById(R.id.btnInfConsumo);
+
         }
     }
 

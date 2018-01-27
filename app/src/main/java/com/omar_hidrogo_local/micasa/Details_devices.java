@@ -27,7 +27,7 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
     private Toolbar toolbar;  //barra superior aplicacion
     private Button btnupdate;
     private Button btndelete;
-    private EditText editText, etabout;
+    private EditText editText, etabout, etwatts;
     private Spinner spiner;
     private Context context;
     private com.omar_hidrogo_local.micasa.Database.ConstructorDevices constructorDevices;
@@ -59,8 +59,11 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
         btndelete = (Button) findViewById(R.id.btndelete);
         spiner = (Spinner) findViewById(R.id.spinner);
         editText = (EditText) findViewById(R.id.etnamedevice);
+        etwatts = (EditText) findViewById(R.id.etwatts);
         etabout = (EditText) findViewById(R.id.etabout);
         listView = (ListView) findViewById(R.id.list_item);
+
+
 
         setSupportActionBar(toolbar);
         ActionBar bar = getSupportActionBar();
@@ -78,9 +81,12 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
         final int photo = extras.getInt("photo");
         int state = extras.getInt("state");
         String about = extras.getString("about");
+        int watts = extras.getInt("watts");
+        String wat = String.valueOf(watts);
 
         editText.setText(name);
         etabout.setText(about);
+        etwatts.setText(wat);
 
 
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.channel_Arduino, android.R.layout.simple_spinner_dropdown_item);
@@ -121,9 +127,10 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
                                 String channeldevice = spiner.getItemAtPosition(spiner.getSelectedItemPosition()).toString();
                                 int image = Slecteditem;
                                 String about = etabout.getText().toString();
+                                int watts = Integer.parseInt(etwatts.getText().toString());
                                 constructorDevices = new ConstructorDevices();
                                 //context = Devices_controller.this;
-                                constructorDevices.updateDevices(id,nombredevice, channeldevice, image, about);
+                                constructorDevices.updateDevices(id,nombredevice, channeldevice, image, watts, about);
                                 /*ContentValues registro = new ContentValues();
                                 registro.put(ConstanteDataBase.TABLE_DEVICES_NAME, nombredevice);
                                 registro.put(ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID, channeldevice);
@@ -132,6 +139,7 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
                                 //startActivity(intent);
                                 editText.setText("");
                                 etabout.setText("");
+                                etwatts.setText("");
                                 //startActivity(intent);
                                 Toast.makeText(Details_devices.this, "Se Modifico el Dispositivo",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Details_devices.this, Splash_screen.class);

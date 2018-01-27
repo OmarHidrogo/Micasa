@@ -19,5 +19,17 @@ public class ConstanteDataBase {
     public static final String TABLE_DEVICES_PHOTO ="photo";
     public static final String TABLE_DEVICES_STATE ="state";
     public static final String TABLE_DEVICES_ABOUT = "about";
+    public static final String TABLE_DEVICES_WATTS = "watts";
 
+
+    public static final String TABLE_ENERGY = "energy";
+    public static final String TABLE_ENERGY_ID = "idenergy";
+    public static final String TABLE_ENERGY_DEVICE_ID = "id";
+    public static final String TABLE_ENERGY_WATTS = "watts";
+
+    public static final String TABLE_HISTORY = "history";
+    public static final String TABLE_HISTORY_ID ="idhistory";
+    public static final String TABLE_HISTORY_DEVICE_ID = "id";
+    public static final String TABLE_HISTORY_DEVICE_STATE = "state";
+    public static final String TABLE_HISTORY_TIME = "time";
 }

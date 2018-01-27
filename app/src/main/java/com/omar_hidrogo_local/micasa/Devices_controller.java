@@ -33,7 +33,7 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
     //declaracion de objetos en activity
     private Toolbar toolbar;  //barra superior aplicacion
     private Button btnsaveconnection;
-    private EditText editText, etabout;
+    private EditText editText, etabout, etwatts;
     private Spinner spiner;
     private Context context;
     private ConstructorDevices constructorDevices;
@@ -65,6 +65,7 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
         editText = (EditText) findViewById(R.id.etnamedevice);
         etabout = (EditText) findViewById(R.id.etabout);
         listView = (ListView) findViewById(R.id.list_item);
+        etwatts = (EditText) findViewById(R.id.etwatts);
 
 
         setSupportActionBar(toolbar);
@@ -91,9 +92,10 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
                 String channeldevice = spiner.getItemAtPosition(spiner.getSelectedItemPosition()).toString();
                 int image = Slecteditem;
                 String about = etabout.getText().toString();
+                int watts = Integer.parseInt(etwatts.getText().toString());
                 constructorDevices = new ConstructorDevices();
                 //context = Devices_controller.this;
-                constructorDevices.insertarDevices(nombredevice, channeldevice, image, about);
+                constructorDevices.insertarDevices(nombredevice, channeldevice, image, watts, about);
                 /*ContentValues registro = new ContentValues();
                 registro.put(ConstanteDataBase.TABLE_DEVICES_NAME, nombredevice);
                 registro.put(ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID, channeldevice);
@@ -102,6 +104,7 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
                 //startActivity(intent);
                 editText.setText("");
                 etabout.setText("");
+                etwatts.setText("");
                 //startActivity(intent);
                 Toast.makeText(Devices_controller.this, "Has Agregado un Dispositivo",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Devices_controller.this, Splash_screen.class);
@@ -125,16 +128,17 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
 
     }
 
-    public void saveDevice(){
+   /*public void saveDevice(){
 
         String nombredevice = editText.getText().toString();
         String channeldevice = spiner.getItemAtPosition(spiner.getSelectedItemPosition()).toString();
         int image = (int) listView.getItemAtPosition(listView.getSelectedItemPosition());
         String about = etabout.getText().toString();
+        int watts = Integer.parseInt(etwatts.getText().toString());
         ConstructorDevices constructorDevices = new ConstructorDevices();
-        constructorDevices.insertarDevices(nombredevice, channeldevice,image,about);
+        constructorDevices.insertarDevices(nombredevice, channeldevice,image, watts,about);
 
-    }
+    }*/
 
 
     @Override

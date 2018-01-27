@@ -12,20 +12,31 @@ public class Devices {
     private int photo;
     private int state;
     private String about;
+    private int watts;
 
 
     //Se declara constructor de las variables
-    public Devices(String nombre, String channel, int photo, int state, String about) {
+    public Devices(String nombre, String channel, int photo, int state,int watts, String about) {
         this.nombre = nombre;
         this.channel = channel;
         this.photo = photo;
         this.state = state;
+        this.watts = watts;
         this.about = about;
+
     }
 
     //Constructor vacio
     public Devices(){
 
+    }
+
+    public int getWatts() {
+        return watts;
+    }
+
+    public void setWatts(int watts) {
+        this.watts = watts;
     }
 
     //Se generan los getter y setter

@@ -82,9 +82,29 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="Watts"/>
+
+            <EditText
+                android:id="@+id/etwatts"
+                android:layout_marginLeft="55dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
