@@ -1,7 +1,6 @@
 package com.omar_hidrogo_local.micasa.adaptador;
 
 import android.app.Activity;
-import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -21,7 +20,6 @@ import com.omar_hidrogo_local.micasa.Conunication.Bluettoth;
 import com.omar_hidrogo_local.micasa.Conunication.ConnectedThread;
 import com.omar_hidrogo_local.micasa.Database.ConstructorDevices;
 import com.omar_hidrogo_local.micasa.Details_devices;
-import com.omar_hidrogo_local.micasa.Device_Lists;
 import com.omar_hidrogo_local.micasa.Device_consumption;
 import com.omar_hidrogo_local.micasa.MainActivity;
 import com.omar_hidrogo_local.micasa.Splash_screen;
@@ -29,8 +27,6 @@ import com.omar_hidrogo_local.micasa.pojo.Devices;
 import com.omar_hidrogo_local.micasa.R;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Handler;

@@ -1,11 +1,8 @@
 package com.omar_hidrogo_local.micasa;
 
 import android.app.Activity;
-import android.app.ListActivity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,12 +16,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.omar_hidrogo_local.micasa.Database.ConstanteDataBase;
 import com.omar_hidrogo_local.micasa.Database.ConstructorDevices;
-import com.omar_hidrogo_local.micasa.Database.DataBase;
-import com.omar_hidrogo_local.micasa.pojo.Devices;
-
-import java.util.ArrayList;
 
 public class Devices_controller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -74,6 +66,7 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
         if(toolbar != null){
             bar.setDisplayHomeAsUpEnabled(true);//poner boton de regresar en la parte superior
             bar.setDisplayShowTitleEnabled(false);
+            //bar.setTitle("Hola");
         }
 
 
@@ -149,6 +142,9 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public void onManejadorEventoFecha(View view) {
     }
 
 

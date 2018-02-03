@@ -25,5 +25,6 @@
     <string name="biop3">Mis pasatiempos son leer, caminar, escuchar musica, ir al cine y hacer ejercicio</string>
     <string name="none_paired">No hay Dispositivos Vinculados</string>
     <string name="none_paired1">No hay Dispositivos Vinculados</string>
+    <string name="device_consumption">Consumo del Dispositivo</string>
 
 </resources>

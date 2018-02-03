@@ -15,11 +15,17 @@ import com.omar_hidrogo_local.micasa.Details_devices;
 import com.omar_hidrogo_local.micasa.Devices_controller;
 import com.omar_hidrogo_local.micasa.MainActivity;
 import com.omar_hidrogo_local.micasa.R;
+import com.omar_hidrogo_local.micasa.pojo.ConsumoDevice;
 import com.omar_hidrogo_local.micasa.pojo.Devices;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static com.omar_hidrogo_local.micasa.Device_consumption.etwattstotal;
+import static com.omar_hidrogo_local.micasa.Device_consumption.etco2total;
+import static com.omar_hidrogo_local.micasa.Device_consumption.etpagototal;
+import static com.omar_hidrogo_local.micasa.Device_consumption.wtts;
 
 /**
  * Created by tmhidrooma on 19/10/2017.
@@ -38,7 +44,17 @@ public class ConstructorDevices extends Application {
     private DataBase admin;
     private Activity activity;
 
+    private double vt;
+    private long v1;
+    private long v2;
 
+    //Calculo de consumo Electrico
+    private long milisegundos=1000;
+    private long minutos=milisegundos*60;
+    private double horas=minutos*60;
+    private double dias=horas*24;
+    private double co2=0.000454;
+    private double pago=0.62;
 
 
     /*public ConstructorDevices(Context context) {
@@ -105,6 +121,52 @@ public class ConstructorDevices extends Application {
         return  devices;
     }
 
+    public /*ArrayList<ConsumoDevice>*/ void obtenerconsumoDevice(String ett1, String ett2, int id) {
+        ArrayList<ConsumoDevice> consumoDevices = new ArrayList<>();
+        DataBase db = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_HISTORY, null, ConstanteDataBase.DATABASE_VERSION);
+
+        //SE DECLARA QUERY
+        String query = " SELECT * FROM " + ConstanteDataBase.TABLE_HISTORY + " WHERE " + ConstanteDataBase.TABLE_HISTORY_DEVICE_ID + " = " + id
+                +" AND "+ConstanteDataBase.TABLE_HISTORY_TIME+" = "+ett1+" AND "+ConstanteDataBase.TABLE_HISTORY_TIME+" = "+ett2;
+        SQLiteDatabase hdb = db.getWritableDatabase();
+        Cursor registros = hdb.rawQuery(query, null);
+
+        while (registros.moveToNext()) {
+            ConsumoDevice consumoDeviceactual = new ConsumoDevice();
+            //INDICE DE LA COLUMNA  DE LA TABLA
+            consumoDeviceactual.setIdhistorial(registros.getInt(0));
+            consumoDeviceactual.setIddevice(registros.getInt(1));
+            consumoDeviceactual.setStatus(registros.getInt(2));
+            consumoDeviceactual.setTime(registros.getInt(3));
+            consumoDeviceactual.setMillis(registros.getInt(4));
+
+            consumoDevices.add(consumoDeviceactual);
+        }
+        db.close();
+
+
+        for (int i = 0; i <= consumoDevices.size(); i++){
+
+            final ConsumoDevice consumoDevice = consumoDevices.get(i);
+            if(consumoDevice.getStatus()!=0){
+                v1=consumoDevice.getMillis();
+                //long v2=consumoDevice.getMillis();
+            }else{
+                v2=consumoDevice.getMillis();
+                    vt = vt +(v2 - v1);
+            }
+
+        }
+        vt = vt/horas;
+        vt=vt*wtts;
+        co2=co2*vt;
+        pago=pago*vt;
+        etwattstotal.setText(String.valueOf(vt));
+        etco2total.setText(String.valueOf(co2)+" Kilogramos");
+        etpagototal.setText("$ "+String.valueOf(pago));
+        //return consumoDevices;
+    }
+
     public void statusDevice(Devices device, int status, int image) {
         admin = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
         SQLiteDatabase db =admin.getWritableDatabase();
@@ -151,9 +213,11 @@ public class ConstructorDevices extends Application {
         //SE CAMBIA EL MODO DE LA FECHA PARA GUARDARLA EN LA BASE DE DATOS
         SimpleDateFormat dateFormatformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDateString = dateFormatformat.format(datetime);
+        long millis = datetime.getTime();
         registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_DEVICE_ID, iddevice);
         registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_DEVICE_STATE, state);
         registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_TIME,formattedDateString);
+        registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_TIME_MILIS,millis);
 
         db.insert(ConstanteDataBase.TABLE_HISTORY, null, registroConsumo);
         db.close();

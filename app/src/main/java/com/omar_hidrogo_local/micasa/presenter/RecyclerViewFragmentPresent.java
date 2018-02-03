@@ -3,8 +3,6 @@ package com.omar_hidrogo_local.micasa.presenter;
 import android.content.Context;
 
 import com.omar_hidrogo_local.micasa.Database.ConstructorDevices;
-import com.omar_hidrogo_local.micasa.Devices_controller;
-import com.omar_hidrogo_local.micasa.fragment.Fragment_RecyclerView;
 import com.omar_hidrogo_local.micasa.fragment.IRecyclerViewFragmentView;
 import com.omar_hidrogo_local.micasa.pojo.Devices;
 

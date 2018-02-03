@@ -45,7 +45,7 @@ public class DataBase extends SQLiteOpenHelper {
         String queryCrearTablaDevices = "CREATE TABLE "+ConstanteDataBase.TABLE_DEVICES + "("+
                 ConstanteDataBase.TABLE_DEVICES_ID        + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 ConstanteDataBase.TABLE_DEVICES_NAME    + " TEXT, "+
-                ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID      + " INTEGER, "+
+                ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID      + " TEXT, "+
                 ConstanteDataBase.TABLE_DEVICES_PHOTO    + " INTEGER, "+
                 ConstanteDataBase.TABLE_DEVICES_STATE    + " INTEGER, "+
                 ConstanteDataBase.TABLE_DEVICES_WATTS    + " INTEGER, "+
@@ -69,6 +69,7 @@ public class DataBase extends SQLiteOpenHelper {
                 ConstanteDataBase.TABLE_HISTORY_DEVICE_ID+ " INTEGER, "+
                 ConstanteDataBase.TABLE_HISTORY_DEVICE_STATE+ " INTEGER, "+
                 ConstanteDataBase.TABLE_HISTORY_TIME+ " INTEGER "+
+                ConstanteDataBase.TABLE_HISTORY_TIME_MILIS+ " INTEGER "+
                 ")";
 
         db.execSQL(queryCrearTablaHistorial);

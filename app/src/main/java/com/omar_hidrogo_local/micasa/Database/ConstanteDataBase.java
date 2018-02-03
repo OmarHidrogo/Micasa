@@ -32,4 +32,5 @@ public class ConstanteDataBase {
     public static final String TABLE_HISTORY_DEVICE_ID = "id";
     public static final String TABLE_HISTORY_DEVICE_STATE = "state";
     public static final String TABLE_HISTORY_TIME = "time";
+    public static final String TABLE_HISTORY_TIME_MILIS ="millis";
 }
