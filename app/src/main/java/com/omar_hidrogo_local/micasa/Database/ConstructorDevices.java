@@ -21,6 +21,7 @@ import com.omar_hidrogo_local.micasa.pojo.Devices;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Calendar;
 
 import static com.omar_hidrogo_local.micasa.Device_consumption.etwattstotal;
 import static com.omar_hidrogo_local.micasa.Device_consumption.etco2total;
@@ -55,6 +56,7 @@ public class ConstructorDevices extends Application {
     private double dias=horas*24;
     private double co2=0.000454;
     private double pago=0.62;
+
 
 
     /*public ConstructorDevices(Context context) {
@@ -121,13 +123,13 @@ public class ConstructorDevices extends Application {
         return  devices;
     }
 
-    public /*ArrayList<ConsumoDevice>*/ void obtenerconsumoDevice(String ett1, String ett2, int id) {
+    public ArrayList<ConsumoDevice> obtenerconsumoDevice(double ett1, double ett2, int id) {
         ArrayList<ConsumoDevice> consumoDevices = new ArrayList<>();
         DataBase db = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_HISTORY, null, ConstanteDataBase.DATABASE_VERSION);
 
         //SE DECLARA QUERY
-        String query = " SELECT * FROM " + ConstanteDataBase.TABLE_HISTORY + " WHERE " + ConstanteDataBase.TABLE_HISTORY_DEVICE_ID + " = " + id
-                +" AND "+ConstanteDataBase.TABLE_HISTORY_TIME+" = "+ett1+" AND "+ConstanteDataBase.TABLE_HISTORY_TIME+" = "+ett2;
+        String query = " SELECT * FROM "+ ConstanteDataBase.TABLE_HISTORY + " WHERE "+ ConstanteDataBase.TABLE_HISTORY_DEVICE_ID+ " = "+ id;
+               //+" AND "*/+ConstanteDataBase.TABLE_HISTORY_TIME+" IN ( "+ett1+", "+ett2+" ) AND "+ConstanteDataBase.TABLE_HISTORY_DEVICE_ID+ " = "+ id;
         SQLiteDatabase hdb = db.getWritableDatabase();
         Cursor registros = hdb.rawQuery(query, null);
 
@@ -137,15 +139,15 @@ public class ConstructorDevices extends Application {
             consumoDeviceactual.setIdhistorial(registros.getInt(0));
             consumoDeviceactual.setIddevice(registros.getInt(1));
             consumoDeviceactual.setStatus(registros.getInt(2));
-            consumoDeviceactual.setTime(registros.getInt(3));
-            consumoDeviceactual.setMillis(registros.getInt(4));
+            consumoDeviceactual.setTime(registros.getDouble(3));
+            consumoDeviceactual.setMillis(registros.getLong(4));
 
             consumoDevices.add(consumoDeviceactual);
         }
         db.close();
 
 
-        for (int i = 0; i <= consumoDevices.size(); i++){
+        /*for (int i = 0; i <= consumoDevices.size(); i++){
 
             final ConsumoDevice consumoDevice = consumoDevices.get(i);
             if(consumoDevice.getStatus()!=0){
@@ -163,8 +165,8 @@ public class ConstructorDevices extends Application {
         pago=pago*vt;
         etwattstotal.setText(String.valueOf(vt));
         etco2total.setText(String.valueOf(co2)+" Kilogramos");
-        etpagototal.setText("$ "+String.valueOf(pago));
-        //return consumoDevices;
+        etpagototal.setText("$ "+String.valueOf(pago));*/
+        return consumoDevices;
     }
 
     public void statusDevice(Devices device, int status, int image) {
@@ -210,14 +212,45 @@ public class ConstructorDevices extends Application {
         ContentValues registroConsumo = new ContentValues();
         //FECHA ACTUAL
         Date datetime = new Date();
+        //fECHA JULIANO
+
+        //SimpleDateFormat dateFormatyear = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         //SE CAMBIA EL MODO DE LA FECHA PARA GUARDARLA EN LA BASE DE DATOS
-        SimpleDateFormat dateFormatformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String formattedDateString = dateFormatformat.format(datetime);
+        SimpleDateFormat dateFormatyear = new SimpleDateFormat("yyyy");
+        int formattedDateyear = Integer.parseInt(dateFormatyear.format(datetime));
+
+        SimpleDateFormat dateFormatmonth = new SimpleDateFormat("MM");
+        int formattedDatemonth = Integer.parseInt(dateFormatmonth.format(datetime));
+
+        SimpleDateFormat dateFormatday = new SimpleDateFormat("dd");
+        int formattedDateday = Integer.parseInt(dateFormatday.format(datetime));
+
+        SimpleDateFormat dateFormathour = new SimpleDateFormat("HH");
+        int formattedDatehour = Integer.parseInt(dateFormathour.format(datetime));
+
+        SimpleDateFormat dateFormatminute = new SimpleDateFormat("mm");
+        int formattedDateminute = Integer.parseInt(dateFormatminute.format(datetime));
+
+        SimpleDateFormat dateFormatsecond = new SimpleDateFormat("ss");
+        int formattedDatesecond = Integer.parseInt(dateFormatsecond.format(datetime));
+
+        double extra = (100.0 * formattedDateyear) + formattedDatemonth - 190002.5;
+
+        double datejuliano = (367.0 * formattedDateyear) -
+                (Math.floor(7.0 * (formattedDateyear + Math.floor((formattedDatemonth + 9.0) / 12.0)) / 4.0)) +
+                Math.floor((275.0 * formattedDatemonth) / 9.0) +
+                formattedDateday + ((formattedDatehour + ((formattedDateminute + (formattedDatesecond / 60.0)) / 60.0)) / 24.0) +
+                1721013.5 - ((0.5 * extra) / Math.abs(extra)) + 0.5;
+
+
+
+
         long millis = datetime.getTime();
         registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_DEVICE_ID, iddevice);
         registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_DEVICE_STATE, state);
-        registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_TIME,formattedDateString);
-        registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_TIME_MILIS,millis);
+        registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_TIME, datejuliano);
+        registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_TIME_MILIS, millis);
 
         db.insert(ConstanteDataBase.TABLE_HISTORY, null, registroConsumo);
         db.close();

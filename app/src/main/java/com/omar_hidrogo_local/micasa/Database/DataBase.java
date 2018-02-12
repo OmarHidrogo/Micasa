@@ -43,13 +43,13 @@ public class DataBase extends SQLiteOpenHelper {
 
         //SE CREA QUERY PARA CREAR LA TABLA DISPOSITIVOS
         String queryCrearTablaDevices = "CREATE TABLE "+ConstanteDataBase.TABLE_DEVICES + "("+
-                ConstanteDataBase.TABLE_DEVICES_ID        + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                ConstanteDataBase.TABLE_DEVICES_NAME    + " TEXT, "+
-                ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID      + " TEXT, "+
-                ConstanteDataBase.TABLE_DEVICES_PHOTO    + " INTEGER, "+
-                ConstanteDataBase.TABLE_DEVICES_STATE    + " INTEGER, "+
-                ConstanteDataBase.TABLE_DEVICES_WATTS    + " INTEGER, "+
-                ConstanteDataBase.TABLE_DEVICES_ABOUT    + " TEXT "+
+                ConstanteDataBase.TABLE_DEVICES_ID          + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                ConstanteDataBase.TABLE_DEVICES_NAME        + " TEXT, "+
+                ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID  + " TEXT, "+
+                ConstanteDataBase.TABLE_DEVICES_PHOTO       + " INTEGER, "+
+                ConstanteDataBase.TABLE_DEVICES_STATE       + " INTEGER, "+
+                ConstanteDataBase.TABLE_DEVICES_WATTS       + " INTEGER, "+
+                ConstanteDataBase.TABLE_DEVICES_ABOUT       + " TEXT "+
                 ")";
 
         db.execSQL(queryCrearTablaDevices);
@@ -65,11 +65,11 @@ public class DataBase extends SQLiteOpenHelper {
 
         //SE CREA QUERY PARA CREAR TABLA HISTORIAL DE ESTADO DEL DISPOSITIVO
         String queryCrearTablaHistorial = "CREATE TABLE "+ConstanteDataBase.TABLE_HISTORY+"("+
-                ConstanteDataBase.TABLE_HISTORY_ID      + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                ConstanteDataBase.TABLE_HISTORY_DEVICE_ID+ " INTEGER, "+
-                ConstanteDataBase.TABLE_HISTORY_DEVICE_STATE+ " INTEGER, "+
-                ConstanteDataBase.TABLE_HISTORY_TIME+ " INTEGER "+
-                ConstanteDataBase.TABLE_HISTORY_TIME_MILIS+ " INTEGER "+
+                ConstanteDataBase.TABLE_HISTORY_ID              + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                ConstanteDataBase.TABLE_HISTORY_DEVICE_ID       + " INTEGER, "+
+                ConstanteDataBase.TABLE_HISTORY_DEVICE_STATE    + " INTEGER, "+
+                ConstanteDataBase.TABLE_HISTORY_TIME            + " REAL, "+
+                ConstanteDataBase.TABLE_HISTORY_TIME_MILIS      + " INTEGER "+
                 ")";
 
         db.execSQL(queryCrearTablaHistorial);

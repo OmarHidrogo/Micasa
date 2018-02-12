@@ -12,6 +12,10 @@ import android.widget.TextView;
 
 import com.omar_hidrogo_local.micasa.Class.Calendario;
 import com.omar_hidrogo_local.micasa.Database.ConstructorDevices;
+import com.omar_hidrogo_local.micasa.pojo.ConsumoDevice;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class Device_consumption extends AppCompatActivity {
 
@@ -25,9 +29,21 @@ public class Device_consumption extends AppCompatActivity {
     private int idd;
     public static EditText etwattstotal, etco2total, etpagototal;
     public static int wtts;
-    public static String fechade, fechafin;
+    public static double fechade, fechafin;
+    private ConstructorDevices constructorDevices;
+    private ArrayList<ConsumoDevice> consumoDevices;
 
-    private com.omar_hidrogo_local.micasa.Database.ConstructorDevices constructorDevices;
+    private double vt;
+    private long v1;
+    private long v2;
+    //Calculo de consumo Electrico
+    private long milisegundos=1000;
+    private long minutos=milisegundos*60;
+    private double horas=minutos*60;
+    private double dias=horas*24;
+    private double co2=0.000454;
+    private double pago=0.62;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +59,11 @@ public class Device_consumption extends AppCompatActivity {
         btncalcular = (Button) findViewById(R.id.b3);
         ettime1 = (EditText) findViewById(R.id.ettime1);
         ettime2 = (EditText) findViewById(R.id.ettime2);
+
+        etwattstotal = (EditText) findViewById(R.id.etwattstotal);
+        etco2total = (EditText) findViewById(R.id.etco2total);
+        etpagototal = (EditText) findViewById(R.id.etpagototal);
+
 
 
         setSupportActionBar(toolbar);
@@ -69,7 +90,18 @@ public class Device_consumption extends AppCompatActivity {
         etnamedevice.setText(name);
         idd=id;
         wtts=watts;
-        //newFragment.show(getFragmentManager(), "datePicker");
+
+
+
+
+       btncalcular.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                constructorDevices = new ConstructorDevices();
+                consumoDevices = constructorDevices.obtenerconsumoDevice(fechade, fechafin,idd );
+                calculo();
+            }
+        });
 
     }
 
@@ -91,5 +123,33 @@ public class Device_consumption extends AppCompatActivity {
         String ett2 = extras.getString("ett2");*/
         constructorDevices = new ConstructorDevices();
         constructorDevices.obtenerconsumoDevice(fechade, fechafin,idd );
+
+    }
+
+    public void calculo(){
+
+        for (int i = 0; i < consumoDevices.size(); i++){
+
+
+            ConsumoDevice consumoDevice = consumoDevices.get(i);
+
+            if(consumoDevice.getStatus()!=0){
+                v1=consumoDevice.getMillis();
+                //long v2=consumoDevice.getMillis();
+            }else{
+                v2=consumoDevice.getMillis();
+                vt = vt +(v2 - v1);
+            }
+
+        }
+        vt = vt/horas;
+        vt=vt*wtts;
+        co2=co2*vt;
+        pago=pago*(vt/1000);
+        DecimalFormat f = new DecimalFormat("##.00000");
+        etwattstotal.setText(String.valueOf(f.format(vt)));
+        etco2total.setText(String.valueOf(f.format(co2))+" Kilogramos");
+        etpagototal.setText("$ "+String.valueOf(f.format(pago)));
+
     }
 }

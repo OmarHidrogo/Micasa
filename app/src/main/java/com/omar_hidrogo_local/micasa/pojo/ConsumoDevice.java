@@ -10,10 +10,10 @@ public class ConsumoDevice {
     private int idhistorial;
     private int iddevice;
     private int status;
-    private int time;
+    private double time;
     private long millis;
 
-    public ConsumoDevice(int iddevice, int status, int time, long millis) {
+    public ConsumoDevice(int iddevice, int status, double time, long millis) {
         this.iddevice = iddevice;
         this.status = status;
         this.time = time;
@@ -48,11 +48,11 @@ public class ConsumoDevice {
         this.status = status;
     }
 
-    public int getTime() {
+    public double getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(double time) {
         this.time = time;
     }
 

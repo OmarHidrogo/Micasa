@@ -182,11 +182,12 @@
                 android:text="watts total:"/>
 
             <EditText
-                android:id="@+id/etwattsall"
+                android:id="@+id/etwattstotal"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content" />
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:editable="false"/>
 
         </LinearLayout>
 
@@ -204,11 +205,12 @@
                 android:text="CO2:"/>
 
             <EditText
-                android:id="@+id/etcontaminacion"
+                android:id="@+id/etco2total"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content" />
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:editable="false"/>
             /..android:onClick="saveDevice"..//>
 
         </LinearLayout>
@@ -227,11 +229,12 @@
                 android:text="A pagar:"/>
 
             <EditText
-                android:id="@+id/etpay"
+                android:id="@+id/etpagototal"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content" />
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:editable="false"/>
             /..android:onClick="saveDevice"..//>
 
         </LinearLayout>
