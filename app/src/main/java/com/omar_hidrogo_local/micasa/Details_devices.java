@@ -62,8 +62,6 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
         etabout = (EditText) findViewById(R.id.etabout);
         listView = (ListView) findViewById(R.id.list_item);
 
-
-
         setSupportActionBar(toolbar);
         ActionBar bar = getSupportActionBar();
         //quitar el titulo por defecto al actionbar
@@ -102,7 +100,6 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Slecteditem = position;
-                //Slecteditem= Integer.parseInt(String.valueOf(position));
                 Selecteditem= imagenes[+position];
                 Toast.makeText(getApplicationContext(), Selecteditem, Toast.LENGTH_SHORT).show();
             }
@@ -120,26 +117,16 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                /*DataBase admin = new DataBase(Devices_controller.this, ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
-                                SQLiteDatabase db =admin.getWritableDatabase();*/
                                 String namedevice = editText.getText().toString();
                                 String channeldevice = spiner.getItemAtPosition(spiner.getSelectedItemPosition()).toString();
                                 int image = Slecteditem;
                                 String about = etabout.getText().toString();
                                 int watts = Integer.parseInt(etwatts.getText().toString());
                                 constructorDevices = new ConstructorDevices();
-                                //context = Devices_controller.this;
                                 constructorDevices.updateDevices(id,namedevice, channeldevice, image, watts, about);
-                                /*ContentValues registro = new ContentValues();
-                                registro.put(ConstanteDataBase.TABLE_DEVICES_NAME, nombredevice);
-                                registro.put(ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID, channeldevice);
-                                db.insert(ConstanteDataBase.TABLE_DEVICES, null, registro);
-                                db.close();*/
-                                //startActivity(intent);
                                 editText.setText("");
                                 etabout.setText("");
                                 etwatts.setText("");
-                                //startActivity(intent);
                                 Toast.makeText(Details_devices.this, R.string.toast010,Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Details_devices.this, Splash_screen.class);
                                 startActivity(intent);
@@ -173,24 +160,10 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                /*DataBase admin = new DataBase(Devices_controller.this, ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
-                                SQLiteDatabase db =admin.getWritableDatabase();
-                                String nombredevice = editText.getText().toString();
-                                String channeldevice = spiner.getItemAtPosition(spiner.getSelectedItemPosition()).toString();
-                                int image = Slecteditem;
-                                String about = etabout.getText().toString();*/
                                 constructorDevices = new ConstructorDevices();
-                                //context = Devices_controller.this;
                                 constructorDevices.deleteDevices(id);
-                                /*ContentValues registro = new ContentValues();
-                                registro.put(ConstanteDataBase.TABLE_DEVICES_NAME, nombredevice);
-                                registro.put(ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID, channeldevice);
-                                db.insert(ConstanteDataBase.TABLE_DEVICES, null, registro);
-                                db.close();*/
-                                //startActivity(intent);
                                 editText.setText("");
                                 etabout.setText("");
-                                //startActivity(intent);
                                 Toast.makeText(Details_devices.this, R.string.toast011,Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Details_devices.this, Splash_screen.class);
                                 startActivity(intent);
@@ -216,7 +189,6 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Slecteditem = position;
-                //Slecteditem= Integer.parseInt(String.valueOf(position));
                 Selecteditem= imagenes[+position];
                 Toast.makeText(getApplicationContext(), Selecteditem, Toast.LENGTH_SHORT).show();
             }

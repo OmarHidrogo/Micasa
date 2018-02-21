@@ -25,23 +25,18 @@ public class Device_consumption_log extends Fragment implements AdapterView.OnIt
 
     //variable de lista Mascotas
     private ImageView imgconsumptiondevice;
-    private TextView  tvdevice, /*etiddevice*/ tvlogdevice;
+    private TextView  tvdevice, tvlogdevice;
     private Button btnInfConsumo;
     private Spinner spinner;
     private ConstructorDevices constructorDevices;
-
     private ArrayList<ConsumptionDevice> consumptionDevices;
     private ArrayList<Devices> devices;
-
     private int valuiddevidesearch;
     private String valuinameevidesearch;
     int image;
     int status;
     String estdeviceactual;
-
     String year,month,day,hour,minute,second;
-
-
     private Integer[] imgid= {
             R.drawable.focoapagado,
             R.drawable.aireapagado,
@@ -60,13 +55,8 @@ public class Device_consumption_log extends Fragment implements AdapterView.OnIt
         tvlogdevice = (TextView) v.findViewById(R.id.tvlogdevice);
         btnInfConsumo = (Button) v.findViewById(R.id.btnInfConsumo);
 
-        //btnInfConsumo.setOnClickListener((View.OnClickListener) this);
-
         constructorDevices = new ConstructorDevices();
         devices = constructorDevices.obtenerDatos();
-        /*GridLayoutManager glm = new GridLayoutManager(getActivity(),1);
-        rvconsumptiondevice.setLayoutManager(glm);*/
-        //inicializarListaMascotas();
 
         btnInfConsumo.setOnClickListener(new  View.OnClickListener() {
             public void onClick(View v) {
@@ -84,13 +74,9 @@ public class Device_consumption_log extends Fragment implements AdapterView.OnIt
                             image = device.getPhoto();
                             status = device.getState();
                         }else{
-                            //valuinameevidesearch=device.getNombre();
-                            //valuiddevidesearch=device.getId();
+
                         }
-
-
                     }
-
 
                consumptionDevices = constructorDevices.obtenerconsumoporDevice(valuiddevidesearch );
                 tvdevice.setText(valuinameevidesearch);
@@ -105,22 +91,11 @@ public class Device_consumption_log extends Fragment implements AdapterView.OnIt
         for (int i =0; i< devices.size(); i++){
             Devices device = devices.get(i);
             value.add(device.getNombre());
-            //valuiddevidesearch=device.getId();
-            //valuinameevidesearch=device.getNombre();
         }
-
-        /*spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
-            public void onItemSelected(AdapterView<?>
-                                               arg0,View arg1,int arg2,long arg3){
-            }
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });*/
 
         ArrayAdapter<String> adapter =  new ArrayAdapter<String>(MainActivity.getContext(), android.R.layout.simple_spinner_dropdown_item, value);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        //spinner.setOnItemSelectedListener(this);
 
         return v;
 
@@ -130,17 +105,6 @@ public class Device_consumption_log extends Fragment implements AdapterView.OnIt
         //devices = new ArrayList<>();
         consumptionDevices = constructorDevices.obtenerconsumoporDevice(valuiddevidesearch );
         tvdevice.setText(valuinameevidesearch);
-        /*for(int i =0; i< devices.size(); i++){
-            Devices device = devices.get(i);
-            String name = device.getNombre();
-            if(name == valuinameevidesearch){
-                image = device.getPhoto();
-                status = device.getState();
-            }else{
-                image = device.getPhoto();
-                status = device.getState();
-            }
-        }*/
 
         switch (image) {
             case 0:
@@ -175,14 +139,6 @@ public class Device_consumption_log extends Fragment implements AdapterView.OnIt
                 hour = dateStr.substring(8,10);
                 minute = dateStr.substring(10,12);
                 second = dateStr.substring(12,14);
-
-            /*Calendar cal  = new GregorianCalendar();
-            cal.set(Calendar.YEAR, (int) Double.parseDouble(dateStr.substring(0,3)));
-            cal.set(Calendar.DAY_OF_YEAR, (int) Double.parseDouble(dateStr.substring(4)));
-            Date parsedDate  = cal.getTime();*/
-
-            /*SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
-            Date date = fmt.parse(dateString);*/
 
                 if(consumptionDevice.getStatus() == 0){
                     estdeviceactual = "off";

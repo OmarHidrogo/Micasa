@@ -20,15 +20,7 @@ import java.util.Date;
  */
 
 public class ConstructorDevices extends Application {
-  /*  private static ConstructorDevices instance;
 
-    public ConstructorDevices(){
-        instance = this;
-    }
-
-    public static Context getContext(){
-     return  instance;
-    }*/
     private DataBase admin;
     private Activity activity;
 
@@ -36,21 +28,9 @@ public class ConstructorDevices extends Application {
     private long v1;
     private long v2;
 
-    //Calculo de consumo Electrico
-    //private long milisecond =1000;
-    //private long minutes = milisecond *60;
-    //private double hours = minutes *60;
-    //private double dias= hours *24;
-    //private double co2=0.000454;
-    //private double pago=0.62;
 
     private String mounth, day, hour, minute, second;
 
-
-
-    /*public ConstructorDevices(Context context) {
-        this.context = context;
-    }*/
 
     public void insertarDevices (String nombredevice, String channeldevice, int image, int watts, String about){
         admin = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
@@ -67,12 +47,6 @@ public class ConstructorDevices extends Application {
 
     }
 
-    /*public ArrayList<Devices>obtenerDatos(){
-
-        DataBase db = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
-        SQLiteDatabase adb =db.getWritableDatabase();
-        return  db.obtenerTodasLasDevices();
-    }*/
 
     public ArrayList<Devices> obtenerDatos(){
         ArrayList<Devices> devices = new ArrayList<>();
@@ -94,17 +68,6 @@ public class ConstructorDevices extends Application {
             deviceActual.setWatts(registros.getInt(5));
             deviceActual.setAbout(registros.getString(6));
 
-           /* String queryLikes ="SELECT COUNT("+ConstanteDataBase.TABLE_LIKES_MASCOTAS_NUMERO_LIKES
-                    +") as likes "+" FROM "+ ConstanteDataBase.TABLE_LIKES_MASCOTAS +
-                    " WHERE "+ ConstanteDataBase.TABLE_LIKES_MASCOTAS_ID_MASCOTAS +
-                    " = "+ deviceActual.getId();
-
-            Cursor registrosLikes = db.rawQuery(queryLikes, null);
-            if(registrosLikes.moveToNext()){
-                mascotaActual.setLikes(registrosLikes.getInt(0));
-            }else{
-                mascotaActual.setLikes(0);
-            }*/
 
             devices.add(deviceActual);
         }
@@ -135,26 +98,6 @@ public class ConstructorDevices extends Application {
         }
         db.close();
 
-
-        /*for (int i = 0; i <= consumptionDevices.size(); i++){
-
-            final ConsumptionDevice consumoDevice = consumptionDevices.get(i);
-            if(consumoDevice.getStatus()!=0){
-                v1=consumoDevice.getMillis();
-                //long v2=consumoDevice.getMillis();
-            }else{
-                v2=consumoDevice.getMillis();
-                    vt = vt +(v2 - v1);
-            }
-
-        }
-        vt = vt/hours;
-        vt=vt*wtts;
-        co2=co2*vt;
-        pago=pago*vt;
-        etwattstotal.setText(String.valueOf(vt));
-        etco2total.setText(String.valueOf(co2)+" Kilogramos");
-        etpagototal.setText("$ "+String.valueOf(pago));*/
         return consumptionDevices;
     }
 
@@ -188,8 +131,7 @@ public class ConstructorDevices extends Application {
         admin = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
         SQLiteDatabase db =admin.getWritableDatabase();
         ContentValues registro = new ContentValues();
-        /*String query = "SELECT "+ConstanteDataBase.TABLE_DEVICES_PHOTO +" FROM " +ConstanteDataBase.TABLE_DEVICES+" WHERE "+
-                ConstanteDataBase.TABLE_DEVICES_ID +" = "+device;*/
+
         registro.put(ConstanteDataBase.TABLE_DEVICES_STATE, status);
         registro.put(ConstanteDataBase.TABLE_DEVICES_PHOTO, image);
         db.update(ConstanteDataBase.TABLE_DEVICES,registro,ConstanteDataBase.TABLE_DEVICES_ID+ " = "+device.getId(),null);
@@ -227,9 +169,7 @@ public class ConstructorDevices extends Application {
         ContentValues registroConsumo = new ContentValues();
         //FECHA ACTUAL
         Date datetime = new Date();
-        //fECHA JULIANO
 
-        //SimpleDateFormat dateFormatyear = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         //SE CAMBIA EL MODO DE LA FECHA PARA GUARDARLA EN LA BASE DE DATOS
         SimpleDateFormat dateFormatyear = new SimpleDateFormat("yyyy");
@@ -250,13 +190,6 @@ public class ConstructorDevices extends Application {
         SimpleDateFormat dateFormatsecond = new SimpleDateFormat("ss");
         int formattedDatesecond = Integer.parseInt(dateFormatsecond.format(datetime));
 
-        /*double extra = (100.0 * formattedDateyear) + formattedDatemonth - 190002.5;
-
-        double datejuliano = (367.0 * formattedDateyear) -
-                (Math.floor(7.0 * (formattedDateyear + Math.floor((formattedDatemonth + 9.0) / 12.0)) / 4.0)) +
-                Math.floor((275.0 * formattedDatemonth) / 9.0) +
-                formattedDateday + ((formattedDatehour + ((formattedDateminute + (formattedDatesecond / 60.0)) / 60.0)) / 24.0) +
-                1721013.5 - ((0.5 * extra) / Math.abs(extra)) + 0.5;*/
 
         StringBuilder reg = new StringBuilder();
 
@@ -289,8 +222,6 @@ public class ConstructorDevices extends Application {
         reg.append(second);
 
         long regis = Long.parseLong((reg.toString()));
-
-        //double registro = formattedDateyear+formattedDatemonth+formattedDateday+formattedDatehour+formattedDateminute+formattedDatesecond;
 
 
         long millis = datetime.getTime();

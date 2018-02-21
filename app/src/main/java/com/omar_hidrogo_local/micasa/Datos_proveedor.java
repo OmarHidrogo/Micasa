@@ -44,19 +44,8 @@ public class Datos_proveedor extends AppCompatActivity {
         if(toolbar != null){
             bar.setDisplayHomeAsUpEnabled(true);//poner boton de regresar en la parte superior
             bar.setDisplayShowTitleEnabled(false);
-            //bar.setTitle("Hola");
+
         }
-
-        /*setSupportActionBar(toolbar);
-        ActionBar bar = getSupportActionBar();
-        //quitar el titulo por defecto al actionbar
-        if(toolbar != null) {
-            bar.setDisplayHomeAsUpEnabled(true);//poner boton de regresar en la parte superior
-            bar.setDisplayShowTitleEnabled(true);//habilitar
-            bar.setTitle(R.string.settings_proveedor);
-            bar.setIcon(R.drawable.ic_settings);
-        }*/
-
 
         etprice.setText (preferences.getmiprefvalorenergy(getApplicationContext()));
         etco2.setText (preferences.getmiprefvalorCO(getApplicationContext()));

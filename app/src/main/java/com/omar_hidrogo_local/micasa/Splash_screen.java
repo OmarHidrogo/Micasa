@@ -50,24 +50,18 @@ public class Splash_screen extends AppCompatActivity {
     private TabLayout tabLayout;
     private BluetoothAdapter btAdapter = null;
     public static BluetoothSocket btSocket = null;
-
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");  // SPP UUID service - this should work for most devices
     private Activity activity; //private ConnectedThread mConnectedThread;
     private static String address = null; // String for MAC address
-
     private int v1 =0;
     private BluetoothSocket btSocket1 = null;
-
     public int getV1() {
         return v1;
     }
-
     public BluetoothSocket getBtSocket1() {
         return btSocket1;
     }
-
     public int mconex;
-
     private Handler mHandler = new Handler(); //variable para activar retardo de ejecucion de codigo
     public  WifiManager wifiManager;
     private Preferences preferences;
@@ -90,8 +84,6 @@ public class Splash_screen extends AppCompatActivity {
         if(toolbar != null){
             bar.setDisplayShowTitleEnabled(false);
         }
-
-       // SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
        mconex = preferences.getmiprefConexion(getApplicationContext());
     }
 
@@ -191,10 +183,6 @@ public class Splash_screen extends AppCompatActivity {
             if (btAdapter.isEnabled()) {
                 Log.d(TAG, "...Bluetooth ON...");
                 btAdapter = BluetoothAdapter.getDefaultAdapter();       // get Bluetooth adapter
-
-
-                //SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);  // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Bluetooth
-                //address = miprefBluetooth.getString("cBluetooth", "");
                 address =preferences.getmiprefBluetooth(MainActivity.getContext());
                 BluetoothDevice device = btAdapter.getRemoteDevice(address);
                 try {
@@ -232,9 +220,6 @@ public class Splash_screen extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         btAdapter = BluetoothAdapter.getDefaultAdapter();       // get Bluetooth adapter
-
-                                        //SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);  // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Bluetooth
-                                        //address = miprefBluetooth.getString("cBluetooth", "");
                                         address =preferences.getmiprefBluetooth(MainActivity.getContext());
                                         BluetoothDevice device = btAdapter.getRemoteDevice(address);
                                         try {
@@ -266,14 +251,11 @@ public class Splash_screen extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 SharedPreferences.Editor editor1 = preferences.getSharedPreferencesmiprefConexion(getApplicationContext()).edit(); // se Extrae preferencia de conexion Internet de la clase Preferences
-                                //SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
-                                //SharedPreferences.Editor editor1 = miprefConexion.edit();
                                 editor1.putInt("mconex", 0);
                                 editor1.commit();
                                 Intent intent = new Intent(Splash_screen.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
-
                             }
                         });
                 AlertDialog titulo = messageConnection.create();
@@ -314,14 +296,11 @@ public class Splash_screen extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             SharedPreferences.Editor editor1 = preferences.getSharedPreferencesmiprefConexion(getApplicationContext()).edit(); // se Extrae preferencia de conexion Internet de la clase Preferences
-                            //SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
-                            //SharedPreferences.Editor editor1 = miprefConexion.edit();
                             editor1.putInt("mconex", 0);
                             editor1.commit();
                             Intent intent = new Intent(Splash_screen.this, MainActivity.class);
                             startActivity(intent);
                             finish();
-
                         }
                     });
             AlertDialog titulo = messageConnection.create();
@@ -333,77 +312,17 @@ public class Splash_screen extends AppCompatActivity {
 
     }
 
-    /*public boolean Network(){
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo actNetInfo = connectivityManager.getActiveNetworkInfo();
-        return (actNetInfo != null && actNetInfo.isConnected());
-    }*/
-
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
 
         return  device.createRfcommSocketToServiceRecord(BTMODULEUUID);
         //creates secure outgoing connecetion with BT device using UUID
     }
 
-    public void conexion (String v){
-        /*mConnectedThread = new ConnectedThread(btSocket);
-        mConnectedThread.start();*/
-        //mConnectedThread.write(v);
+    /*public void conexion (String v){
+        mConnectedThread = new ConnectedThread(btSocket);
+        mConnectedThread.start();
+        mConnectedThread.write(v);
 
-    }
-
-   /* //cLASE DE CONNECT THREAD
-    public class ConnectedThread extends Thread {
-
-        private final InputStream mmInStream;
-        private final OutputStream mmOutStream;
-        Handler bluetoothIn;
-        final int handlerState = 0;
-
-        public ConnectedThread(BluetoothSocket socket){
-            InputStream tmpIn = null;
-            OutputStream tmpOut = null;
-
-            try {
-                //Create I/O streams for connection
-                tmpIn = socket.getInputStream();
-                tmpOut = socket.getOutputStream();
-            } catch (IOException e) { }
-
-            mmInStream = tmpIn;
-            mmOutStream = tmpOut;
-        }
-
-        public void run() {
-            byte[] buffer = new byte[256];
-            int bytes;
-
-            // Keep looping to listen for received messages
-            while (true) {
-                try {
-                    bytes = mmInStream.read(buffer);         //read bytes from input buffer
-                    String readMessage = new String(buffer, 0, bytes);
-                    // Send the obtained bytes to the UI Activity via handler
-                    bluetoothIn.obtainMessage(handlerState, bytes, -1, readMessage).sendToTarget();
-                } catch (IOException e) {
-                    break;
-                }
-            }
-        }
-
-        //write method
-        public void write(String input) {
-            byte[] msgBuffer = input.getBytes();           //converts entered String into bytes
-            try {
-                mmOutStream.write(msgBuffer);                //write bytes over BT connection via outstream
-            } catch (IOException e) {
-                //if you cannot write, close the application
-                Toast.makeText(Splash_screen.getContext(), "La Conexión fallo", Toast.LENGTH_LONG).show();
-            }
-        }
     }*/
-
-
-
 
 }

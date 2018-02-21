@@ -50,10 +50,6 @@ public class Connection_bluetooth extends AppCompatActivity {
                     SharedPreferences.Editor edi = preferences.getSharedPreferencesmiprefBluetooth(getApplicationContext()).edit(); // se Extrae preferencia de conexion Bluettoth de la clase Preferences
                     SharedPreferences.Editor edi1 = preferences.getSharedPreferencesmiprefConexion(getApplicationContext()).edit(); //se Extrae preferencia de conexion de la clase Preferences
 
-                    //SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);
-                    //editar preferencia
-                    //SharedPreferences.Editor editor = miprefBluetooth.edit();
-
                     //vincular edit text donde se agragara conexion a controlar
                     etDeviceBluetooth = (EditText) findViewById(R.id.etDeviceBluetooth);
                     String devicebluetooth = etDeviceBluetooth.getText().toString();

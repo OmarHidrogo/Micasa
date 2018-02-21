@@ -32,12 +32,9 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
     private ConstructorDevices constructorDevices;
     private Devices_controller devices_controller;
     private ListView listView;
-
     private int Slecteditem;
     private String Selecteditem;
-
     private String imagenes[]=new String[]{"Foco", "Aire Acondicionado"};
-
     private Integer[] imgid= {
             R.drawable.focoapagado,
             R.drawable.aireapagado,
@@ -81,8 +78,6 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
             @Override
             public void onClick(View v) {
 
-                /*DataBase admin = new DataBase(Devices_controller.this, ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
-                SQLiteDatabase db =admin.getWritableDatabase();*/
                 String namedevice = etnamedevice.getText().toString();
                 String channeldevice = spinnerchannel.getItemAtPosition(spinnerchannel.getSelectedItemPosition()).toString();
                 int image = Slecteditem;
@@ -101,18 +96,10 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
                         }else{
                             watts = Integer.parseInt(watt);
                             constructorDevices = new ConstructorDevices();
-                            //context = Devices_controller.this;
                             constructorDevices.insertarDevices(namedevice, channeldevice, image, watts, about);
-                /*ContentValues registro = new ContentValues();
-                registro.put(ConstanteDataBase.TABLE_DEVICES_NAME, nombredevice);
-                registro.put(ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID, channeldevice);
-                db.insert(ConstanteDataBase.TABLE_DEVICES, null, registro);
-                db.close();*/
-                            //startActivity(intent);
                             etnamedevice.setText("");
                             etabout.setText("");
                             etwatts.setText("");
-                            //startActivity(intent);
                             Toast.makeText(Devices_controller.this, R.string.toast005,Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Devices_controller.this, Splash_screen.class);
                             startActivity(intent);
@@ -140,19 +127,6 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
 
     }
 
-   /*public void saveDevice(){
-
-        String nombredevice = editText.getText().toString();
-        String channeldevice = spiner.getItemAtPosition(spiner.getSelectedItemPosition()).toString();
-        int image = (int) listView.getItemAtPosition(listView.getSelectedItemPosition());
-        String about = etabout.getText().toString();
-        int watts = Integer.parseInt(etwatts.getText().toString());
-        ConstructorDevices constructorDevices = new ConstructorDevices();
-        constructorDevices.insertarDevices(nombredevice, channeldevice,image, watts,about);
-
-    }*/
-
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(parent.getContext(), (String) parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show();
@@ -165,16 +139,5 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
 
     public void onManejadorEventoFecha(View view) {
     }
-
-
-
-
-
-    /*public ArrayList<Devices> obtenerDatos(){
-        return db.obtenerTodasLasDevices();
-    }*/
-
-
-
 
 }

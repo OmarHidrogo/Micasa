@@ -58,13 +58,8 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
     private Preferences preferences;
     int conex = preferences.getmiprefConexion(MainActivity.getContext());
 
-
-
     //  private ProgressDialog progress;
     private Splash_screen splash_screen;
-
-//    private int v1 =0;
-
 
 
     //Conexion RED
@@ -77,9 +72,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
         this.activity=activity;
     }
 
-    /*public DevicesAdapter(BluetoothSocket btSocket) {
-        this.btSocket = btSocket;
-    }*/
+
 
     //inflar el layout y pasa a view hlder para que el obtenga los datos
     @Override

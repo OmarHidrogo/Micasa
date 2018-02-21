@@ -45,10 +45,6 @@ public class Fragment_RecyclerView extends Fragment implements IRecyclerViewFrag
         listaDevices = (RecyclerView) v.findViewById(R.id.rvDevices);
         present = new RecyclerViewFragmentPresent(this, getContext());
 
-       /*
-
-        inicializarListaMascotas();
-        inicializaAdaptador();*/
 
         return  v;
     }

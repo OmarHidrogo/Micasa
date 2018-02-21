@@ -49,15 +49,11 @@ public class MainActivity extends AppCompatActivity {
     public static final int CODIGO_SOLICITUD_PERMISO = 1;
     public static final int CODIGO_SOLICITUD_HABILITAR_BLUETOOTH = 0;
     public Context context;
-
-
     public static Activity activity;
     private Menu menu;
-
     private Toolbar toolbar;  //barra superior aplicacion
     private ConstructorDevices constructorDevices;
     private Splash_screen splash_screen;
-
     public Devices_controller devices_controller;
     private Preferences preferences;
 
@@ -68,21 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
         context = this;
         activity = this;
-
-        /*bluetoothIn = new Handler() {
-            public void handleMessage(android.os.Message msg){
-                if (msg.what == handlerState){
-                    String readMessage = (String) msg.obj;
-                    recDataString.append(readMessage);
-                    int endOfLineIndex = recDataString.indexOf("~");
-                    if(endOfLineIndex > 0){
-                        String dataInPrint = recDataString.substring(0,endOfLineIndex);
-
-                    }
-                }
-            }
-        }*/
-
 
         //entrar a las propiedades de la barra superios aplicacion
         toolbar =(Toolbar) findViewById(R.id.toolbarbar);
@@ -148,8 +129,6 @@ public class MainActivity extends AppCompatActivity {
             titulo.show();
 
         }else{
-            //Toast.makeText(MainActivity.this, "Ingrese las conexiones a controlar", Toast.LENGTH_LONG).show();
-            // habilitarBluetooth();
             //si  ya existe un dispositivo bluetooth guardado va directo a la actividad de los dispositivos de la casa a controlar
             Intent intent = new Intent(MainActivity.this, Splash_screen.class);
             startActivity(intent);
@@ -159,124 +138,7 @@ public class MainActivity extends AppCompatActivity {
         return;
         }
 
-        //Si la preferencia compartida esta basia se redireccionara a conectarse a un dispositivo
-        /*if (cInternet.equals("") && cBluetooth.equals("")){
-            AlertDialog.Builder messageConnection = new AlertDialog.Builder(MainActivity.this);
-            messageConnection.setMessage("Para continuar por favor selecciona un metodo de conexion para el control de su casa")
-                    .setCancelable(true)
-                    .setPositiveButton("Internet", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
 
-                            Intent intent = new Intent(MainActivity.this, Connection_internet.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("Bluetooth", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                           // habilitarBluetooth();
-
-                             //miprefInternet = getSharedPreferences("cInternet", Context.MODE_PRIVATE);
-                             //miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);
-                            String cInternet = miprefInternet.getString("cInternet", "");
-                            String cBluetooth = miprefBluetooth.getString("cBluetooth", "");
-                            if(cInternet.equals("") && cBluetooth.equals("")) {
-
-                                Intent intent = new Intent(MainActivity.this, Device_Lists.class);
-                                startActivity(intent);
-                                finish();
-                            }else
-                            {
-                                //si  ya existe un dispositivo bluetooth guardado va directo a la actividad de los dispositivos de la casa a controlar
-                                Intent intent = new Intent(MainActivity.this, Splash_screen.class);
-                                startActivity(intent);
-                                finish();
-                            }
-
-                        }
-                    });
-            AlertDialog titulo = messageConnection.create();
-            titulo.setTitle("Alerta!");
-            titulo.show();
-
-        }else{
-            //Toast.makeText(MainActivity.this, "Ingrese las conexiones a controlar", Toast.LENGTH_LONG).show();
-           // habilitarBluetooth();
-            //si  ya existe un dispositivo bluetooth guardado va directo a la actividad de los dispositivos de la casa a controlar
-            Intent intent = new Intent(MainActivity.this, Splash_screen.class);
-            startActivity(intent);
-            finish();
-
-        }
-        return;
-
-    }*/
-
-    /*public void habilitarBluetooth(){
-        solicitarPermiso();
-
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (mBluetoothAdapter == null){
-            Toast.makeText(MainActivity.this, "Tu dispositivo no tiene Bluetooth", Toast.LENGTH_SHORT).show();
-        }
-        if(!mBluetoothAdapter.isEnabled()){
-            Intent habilitarBluetoothIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(habilitarBluetoothIntent, CODIGO_SOLICITUD_HABILITAR_BLUETOOTH);
-        }
-
-
-    }*/
-   /* public boolean chacarStatusPermiso(){
-        //PREGUNTA SI EL PERMISO FUE OTORGADO EN LA APLICACION
-        int resultado = ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH);
-        if(resultado == PackageManager.PERMISSION_GRANTED){
-            return  true;
-        }else {
-            return  false;
-        }
-    }*/
-
-    //solicitar el permiso al usuario
-    /*public  void solicitarPermiso() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.BLUETOOTH)) {
-            Toast.makeText(MainActivity.this, "El permiso ya fue otorgado, si deseas desactivarlo puedes ir a los ajustes de la aplicacion", Toast.LENGTH_SHORT).show();
-        } else {
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.BLUETOOTH}, CODIGO_SOLICITUD_PERMISO);
-        }
-    }*/
-
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case CODIGO_SOLICITUD_PERMISO:
-                if(chacarStatusPermiso()){
-                   // Toast.makeText(MainActivity.this, "Ya esta activo el permiso para el Bluetooth", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(MainActivity.this, "No esta activo el permiso para el Bluetooth", Toast.LENGTH_SHORT).show();
-                }
-                break;
-
-        }
-        SharedPreferences miprefInternet = getSharedPreferences("cInternet", Context.MODE_PRIVATE);
-        SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);
-        String cInternet = miprefInternet.getString("cInternet", "");
-        String cBluetooth = miprefBluetooth.getString("cBluetooth", "");
-        if(cInternet.equals("") && cBluetooth.equals("")) {
-            Intent intent = new Intent(MainActivity.this, Device_Lists.class);
-            startActivity(intent);
-            finish();
-
-        }else
-        {
-            //si  ya existe un dispositivo bluetooth guardado va directo a la actividad de los dispositivos de la casa a controlar
-            Intent intent = new Intent(MainActivity.this, Splash_screen.class);
-            startActivity(intent);
-            finish();
-        }
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

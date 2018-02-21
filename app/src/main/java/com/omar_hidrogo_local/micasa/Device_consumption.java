@@ -118,24 +118,7 @@ public class Device_consumption extends AppCompatActivity {
                             .setNegativeButton(R.string.not, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    // habilitarBluetooth();
 
-                                    //miprefInternet = getSharedPreferences("cInternet", Context.MODE_PRIVATE);
-                                    //miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);
-                                    // String cInternet = miprefInternet.getString("cInternet", "");
-                                    // String cBluetooth = miprefBluetooth.getString("cBluetooth", "");
-                                    //if(cInternet.equals("") && cBluetooth.equals("")) {
-
-                                    /*Intent intent = new Intent(Device_consumption.this, Device_Lists.class);
-                                    startActivity(intent);
-                                    finish();*/
-                            /*}/*else
-                            {
-                                //si  ya existe un dispositivo bluetooth guardado va directo a la actividad de los dispositivos de la casa a controlar
-                                Intent intent = new Intent(MainActivity.this, Splash_screen.class);
-                                startActivity(intent);
-                                finish();
-                            }*/
 
                                 }
                             });
@@ -151,13 +134,6 @@ public class Device_consumption extends AppCompatActivity {
         });
 
     }
-
-    /*@Override
-    public void onResume() {
-        super.onResume();
-        //mainActivity.habilitarBluetooth();
-
-    }*/
 
     @Override
     public void onPause()
@@ -183,9 +159,6 @@ public class Device_consumption extends AppCompatActivity {
 
     //Calcular el Consumo del Dispositivo
     public void calcularConsumo(View v){
-        /*Bundle extras = getIntent().getExtras();
-        String ett1 = extras.getString("ett1");
-        String ett2 = extras.getString("ett2");*/
         constructorDevices = new ConstructorDevices();
         constructorDevices.obtenerconsumoDevice(fechade, fechafin,idd );
 
@@ -209,7 +182,6 @@ public class Device_consumption extends AppCompatActivity {
 
                     if(consumptionDevice.getStatus()!=0){
                         v1= consumptionDevice.getMillis();
-                        //long v2=consumptionDevice.getMillis();
                     }else{
                         v2= consumptionDevice.getMillis();
                         vt = vt +(v2 - v1);
