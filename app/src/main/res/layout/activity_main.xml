@@ -33,7 +33,7 @@
             android:textColor="@color/colorwhite"/>
     </LinearLayout>
 
-    <ImageButton
+    <!--ImageButton
         android:id="@+id/acercade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,6 +42,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:background="@drawable/button_white"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"/-->
 
 </RelativeLayout>
