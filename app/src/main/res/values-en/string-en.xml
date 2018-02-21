@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Home</string>
+    <string name="titleapp">SMART HOME</string>
+    <string name="subtitleapp">control your house from one click</string>
+
+    //Alarms
+    <string name="AlertDialog01">To continue please select a connection method to control your home</string>
+    <string name="AlertDialog02"> The application is configured to connect via Bluetooth, you want to activate Bluetooth</string>
+    <string name="AlertDialog03">The application is configured to connect by WIFI, you want to activate the WIFI</string>
+    <string name="AlertDialog04">You have left empty fields, you want to calculate all records</string>
+    <string name="AlertDialog05">Are you sure to modify the Device information? </string>
+    <string name="AlertDialog06">You are sure to remove the Device?</string>
+
+    <string name="alert001">Alert! </string>
+    <string name="alert002">Information! </string>
+    <string name="alert003">Attention! </string>
+
+    //Toast
+    <string name="toast001">Device does not support Bluetooth</string>
+    <string name="toast002">The bluetooth device was unlinked </string>
+    <string name="toast003">Add the Device Name</string>
+    <string name="toast004">Add the watts of the device </string>
+    <string name="toast005">Add a description of the device</string>
+    <string name="toast006">You have added a Device</string>
+    <string name="toast007">The device does not support bluetooth </string>
+    <string name="toast008">You have not yet entered the energy price in consumption parameters</string>
+    <string name="toast009">You have not yet entered the CO2 into consumption parameters</string>
+    <string name="toast010">Modified the Device</string>
+    <string name="toast011">You have removed the device</string>
+    <string name="toast012">The energy provider data was saved correctly</string>
+    <string name="toast013">The IP connection method was saved</string>
+    <string name="toast014">The Bluetooth device was saved.</string>
+
+    //actionbar
+    <string name="actionbar001">ADD DEVICE</string>
+    <string name="actionbar002">BLUETOOTH DEVICES</string>
+    <string name="actionbar003">DEVICE CONSUMPTION</string>
+    <string name="actionbar004">DETAILS DEVICE</string>
+    <string name="actionbar005">EDIT CONNECTION</string>
+    <string name="actionbar006">BIOGRAPHY</string>
+    <string name="actionbar007">INTELLIGENT HOUSE </string>
+
+    //TextView
+    <string name="tvadddevicename">Device Name</string>
+    <string name="tvadddeviceselect">Select Image</string>
+    <string name="tvadddevicechannel">Device channel </string>
+    <string name="tvaddwatts">Consumption Watts</string>
+    <string name="tvadddescription">Description</string>
+
+    <string name="tvinfdeviceselect">Select the Device to link</string>
+    <string name="tvinfdevicebluetooth">If the device is not in the list, it is necessary to first link the device from the Bluetooth administrator</string>
+
+    <string name="tvdeviceconsumptionlog">DEVICE RECORDS</string>
+    <string name="tvdeviceconsumptionsearch">Select a device</string>
+    <string name="tvlogdevice">No records</string>
+    <string name="tvdate">Date: </string>
+    <string name="tvselect">Select</string>
+    <string name="tvfrom">from:</string>
+    <string name="tvto">to:</string>
+    <string name="tvcalculate">Calculate</string>
+    <string name="tvallwatts">watts:</string>
+    <string name="tvpay">To pay:</string>
+    <string name="tvpaywatts">Kilowatts energy price</string>
+    <string name="tvkilogramco2">CO2 emitted by Kilograms </string>
+
+    <string name="tvmainlight">Main Focus</string>
+
+
+    //Button
+    <string name="btnsavenewdevice">Save Device</string>
+    <string name="btnsearchdevice">Search device</string>
+    <string name="btnchngedevice">Modify device</string>
+    <string name="btndeletedevice">Remove device</string>
+    <string name="btnsavesetting">Save settings</string>
+    <string name="btnsavedeviceforinternet">Save IP connection</string>
+    <string name="btndetails">Details</string>
+    <string name="btninfconsumption">Inf. consumption</string>
+    <string name="btnondevice">Turn on </string>
+    <string name="btnoffdevice">Turn off</string>
+
+
+    <string name="yes">Yes</string>
+    <string name="not">No</string>
+
+    <!--string name="light_bulbs">Foco</string>
+    <string name="air_conditioner">Aire Acondicionado</string-->
+
+    <string name="estdeviceactualoff">off</string>
+    <string name="estdeviceactualon">on</string>
+
+    <!--string name="logstate">  /  estado: </string>
+    <string name="logtime">  /  Fecha: </string>
+    <string name="loghour"> horas </string>
+    <string name="logminute"> min. </string>
+    <string name="logsecond"> seg. </string-->
+
+
+    <string name="internet">Internet</string>
+    <string name="bluetooth">Bluetooth</string>
+
+    <string name="kilograms"> Kilograms</string>
+
+    //EditTex
+    <string name="etDeviceInternet">Enter the IP address of the device</string>
+    <string name="etDeviceBluetooth">Type the devices MAC address</string>
+    <string name="btnsavedevice">Save Device</string>
+    <string name="none_paired"> No Linked Devices</string>
+
+    //Biografi
+    <string name="tvbioname">Omar Hidrogo</string>
+    <string name="tvbiop1">Omar de Jesus Hidrogo Muñoz (Torreon, Coahuila, December 8, 1990 Currently Ing. in Information and Communication Technologies
+        Graduated from the Universidad Tecnologica de Torreon in 2014
+    </string>
+    <string name="tvbiop2">In 2015 he joined the current job as Systems Engineer where one of the functions is to support all the users of the company,
+    Network infrastructure, Server Administrator among others.
+    </string>
+    <string name="tvbiop3">My hobbies are reading, walking, listening to music, going to the movies and exercising
+    </string>
+    <string name="tvminbiop1">Name:</string>
+    <string name="tvminbiop2">Omar de Jesus Hidrogo M.</string>
+    <string name="tvminbiop3">Birth:</string>
+    <string name="tvminbiop4">December 8, 1990</string>
+    <string name="tvminbiop5">Nationality:</string>
+    <string name="tvminbiop6">Mexican </string>
+    <string name="tvminbiop7">Marital status:</string>
+    <string name="tvminbiop8">Single</string>
+
+    //MENU
+    <string name="maddevice">Add Device</string>
+    <string name="msettingconnection">Edit Connection </string>
+    <string name="mebluetooth">Bluetooth</string>
+    <string name="meinternet">Internet</string>
+    <string name="msettingsconsumption">Consumption Parameters</string>
+    <string name="mabout">About:</string>
+    <string name="mclose">Close</string>
+    <string name="msplashscreen">Home Control</string>
+
+</resources>

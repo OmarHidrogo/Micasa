@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Micasa</string>
+    <string name="titleapp">CASA INTELIGENTE</string>
+    <string name="subtitleapp">Controla tu casa desd un clic</string>
+
+    //AlertDialog
+    <string name="AlertDialog01">Para continuar por favor selecciona un metodo de conexion para el control de su casa</string>
+    <string name="AlertDialog02">La aplicacion esta configurada para conectarse por Bluetooth, desea activar el Bluetooth</string>
+    <string name="AlertDialog03">La aplicacion esta configurada para conectarse por WIFI, deseas activar el WIFI</string>
+    <string name="AlertDialog04">Ha dejado campos vacios, deseas calcular todos los registros</string>
+    <string name="AlertDialog05">Estas seguro de modificar la informacion del Dispositivo?</string>
+    <string name="AlertDialog06">Estas seguro de eliminar el Dispositivo</string>
+
+
+    <string name="alert001">Alerta!</string>
+    <string name="alert002">Informacion!</string>
+    <string name="alert003">Atencion!</string>
+
+
+    //Toast
+    <string name="toast001">Device does not support Bluetooth</string>
+    <string name="toast002">Se desvinculo el dispositivo bluetooth</string>
+    <string name="toast003">Agrega el Nombre del Dispositivo</string>
+    <string name="toast004">Agrega los watts del dispositivo</string>
+    <string name="toast005">Agrega una descripcion del dispositivo</string>
+    <string name="toast006">Has Agregado un Dispositivo</string>
+    <string name="toast007">El dispositivo no soporta bluetooth</string>
+    <string name="toast008">Aun no has ingresado el precio de energia en parametros de consumo</string>
+    <string name="toast009">Aun no has ingresado el CO2 en parametros de consumo</string>
+    <string name="toast010">Se Modifico el Dispositivo</string>
+    <string name="toast011">Has eliminado el dispositivo</string>
+    <string name="toast012">Los datos del proveedor de energia se guardaron correctamente</string>
+    <string name="toast013">El metodo de conexion IP fue guardado</string>
+    <string name="toast014">El dispositivo Bluetooth fue guardado.</string>
+
+    //actionbar
+    <string name="actionbar001">AGREGAR DISPOSITIVO</string>
+    <string name="actionbar002">DISPOSITIVOS BLUETOOTH</string>
+    <string name="actionbar003">CONSUMO DEL DISPOSITIVO</string>
+    <string name="actionbar004">DETALLES DISPOSITIVO</string>
+    <string name="actionbar005">EDITAR CONEXION</string>
+    <string name="actionbar006">BIOGRAFIA</string>
+    <string name="actionbar007">CASA INTELIGENTE</string>
+
+    //TextView
+    <string name="tvadddevicename">Nombre del Dispositivo</string>
+    <string name="tvadddeviceselect">Selecciona Imagen</string>
+    <string name="tvadddevicechannel">Canal del dispositivo</string>
+    <string name="tvaddwatts">Watts consumo</string>
+    <string name="tvadddescription">Descripcion</string>
+
+    <string name="tvinfdeviceselect">Selecciona el Dispositivo a vincular</string>
+    <string name="tvinfdevicebluetooth">Si el dispositivo no esta en la lista, es necesario primero vincular el dispositivo desde el administrador de Bluetooth</string>
+
+    <string name="tvdeviceconsumptionlog">REGISTROS DEL DISPOSITIVO</string>
+    <string name="tvdeviceconsumptionsearch">Selecciona un dispositivo</string>
+    <string name="tvlogdevice">Sin registros</string>
+    <string name="tvdate">Fecha:</string>
+    <string name="tvselect">Seleccionar</string>de:
+    <string name="tvfrom">de:</string>
+    <string name="tvto">hasta:</string>
+    <string name="tvcalculate">Calcular</string>
+    <string name="tvallwatts">watts total:</string>
+    <string name="tvpay">A pagar:</string>
+    <string name="tvpaywatts">Precio de Kilowatts energia</string>
+    <string name="tvkilogramco2">CO2 emitido por Kilogramos</string>
+
+    <string name="tvmainlight">Foco Principal</string>
+
+    //Button
+    <string name="btnsavenewdevice">Guardar Dispositivo</string>
+    <string name="btnsearchdevice">Buscar dispositivo</string>
+    <string name="btnchngedevice">Modificar dispositivo</string>
+    <string name="btndeletedevice">Eliminar dispositivo</string>
+    <string name="btnsavesetting">Guardar configuracion</string>
+    <string name="btnsavedeviceforinternet">Guardar conexion IP</string>
+    <string name="btndetails">Detalles</string>
+    <string name="btninfconsumption">Inf. consmo</string>
+    <string name="btnondevice">Encender</string>
+    <string name="btnoffdevice">Apagar</string>
+
+
+    <string name="yes">Si</string>
+    <string name="not">No</string>
+
+    <!--string name="light_bulbs">Foco</string>
+    <string name="air_conditioner">Aire Acondicionado</string-->
+
+    <string name="estdeviceactualoff">apagado</string>
+    <string name="estdeviceactualon">encendido</string>
+
+    <!--string name="logstate">  /  estado: </string>
+    <string name="logtime">  /  Fecha: </string>
+    <string name="loghour"> horas </string>
+    <string name="logminute"> min. </string>
+    <string name="logsecond"> seg. </string-->
+
+
+    <string name="internet">Internet</string>
+    <string name="bluetooth">Bluetooth</string>
+
+    <string name="kilograms"> Kilogramos</string>
+
+    //EditTex
+    <string name="etDeviceInternet">Escribe la direccion IP del dispositivo</string>
+    <string name="etDeviceBluetooth">Escribe la direccion MAC del dispositivo</string>
+    <string name="btnsavedevice">Guardar Dispositivo</string>
+    <string name="none_paired">No hay Dispositivos Vinculados</string>
+
+    //Biografi
+    <string name="tvbioname">Omar Hidrogo</string>
+    <string name="tvbiop1">Omar de Jesus Hidrogo Muñoz (Torreon, Coahuila, 8 de diciembre de 1990     Actualmente Ing. en Tecnologias de la Informacion y Comunicacion
+        Egresado de la Universidad Tecnologica de Torreon en el año 2014
+    </string>
+    <string name="tvbiop2">En el año 2015 se incorpore al actual trabajo como Ing. en Sistemas donde una de las funciones es dar soporte a todos los usuarios de la empresa,
+    Infraestructura de red, Administrador de Servidores entre otros.
+    </string>
+    <string name="tvbiop3">Mis pasatiempos son leer, caminar, escuchar musica, ir al cine y hacer ejercicio
+    </string>
+    <string name="tvminbiop1">Nombre:</string>
+    <string name="tvminbiop2">Omar de Jesus Hidrogo M.</string>
+    <string name="tvminbiop3">Nacimiento:</string>
+    <string name="tvminbiop4">8 de diciembre del 1990</string>
+    <string name="tvminbiop5">Nacionalidad:</string>
+    <string name="tvminbiop6">Mexicano</string>
+    <string name="tvminbiop7">Estado civil:</string>
+    <string name="tvminbiop8">Soltero</string>
+
+    //MENU
+    <string name="maddevice">Agregar Dispositivo</string>
+    <string name="msettingconnection">Editar Conexion</string>
+    <string name="mebluetooth">Bluetooth</string>
+    <string name="meinternet">Internet</string>
+    <string name="msettingsconsumption">Parametros de Consumo</string>
+    <string name="mabout">Acerca de:</string>
+    <string name="mclose">Cerrar</string>
+    <string name="msplashscreen">Control Casa</string>
+
+
+
+
+
+
+
+</resources>

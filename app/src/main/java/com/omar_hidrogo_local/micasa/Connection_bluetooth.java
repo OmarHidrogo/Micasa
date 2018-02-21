@@ -12,11 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.omar_hidrogo_local.micasa.sharedPreferences.Preferences;
+
 public class Connection_bluetooth extends AppCompatActivity {
 
     private Button btnsavedevice;
     private EditText etDeviceBluetooth;
     private Toolbar toolbar;  //barra superior aplicacion
+    private Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,32 +35,41 @@ public class Connection_bluetooth extends AppCompatActivity {
         if (toolbar != null) {
             bar.setDisplayHomeAsUpEnabled(true);//poner boton de regresar en la parte superior
             bar.setDisplayShowTitleEnabled(false);
-            getSupportActionBar().setTitle("Editar Conexion Bluetooth");
+            //getSupportActionBar().setTitle("Editar Conexion Bluetooth");
+        }
 
             btnsavedevice = (Button) findViewById(R.id.btnSaveDeviceBluetooth);
+
 
             btnsavedevice.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     //crear Share preference
-                    SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);
                     //editar preferencia
-                    SharedPreferences.Editor editor = miprefBluetooth.edit();
+                    SharedPreferences.Editor edi = preferences.getSharedPreferencesmiprefBluetooth(getApplicationContext()).edit(); // se Extrae preferencia de conexion Bluettoth de la clase Preferences
+                    SharedPreferences.Editor edi1 = preferences.getSharedPreferencesmiprefConexion(getApplicationContext()).edit(); //se Extrae preferencia de conexion de la clase Preferences
+
+                    //SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);
+                    //editar preferencia
+                    //SharedPreferences.Editor editor = miprefBluetooth.edit();
+
                     //vincular edit text donde se agragara conexion a controlar
                     etDeviceBluetooth = (EditText) findViewById(R.id.etDeviceBluetooth);
-                    //guardar conexion en la preferencia
                     String devicebluetooth = etDeviceBluetooth.getText().toString();
-                    editor.putString("cBluetooth", devicebluetooth);
-                    editor.commit();
 
-                    Toast.makeText(Connection_bluetooth.this, "El dispositivo Bluetooth fue guardado.", Toast.LENGTH_SHORT).show();
+                    edi.putString("cBluetooth", devicebluetooth);//guardar la direccion MAC del bluettoth
+                    edi1.putInt("cBluetooth", 1);//guardar la direccion MAC del bluettoth
+                    edi.commit();
+                    edi1.commit();
+
+                    Toast.makeText(Connection_bluetooth.this, R.string.toast014, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Connection_bluetooth.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
             });
-        }
+
 
     }
 }

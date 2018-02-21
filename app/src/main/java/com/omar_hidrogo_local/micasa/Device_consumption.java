@@ -1,6 +1,8 @@
 package com.omar_hidrogo_local.micasa;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,10 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.omar_hidrogo_local.micasa.Class.Calendario;
 import com.omar_hidrogo_local.micasa.Database.ConstructorDevices;
-import com.omar_hidrogo_local.micasa.pojo.ConsumoDevice;
+import com.omar_hidrogo_local.micasa.pojo.ConsumptionDevice;
+import com.omar_hidrogo_local.micasa.sharedPreferences.Preferences;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -27,11 +31,12 @@ public class Device_consumption extends AppCompatActivity {
     private TextView etnamedevice;
     private  String channel;
     private int idd;
-    public static EditText etwattstotal, etco2total, etpagototal;
+    public static EditText etallwatts, etallco2, etallpay;
     public static int wtts;
-    public static double fechade, fechafin;
+    public static long fechade=0, fechafin=0;
     private ConstructorDevices constructorDevices;
-    private ArrayList<ConsumoDevice> consumoDevices;
+    private ArrayList<ConsumptionDevice> consumptionDevices;
+    private Preferences preferences;
 
     private double vt;
     private long v1;
@@ -41,8 +46,9 @@ public class Device_consumption extends AppCompatActivity {
     private long minutos=milisegundos*60;
     private double horas=minutos*60;
     private double dias=horas*24;
-    private double co2=0.000454;
-    private double pago=0.62;
+    private double co2=0;//0.000454;
+    private double pago=0;//0.62;
+
 
 
     @Override
@@ -60,10 +66,9 @@ public class Device_consumption extends AppCompatActivity {
         ettime1 = (EditText) findViewById(R.id.ettime1);
         ettime2 = (EditText) findViewById(R.id.ettime2);
 
-        etwattstotal = (EditText) findViewById(R.id.etwattstotal);
-        etco2total = (EditText) findViewById(R.id.etco2total);
-        etpagototal = (EditText) findViewById(R.id.etpagototal);
-
+        etallwatts = (EditText) findViewById(R.id.etallwatts);
+        etallco2 = (EditText) findViewById(R.id.etallco2);
+        etallpay = (EditText) findViewById(R.id.etallpay);
 
 
         setSupportActionBar(toolbar);
@@ -71,9 +76,9 @@ public class Device_consumption extends AppCompatActivity {
         //quitar el titulo por defecto al actionbar
         if(toolbar != null) {
             bar.setDisplayHomeAsUpEnabled(true);//poner boton de regresar en la parte superior
-            bar.setDisplayShowTitleEnabled(true);//Desabilitar
-            bar.setTitle(R.string.device_consumption);
-            bar.setIcon(R.drawable.ic_power);
+            bar.setDisplayShowTitleEnabled(false);//Desabilitar
+            //bar.setTitle(R.string.device_consumption);
+            //bar.setIcon(R.drawable.ic_power);
         }
 
         //es necesario recibir los parametros enviados de un Intent en Bundle
@@ -96,14 +101,74 @@ public class Device_consumption extends AppCompatActivity {
 
        btncalcular.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
+
                 constructorDevices = new ConstructorDevices();
-                consumoDevices = constructorDevices.obtenerconsumoDevice(fechade, fechafin,idd );
-                calculo();
+                if(fechade==0 || fechafin==0) {
+                    AlertDialog.Builder messageConnection = new AlertDialog.Builder(Device_consumption.this);
+                    messageConnection.setMessage(R.string.AlertDialog04)
+                            .setCancelable(true)
+                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    consumptionDevices = constructorDevices.obtenerconsumoporDevice(idd);
+                                    calculate();
+                                }
+                            })
+                            .setNegativeButton(R.string.not, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // habilitarBluetooth();
+
+                                    //miprefInternet = getSharedPreferences("cInternet", Context.MODE_PRIVATE);
+                                    //miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);
+                                    // String cInternet = miprefInternet.getString("cInternet", "");
+                                    // String cBluetooth = miprefBluetooth.getString("cBluetooth", "");
+                                    //if(cInternet.equals("") && cBluetooth.equals("")) {
+
+                                    /*Intent intent = new Intent(Device_consumption.this, Device_Lists.class);
+                                    startActivity(intent);
+                                    finish();*/
+                            /*}/*else
+                            {
+                                //si  ya existe un dispositivo bluetooth guardado va directo a la actividad de los dispositivos de la casa a controlar
+                                Intent intent = new Intent(MainActivity.this, Splash_screen.class);
+                                startActivity(intent);
+                                finish();
+                            }*/
+
+                                }
+                            });
+                    AlertDialog titulo = messageConnection.create();
+                    titulo.setTitle(R.string.alert002);
+                    titulo.show();
+                }else{
+                    // Code here executes on main thread after user presses button
+                    consumptionDevices = constructorDevices.obtenerconsumoDevice(fechade, fechafin,idd );
+                    calculate();
+                }
             }
         });
 
     }
+
+    /*@Override
+    public void onResume() {
+        super.onResume();
+        //mainActivity.habilitarBluetooth();
+
+    }*/
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        //mainActivity.habilitarBluetooth();
+        fechade=0;
+        fechafin=0;
+    }
+
+
 
     //PARA LLAMAR A POPUP FECHA
     public void onManejadorEventoFecha(View v) {
@@ -126,30 +191,40 @@ public class Device_consumption extends AppCompatActivity {
 
     }
 
-    public void calculo(){
+    public void calculate(){
 
-        for (int i = 0; i < consumoDevices.size(); i++){
+         co2= Double.parseDouble(preferences.getmiprefvalorCO(getApplicationContext()));
+         pago= Double.parseDouble(preferences.getmiprefvalorenergy(getApplicationContext()));
+        if(pago==0) {
+            Toast.makeText(Device_consumption.this, R.string.toast008, Toast.LENGTH_SHORT).show();
+        }else{
+            if(co2==0){
+                Toast.makeText(Device_consumption.this, R.string.toast009, Toast.LENGTH_SHORT).show();
 
-
-            ConsumoDevice consumoDevice = consumoDevices.get(i);
-
-            if(consumoDevice.getStatus()!=0){
-                v1=consumoDevice.getMillis();
-                //long v2=consumoDevice.getMillis();
             }else{
-                v2=consumoDevice.getMillis();
-                vt = vt +(v2 - v1);
+                for (int i = 0; i < consumptionDevices.size(); i++){
+
+
+                    ConsumptionDevice consumptionDevice = consumptionDevices.get(i);
+
+                    if(consumptionDevice.getStatus()!=0){
+                        v1= consumptionDevice.getMillis();
+                        //long v2=consumptionDevice.getMillis();
+                    }else{
+                        v2= consumptionDevice.getMillis();
+                        vt = vt +(v2 - v1);
+                    }
+
+                }
+                vt = vt/horas;
+                vt=vt*wtts;
+                co2= co2*vt;
+                pago=pago*(vt/1000);
+                DecimalFormat f = new DecimalFormat("##.0000");
+                etallwatts.setText(String.valueOf(f.format(vt)));
+                etallco2.setText(String.valueOf(f.format(co2))+R.string.kilograms);
+                etallpay.setText("$ "+String.valueOf(f.format(pago)));
             }
-
         }
-        vt = vt/horas;
-        vt=vt*wtts;
-        co2=co2*vt;
-        pago=pago*(vt/1000);
-        DecimalFormat f = new DecimalFormat("##.00000");
-        etwattstotal.setText(String.valueOf(f.format(vt)));
-        etco2total.setText(String.valueOf(f.format(co2))+" Kilogramos");
-        etpagototal.setText("$ "+String.valueOf(f.format(pago)));
-
     }
 }

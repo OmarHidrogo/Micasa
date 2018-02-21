@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by tmhidrooma on 18/10/2017.
  */
 
-public interface IRecyclerViewFragmentView {
+public interface IRecyclerViewFragmentView{
 
     //metodo para generar el liner layout  de forma vertical
     public void generarLinerLayoutVertical();

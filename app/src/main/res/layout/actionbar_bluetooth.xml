@@ -32,7 +32,7 @@
                 android:id="@+id/tvconecttdevice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DISPOSITIVOS BLUETOOTH"
+                android:text="@string/actionbar002"
                 android:layout_gravity="center"
                 android:textColor="@color/colorwhite"
                 android:textSize="15dp"

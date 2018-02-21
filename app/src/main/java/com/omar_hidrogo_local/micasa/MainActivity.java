@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.omar_hidrogo_local.micasa.Database.ConstructorDevices;
+import com.omar_hidrogo_local.micasa.sharedPreferences.Preferences;
 
 import java.util.UUID;
 import java.util.logging.Handler;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private Splash_screen splash_screen;
 
     public Devices_controller devices_controller;
+    private Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,20 +95,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //inicializar un preferencia compartida.
-        SharedPreferences miprefInternet = getSharedPreferences("cInternet", Context.MODE_PRIVATE);     // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Internet
+       /* SharedPreferences miprefInternet = getSharedPreferences("cInternet", Context.MODE_PRIVATE);     // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Internet
         String cInternet = miprefInternet.getString("cInternet", "");                                       // se inicializa vacio
         SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);   // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Bluetooth
         String cBluetooth = miprefBluetooth.getString("cBluetooth", "");
         SharedPreferences miprefIdb= getSharedPreferences("db", Context.MODE_PRIVATE);     // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Internet
         String db = miprefIdb.getString("db", ""); // se inicializa vacio
         SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
-        int mconex = miprefConexion.getInt("mconex", 0);
+        int mconex = miprefConexion.getInt("mconex", 0);*/
 
-        if(mconex ==0){
+
+        int conex = preferences.getmiprefConexion(getApplicationContext());
+        if(conex==0){
             AlertDialog.Builder messageConnection = new AlertDialog.Builder(MainActivity.this);
-            messageConnection.setMessage("Para continuar por favor selecciona un metodo de conexion para el control de su casa")
+            messageConnection.setMessage(R.string.AlertDialog01)
                     .setCancelable(true)
-                    .setPositiveButton("Internet", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.internet, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
@@ -115,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                             finish();
                         }
                     })
-                    .setNegativeButton("Bluetooth", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.bluetooth, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // habilitarBluetooth();
@@ -140,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
             AlertDialog titulo = messageConnection.create();
-            titulo.setTitle("Alerta!");
+            titulo.setTitle(R.string.alert001);
             titulo.show();
 
         }else{
@@ -210,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
     }*/
 
-    public void habilitarBluetooth(){
+    /*public void habilitarBluetooth(){
         solicitarPermiso();
 
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -223,8 +227,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-    }
-    public boolean chacarStatusPermiso(){
+    }*/
+   /* public boolean chacarStatusPermiso(){
         //PREGUNTA SI EL PERMISO FUE OTORGADO EN LA APLICACION
         int resultado = ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH);
         if(resultado == PackageManager.PERMISSION_GRANTED){
@@ -232,18 +236,18 @@ public class MainActivity extends AppCompatActivity {
         }else {
             return  false;
         }
-    }
+    }*/
 
     //solicitar el permiso al usuario
-    public  void solicitarPermiso() {
+    /*public  void solicitarPermiso() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.BLUETOOTH)) {
             Toast.makeText(MainActivity.this, "El permiso ya fue otorgado, si deseas desactivarlo puedes ir a los ajustes de la aplicacion", Toast.LENGTH_SHORT).show();
         } else {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.BLUETOOTH}, CODIGO_SOLICITUD_PERMISO);
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode){
@@ -272,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -284,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.ccasa:
-                Intent intent = new Intent(this, Connection_internet.class);
+                Intent intent = new Intent(this, Splash_screen.class);
                 this.startActivity(intent);
                 break;
             case R.id.nconexion:
@@ -296,12 +300,19 @@ public class MainActivity extends AppCompatActivity {
                 this.startActivity(intent3);
                 break;
             case R.id.cInternet:
-                Intent intent5 = new Intent(this, Connection_internet.class);
+                Intent intent4 = new Intent(this, Connection_internet.class);
+                this.startActivity(intent4);
+                break;
+            case R.id.datosenergia:
+                Intent intent5 = new Intent(this, Datos_proveedor.class);
                 this.startActivity(intent5);
                 break;
             case R.id.acerca:
-                Intent intent4 = new Intent(this, Acerca_de.class);
-                this.startActivity(intent4);
+                Intent intent6 = new Intent(this, Acerca_de.class);
+                this.startActivity(intent6);
+                break;
+            case R.id.close:
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);

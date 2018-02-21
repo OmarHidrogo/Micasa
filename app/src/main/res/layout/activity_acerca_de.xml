@@ -10,194 +10,201 @@
     <include
         android:id="@+id/actionBarAcercade"
         layout="@layout/actionbar_acercade" />
-
-    <RelativeLayout
+    <ScrollView
         android:layout_below="@id/actionBarAcercade"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".Acerca_de">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-
-        <LinearLayout
-            android:id="@+id/ll1"
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-
+            tools:context=".Acerca_de">
 
 
             <LinearLayout
+                android:id="@+id/ll1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:orientation="vertical"
-                    android:gravity="left">
-
-                    <TextView
-                        android:id="@+id/tvNombre"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
-                        android:text="Omar Hidrogo"
-                        android:layout_marginTop="15dp"
-                        android:textStyle="bold"
-                        android:textSize="20dp"/>
-
-                    <TextView
-                        android:id="@+id/tvb1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/biografia"
-                        android:layout_marginLeft="10dp"/>
-
-                    <TextView
-                        android:id="@+id/tvb2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/biop2"
-                        android:layout_marginLeft="10dp"/>
-
-                    <TextView
-                        android:id="@+id/tvb3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/biop3"
-                        android:layout_marginLeft="10dp"/>
-
-                </LinearLayout>
 
 
                 <LinearLayout
-                    android:layout_width="137dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="match_parent"
-                        android:layout_height="110dp"
-                        android:src="@drawable/fperfil" />
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="6dp">
+                        android:layout_weight="2"
+                        android:orientation="vertical"
+                        android:gravity="left">
 
                         <TextView
+                            android:id="@+id/tvNombre"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nombre:"
-                            android:textSize="8dp"
+                            android:layout_marginLeft="50dp"
+                            android:text="@string/tvbioname"
+                            android:layout_marginTop="15dp"
                             android:textStyle="bold"
-                            android:layout_marginTop="10dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Omar de Jesus Hidrogo M."
-                            android:textSize="10dp"
-                            android:layout_marginTop="5dp"
-                            android:textStyle="bold"
-                            android:layout_marginLeft="18dp"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="6dp">
+                            android:textSize="20dp"/>
 
                         <TextView
+                            android:id="@+id/tvb1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nacimiento:"
-                            android:textSize="8dp"
-                            android:textStyle="bold"
-                            android:layout_marginTop="10dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="8 de diciembre del 1990"
-                            android:textSize="10dp"
-                            android:layout_marginTop="5dp"
-                            android:textStyle="bold"
-                            android:layout_marginLeft="7dp"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="6dp">
+                            android:layout_marginTop="15dp"
+                            android:text="@string/tvbiop1"
+                            android:layout_marginLeft="10dp"/>
 
                         <TextView
+                            android:id="@+id/tvb2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nacionalidad:"
-                            android:textSize="8dp"
-                            android:textStyle="bold"
-                            android:layout_marginTop="10dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Mexicano"
-                            android:textSize="10dp"
-                            android:layout_marginTop="10dp"
-                            android:textStyle="bold"
-                            android:layout_marginLeft="5dp"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="6dp">
+                            android:layout_marginTop="15dp"
+                            android:text="@string/tvbiop2"
+                            android:layout_marginLeft="10dp"/>
 
                         <TextView
+                            android:id="@+id/tvb3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Estado civil:"
-                            android:textSize="8dp"
-                            android:textStyle="bold"
-                            android:layout_marginTop="10dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Soltero"
-                            android:textSize="10dp"
-                            android:layout_marginTop="10dp"
-                            android:textStyle="bold"
-                            android:layout_marginLeft="11dp"/>
+                            android:layout_marginTop="15dp"
+                            android:text="@string/tvbiop3"
+                            android:layout_marginLeft="10dp"/>
 
                     </LinearLayout>
 
 
+                    <LinearLayout
+                        android:layout_width="137dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:orientation="vertical">
 
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:src="@drawable/fperfil" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tvminbiop1"
+                                android:textSize="8dp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="10dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tvminbiop2"
+                                android:textSize="10dp"
+                                android:layout_marginTop="5dp"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="18dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tvminbiop3"
+                                android:textSize="8dp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="10dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tvminbiop4"
+                                android:textSize="10dp"
+                                android:layout_marginTop="5dp"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="7dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tvminbiop5"
+                                android:textSize="8dp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="10dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tvminbiop6"
+                                android:textSize="10dp"
+                                android:layout_marginTop="10dp"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="5dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tvminbiop7"
+                                android:textSize="8dp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="10dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tvminbiop8"
+                                android:textSize="10dp"
+                                android:layout_marginTop="10dp"
+                                android:textStyle="bold"
+                                android:layout_marginLeft="11dp"/>
+
+                        </LinearLayout>
+
+
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
 
             </LinearLayout>
 
+        </RelativeLayout>
 
-        </LinearLayout>
+    </ScrollView>
 
-    </RelativeLayout>
+
 
 </RelativeLayout>

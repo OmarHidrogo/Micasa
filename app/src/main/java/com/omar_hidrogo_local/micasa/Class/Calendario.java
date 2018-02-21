@@ -3,17 +3,12 @@ package com.omar_hidrogo_local.micasa.Class;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.DatePicker;
 
-import com.omar_hidrogo_local.micasa.Details_devices;
-import com.omar_hidrogo_local.micasa.Device_consumption;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static com.omar_hidrogo_local.micasa.Device_consumption.ettime1;
 import static com.omar_hidrogo_local.micasa.Device_consumption.ettime2;
@@ -26,7 +21,10 @@ import static com.omar_hidrogo_local.micasa.Device_consumption.fechafin;
 
 public class Calendario extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
-    String t1, t2;
+    String months, day, hour, minutes, seconds;
+    int hourOfDay,minute, second;
+
+
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
         // Use the current date as the default date in the picker
@@ -38,7 +36,9 @@ public class Calendario extends DialogFragment implements DatePickerDialog.OnDat
        // year= Integer.parseInt(formattedDateString);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-
+        hourOfDay   = c.get(Calendar.HOUR_OF_DAY);
+        minute     = c.get(Calendar.MINUTE);
+        second     = c.get(Calendar.SECOND);
         // Create a new instance of DatePickerDialog and return it
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
@@ -85,7 +85,7 @@ public class Calendario extends DialogFragment implements DatePickerDialog.OnDat
             default: mes="Diciembre";
         }
 
-        if (vista == 2131230751){
+        if (vista == 2131230753){
             //BreakIterator et_fechIni = null;
             ettime1.setText(String.valueOf(day+" / "+mes+" / "+year));
             //Intent intent = new Intent(getActivity(),Device_consumption.class);
@@ -116,14 +116,51 @@ public class Calendario extends DialogFragment implements DatePickerDialog.OnDat
             int formattedDatehour = 00;
             int formattedDateminute = 00;
             int formattedDatesecond = 01;
-            double extra = (100.0 * year) + month - 190002.5;
-            double datejuliano = (367.0 * year) -
+
+            Calendar calendar = new GregorianCalendar();
+            calendar.getInstance();
+
+            //double extra = (100.0 * year) + month - 190002.5;
+            /*double datejuliano = (367.0 * year) -
                     (Math.floor(7.0 * (year + Math.floor((month + 9.0) / 12.0)) / 4.0)) +
                     Math.floor((275.0 * month) / 9.0) +
                     day + ((formattedDatehour + ((formattedDateminute + (formattedDatesecond / 60.0)) / 60.0)) / 24.0) +
-                    1721013.5 - ((0.5 * extra) / Math.abs(extra)) + 0.5;
+                    1721013.5 - ((0.5 * extra) / Math.abs(extra)) + 0.5;*/
 
-            fechade= datejuliano;
+
+            StringBuilder reg = new StringBuilder();
+
+            if(month<10){
+                months = "0"+month;
+            }else{
+                months = String.valueOf(month);}
+            if(day<10){
+                this.day = "0"+day;
+            }else{
+                this.day = String.valueOf(day);}
+            if(formattedDatehour<10) {
+                hour = "0" + formattedDatehour;
+            }else{
+                hour = String.valueOf(formattedDatehour);}
+            if(formattedDateminute<10){
+                minutes = "0"+formattedDateminute;
+            }else{
+                minutes = String.valueOf(formattedDateminute);}
+            if(formattedDatesecond<10){
+                seconds = "0"+formattedDatesecond;
+            }else{
+                seconds = String.valueOf(formattedDatesecond);}
+
+            reg.append(year);
+            reg.append(months);
+            reg.append(this.day);
+            reg.append(hour);
+            reg.append(minutes);
+            reg.append(seconds);
+
+            long regis = Long.parseLong((reg.toString()));
+
+            fechade= regis;
 
         }else {
             //BreakIterator et_fechast = null;
@@ -146,15 +183,48 @@ public class Calendario extends DialogFragment implements DatePickerDialog.OnDat
             int formattedDatehour = 23;
             int formattedDateminute = 59;
             int formattedDatesecond = 59;
-            double extra = (100.0 * year) + month - 190002.5;
 
-            double datejuliano = (367.0 * year) -
+            //double extra = (100.0 * year) + month - 190002.5;
+
+            /*double datejuliano = (367.0 * year) -
                     (Math.floor(7.0 * (year + Math.floor((month + 9.0) / 12.0)) / 4.0)) +
                     Math.floor((275.0 * month) / 9.0) +
                     day + ((formattedDatehour + ((formattedDateminute + (formattedDatesecond / 60.0)) / 60.0)) / 24.0) +
-                    1721013.5 - ((0.5 * extra) / Math.abs(extra)) + 0.5;
+                    1721013.5 - ((0.5 * extra) / Math.abs(extra)) + 0.5;*/
 
-            fechafin= datejuliano;
+            StringBuilder reg = new StringBuilder();
+
+            if(month<10){
+                months = "0"+month;
+            }else{
+                months = String.valueOf(month);}
+            if(day<10){
+                this.day = "0"+day;
+            }else{
+                this.day = String.valueOf(day);}
+            if(formattedDatehour<10) {
+                hour = "0" + formattedDatehour;
+            }else{
+                hour = String.valueOf(formattedDatehour);}
+            if(formattedDateminute<10){
+                minutes = "0"+formattedDateminute;
+            }else{
+                minutes = String.valueOf(formattedDateminute);}
+            if(formattedDatesecond<10){
+                seconds = "0"+formattedDatesecond;
+            }else{
+                seconds = String.valueOf(formattedDatesecond);}
+
+            reg.append(year);
+            reg.append(months);
+            reg.append(this.day);
+            reg.append(hour);
+            reg.append(minutes);
+            reg.append(seconds);
+
+            long regis = Long.parseLong((reg.toString()));
+
+            fechafin= regis;
         }
 
     }

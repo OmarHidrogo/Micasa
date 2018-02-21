@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,8 +26,8 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
     //declaracion de objetos en activity
     private Toolbar toolbar;  //barra superior aplicacion
     private Button btnsaveconnection;
-    private EditText editText, etabout, etwatts;
-    private Spinner spiner;
+    private EditText etnamedevice, etabout, etwatts;
+    private Spinner spinnerchannel;
     private Context context;
     private ConstructorDevices constructorDevices;
     private Devices_controller devices_controller;
@@ -35,7 +36,7 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
     private int Slecteditem;
     private String Selecteditem;
 
-    private String imagenes[]=new String[]{"Foco","Aire Acondicionado"};
+    private String imagenes[]=new String[]{"Foco", "Aire Acondicionado"};
 
     private Integer[] imgid= {
             R.drawable.focoapagado,
@@ -51,10 +52,10 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
         setContentView(R.layout.activity_devices_controller);
 
         //Se enlaza a las propiedades de cada objeto del activity
-        toolbar =(Toolbar) findViewById(R.id.toolbarbar);
+        toolbar =(Toolbar) findViewById(R.id.action_bar_add);
         btnsaveconnection = (Button) findViewById(R.id.btnsaveconnection);
-        spiner = (Spinner) findViewById(R.id.spinner);
-        editText = (EditText) findViewById(R.id.etnamedevice);
+        spinnerchannel = (Spinner) findViewById(R.id.spinnerchannel);
+        etnamedevice = (EditText) findViewById(R.id.etnamedevice);
         etabout = (EditText) findViewById(R.id.etabout);
         listView = (ListView) findViewById(R.id.list_item);
         etwatts = (EditText) findViewById(R.id.etwatts);
@@ -73,36 +74,54 @@ public class Devices_controller extends AppCompatActivity implements AdapterView
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.channel_Arduino, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spiner.setAdapter(adapter);
-        spiner.setOnItemSelectedListener(this);
+        spinnerchannel.setAdapter(adapter);
+        spinnerchannel.setOnItemSelectedListener(this);
 
         btnsaveconnection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 /*DataBase admin = new DataBase(Devices_controller.this, ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
                 SQLiteDatabase db =admin.getWritableDatabase();*/
-                String nombredevice = editText.getText().toString();
-                String channeldevice = spiner.getItemAtPosition(spiner.getSelectedItemPosition()).toString();
+                String namedevice = etnamedevice.getText().toString();
+                String channeldevice = spinnerchannel.getItemAtPosition(spinnerchannel.getSelectedItemPosition()).toString();
                 int image = Slecteditem;
                 String about = etabout.getText().toString();
-                int watts = Integer.parseInt(etwatts.getText().toString());
-                constructorDevices = new ConstructorDevices();
-                //context = Devices_controller.this;
-                constructorDevices.insertarDevices(nombredevice, channeldevice, image, watts, about);
+                String watt= etwatts.getText().toString();
+                int watts;
+
+                if(namedevice.equals("")){
+                    Toast.makeText(Devices_controller.this, R.string.toast003,Toast.LENGTH_SHORT).show();
+                }else{
+                    if(watt.equals("")){
+                        Toast.makeText(Devices_controller.this, R.string.toast004,Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(about.equals("")){
+                            Toast.makeText(Devices_controller.this, R.string.toast005,Toast.LENGTH_SHORT).show();
+                        }else{
+                            watts = Integer.parseInt(watt);
+                            constructorDevices = new ConstructorDevices();
+                            //context = Devices_controller.this;
+                            constructorDevices.insertarDevices(namedevice, channeldevice, image, watts, about);
                 /*ContentValues registro = new ContentValues();
                 registro.put(ConstanteDataBase.TABLE_DEVICES_NAME, nombredevice);
                 registro.put(ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID, channeldevice);
                 db.insert(ConstanteDataBase.TABLE_DEVICES, null, registro);
                 db.close();*/
-                //startActivity(intent);
-                editText.setText("");
-                etabout.setText("");
-                etwatts.setText("");
-                //startActivity(intent);
-                Toast.makeText(Devices_controller.this, "Has Agregado un Dispositivo",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Devices_controller.this, Splash_screen.class);
-                startActivity(intent);
-                finish();
+                            //startActivity(intent);
+                            etnamedevice.setText("");
+                            etabout.setText("");
+                            etwatts.setText("");
+                            //startActivity(intent);
+                            Toast.makeText(Devices_controller.this, R.string.toast005,Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(Devices_controller.this, Splash_screen.class);
+                            startActivity(intent);
+                            finish();
+
+                        }
+
+                    }
+                }
             }
         });
 

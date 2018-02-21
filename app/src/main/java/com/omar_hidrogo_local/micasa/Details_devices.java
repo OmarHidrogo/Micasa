@@ -37,7 +37,7 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
     private int Slecteditem;
     private String Selecteditem;
 
-    private String imagenes[]=new String[]{"Foco","Aire Acondicionado"};
+    private String imagenes[]=new String[]{"Foco", "Aire Acondicionado"};
 
     private Integer[] imgid= {
             R.drawable.focoapagado,
@@ -53,7 +53,7 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
         setContentView(R.layout.activity_details_devices);
 
         //Se enlaza a las propiedades de cada objeto del activity
-        toolbar =(Toolbar) findViewById(R.id.toolbarbar);
+        toolbar =(Toolbar) findViewById(R.id.action_details);
         btnupdate = (Button) findViewById(R.id.btnupdate);
         btndelete = (Button) findViewById(R.id.btndelete);
         spiner = (Spinner) findViewById(R.id.spinner);
@@ -113,23 +113,23 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
             public void onClick(View v) {
 
                 AlertDialog.Builder messageConnection = new AlertDialog.Builder(Details_devices.this);
-                setTitle("Atencion!");
-                messageConnection.setMessage("Estas seguro de modificar la informacion del Dispositivo?")
+                setTitle(R.string.alert003);
+                messageConnection.setMessage(R.string.AlertDialog05)
                         .setCancelable(false)
-                        .setPositiveButton("si", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
                                 /*DataBase admin = new DataBase(Devices_controller.this, ConstanteDataBase.TABLE_DEVICES, null, ConstanteDataBase.DATABASE_VERSION);
                                 SQLiteDatabase db =admin.getWritableDatabase();*/
-                                String nombredevice = editText.getText().toString();
+                                String namedevice = editText.getText().toString();
                                 String channeldevice = spiner.getItemAtPosition(spiner.getSelectedItemPosition()).toString();
                                 int image = Slecteditem;
                                 String about = etabout.getText().toString();
                                 int watts = Integer.parseInt(etwatts.getText().toString());
                                 constructorDevices = new ConstructorDevices();
                                 //context = Devices_controller.this;
-                                constructorDevices.updateDevices(id,nombredevice, channeldevice, image, watts, about);
+                                constructorDevices.updateDevices(id,namedevice, channeldevice, image, watts, about);
                                 /*ContentValues registro = new ContentValues();
                                 registro.put(ConstanteDataBase.TABLE_DEVICES_NAME, nombredevice);
                                 registro.put(ConstanteDataBase.TABLE_DEVICES_CHANNEL_ID, channeldevice);
@@ -140,20 +140,20 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
                                 etabout.setText("");
                                 etwatts.setText("");
                                 //startActivity(intent);
-                                Toast.makeText(Details_devices.this, "Se Modifico el Dispositivo",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Details_devices.this, R.string.toast010,Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Details_devices.this, Splash_screen.class);
                                 startActivity(intent);
                                 finish();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.not, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 cancelar();
                             }
                         });
                 AlertDialog titulo = messageConnection.create();
-                titulo.setTitle("Alerta!");
+                titulo.setTitle(R.string.alert001);
                 titulo.show();
 
             }
@@ -166,10 +166,10 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
             public void onClick(View v) {
 
                 AlertDialog.Builder messageConnection = new AlertDialog.Builder(Details_devices.this);
-                setTitle("Atencion!");
-                messageConnection.setMessage("Estas seguro de eliminar el Dispositivo")
+                setTitle(R.string.alert001);
+                messageConnection.setMessage(R.string.AlertDialog06)
                         .setCancelable(false)
-                        .setPositiveButton("si", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
@@ -191,20 +191,20 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
                                 editText.setText("");
                                 etabout.setText("");
                                 //startActivity(intent);
-                                Toast.makeText(Details_devices.this, "Has eliminado el dispositivo",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Details_devices.this, R.string.toast011,Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Details_devices.this, Splash_screen.class);
                                 startActivity(intent);
                                 finish();
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.not, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 cancelar();
                             }
                         });
                 AlertDialog titulo = messageConnection.create();
-                titulo.setTitle("Alerta!");
+                titulo.setTitle(R.string.alert001);
                 titulo.show();
             }
         });

@@ -12,139 +12,144 @@
         layout="@layout/actionbar_add_devices">
     </include>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+    <ScrollView
         android:layout_below="@id/action_bar_add"
-        >
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Nombre Dispositivo"/>
-
-            <EditText
-                android:id="@+id/etnamedevice"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Selecciona Imagen"/>
-
-            <ListView
-                android:id="@+id/list_item"
-                android:layout_width="match_parent"
-                android:layout_height="60dp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_marginTop="15dp"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Canal del dispositivo"/>
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="159dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Watts consumo"/>
-
-            <EditText
-                android:id="@+id/etwatts"
-                android:layout_marginLeft="38dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Descripcion"/>
-
-            <EditText
-                android:id="@+id/etabout"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnsaveconnection"
-                android:layout_marginTop="25dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tvadddevicename"/>
+
+                <EditText
+                    android:id="@+id/etnamedevice"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tvadddeviceselect"/>
+
+                <ListView
+                    android:id="@+id/list_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tvadddevicechannel"/>
+
+                <Spinner
+                    android:id="@+id/spinnerchannel"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="159dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tvaddwatts"/>
+
+                <EditText
+                    android:id="@+id/etwatts"
+                    android:layout_marginLeft="38dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tvadddescription"/>
+
+                <EditText
+                    android:id="@+id/etabout"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Guardar Dispositivo "
-                android:textAllCaps="false"
-                android:background="@drawable/button_white"/>
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnsaveconnection"
+                    android:layout_marginTop="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/btnsavenewdevice"
+                    android:textAllCaps="false"
+                    android:background="@drawable/button_white"/>
                 /..android:onClick="saveDevice"..//>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
+
 
 </RelativeLayout>

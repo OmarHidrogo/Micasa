@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Controla tu casa con solo un clic"
+            android:text="@string/subtitleapp"
             android:layout_gravity="center"
             android:textSize="20dp"
             android:paddingTop="30dp"

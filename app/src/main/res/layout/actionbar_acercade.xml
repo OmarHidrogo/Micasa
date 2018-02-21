@@ -20,8 +20,10 @@
         android:id="@+id/titlepets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BIOGRAFIA"
+        android:text="@string/actionbar006"
         android:layout_gravity="center"
+        android:textColor="@color/colorwhite"
+        android:textSize="15dp"
         android:textAppearance="@android:style/TextAppearance.Material.Widget.Toolbar.Title"/>
 
 </android.support.v7.widget.Toolbar>

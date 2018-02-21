@@ -3,30 +3,17 @@ package com.omar_hidrogo_local.micasa.Database;
 import android.app.Activity;
 import android.app.Application;
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.EditText;
 
-import com.omar_hidrogo_local.micasa.Details_devices;
-import com.omar_hidrogo_local.micasa.Devices_controller;
 import com.omar_hidrogo_local.micasa.MainActivity;
-import com.omar_hidrogo_local.micasa.R;
-import com.omar_hidrogo_local.micasa.pojo.ConsumoDevice;
+import com.omar_hidrogo_local.micasa.pojo.ConsumptionDevice;
 import com.omar_hidrogo_local.micasa.pojo.Devices;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Calendar;
 
-import static com.omar_hidrogo_local.micasa.Device_consumption.etwattstotal;
-import static com.omar_hidrogo_local.micasa.Device_consumption.etco2total;
-import static com.omar_hidrogo_local.micasa.Device_consumption.etpagototal;
-import static com.omar_hidrogo_local.micasa.Device_consumption.wtts;
 
 /**
  * Created by tmhidrooma on 19/10/2017.
@@ -50,12 +37,14 @@ public class ConstructorDevices extends Application {
     private long v2;
 
     //Calculo de consumo Electrico
-    private long milisegundos=1000;
-    private long minutos=milisegundos*60;
-    private double horas=minutos*60;
-    private double dias=horas*24;
-    private double co2=0.000454;
-    private double pago=0.62;
+    //private long milisecond =1000;
+    //private long minutes = milisecond *60;
+    //private double hours = minutes *60;
+    //private double dias= hours *24;
+    //private double co2=0.000454;
+    //private double pago=0.62;
+
+    private String mounth, day, hour, minute, second;
 
 
 
@@ -123,33 +112,33 @@ public class ConstructorDevices extends Application {
         return  devices;
     }
 
-    public ArrayList<ConsumoDevice> obtenerconsumoDevice(double ett1, double ett2, int id) {
-        ArrayList<ConsumoDevice> consumoDevices = new ArrayList<>();
+    public ArrayList<ConsumptionDevice> obtenerconsumoDevice(double ett1, double ett2, int id) {
+        ArrayList<ConsumptionDevice> consumptionDevices = new ArrayList<>();
         DataBase db = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_HISTORY, null, ConstanteDataBase.DATABASE_VERSION);
 
         //SE DECLARA QUERY
-        String query = " SELECT * FROM "+ ConstanteDataBase.TABLE_HISTORY + " WHERE "+ ConstanteDataBase.TABLE_HISTORY_DEVICE_ID+ " = "+ id;
-               //+" AND "*/+ConstanteDataBase.TABLE_HISTORY_TIME+" IN ( "+ett1+", "+ett2+" ) AND "+ConstanteDataBase.TABLE_HISTORY_DEVICE_ID+ " = "+ id;
+        String query = " SELECT * FROM "+ ConstanteDataBase.TABLE_HISTORY + " WHERE "/*+ ConstanteDataBase.TABLE_HISTORY_DEVICE_ID+ " = "+ id;*/
+               /*+" AND "*/+ConstanteDataBase.TABLE_HISTORY_TIME+" >="+ett1+" AND "+ConstanteDataBase.TABLE_HISTORY_TIME+" <="+ett2+" AND "+ConstanteDataBase.TABLE_HISTORY_DEVICE_ID+ " = "+ id;
         SQLiteDatabase hdb = db.getWritableDatabase();
         Cursor registros = hdb.rawQuery(query, null);
 
         while (registros.moveToNext()) {
-            ConsumoDevice consumoDeviceactual = new ConsumoDevice();
+            ConsumptionDevice consumptionDeviceactual = new ConsumptionDevice();
             //INDICE DE LA COLUMNA  DE LA TABLA
-            consumoDeviceactual.setIdhistorial(registros.getInt(0));
-            consumoDeviceactual.setIddevice(registros.getInt(1));
-            consumoDeviceactual.setStatus(registros.getInt(2));
-            consumoDeviceactual.setTime(registros.getDouble(3));
-            consumoDeviceactual.setMillis(registros.getLong(4));
+            consumptionDeviceactual.setIdhistorial(registros.getInt(0));
+            consumptionDeviceactual.setIddevice(registros.getInt(1));
+            consumptionDeviceactual.setStatus(registros.getInt(2));
+            consumptionDeviceactual.setTime(registros.getLong(3));
+            consumptionDeviceactual.setMillis(registros.getLong(4));
 
-            consumoDevices.add(consumoDeviceactual);
+            consumptionDevices.add(consumptionDeviceactual);
         }
         db.close();
 
 
-        /*for (int i = 0; i <= consumoDevices.size(); i++){
+        /*for (int i = 0; i <= consumptionDevices.size(); i++){
 
-            final ConsumoDevice consumoDevice = consumoDevices.get(i);
+            final ConsumptionDevice consumoDevice = consumptionDevices.get(i);
             if(consumoDevice.getStatus()!=0){
                 v1=consumoDevice.getMillis();
                 //long v2=consumoDevice.getMillis();
@@ -159,14 +148,40 @@ public class ConstructorDevices extends Application {
             }
 
         }
-        vt = vt/horas;
+        vt = vt/hours;
         vt=vt*wtts;
         co2=co2*vt;
         pago=pago*vt;
         etwattstotal.setText(String.valueOf(vt));
         etco2total.setText(String.valueOf(co2)+" Kilogramos");
         etpagototal.setText("$ "+String.valueOf(pago));*/
-        return consumoDevices;
+        return consumptionDevices;
+    }
+
+    public ArrayList<ConsumptionDevice> obtenerconsumoporDevice(int id) {
+        ArrayList<ConsumptionDevice> consumptionDevices = new ArrayList<>();
+        DataBase db = new DataBase(MainActivity.getContext(), ConstanteDataBase.TABLE_HISTORY, null, ConstanteDataBase.DATABASE_VERSION);
+
+        //SE DECLARA QUERY
+        String query = " SELECT * FROM "+ ConstanteDataBase.TABLE_HISTORY + " WHERE "+ ConstanteDataBase.TABLE_HISTORY_DEVICE_ID+ " = "+ id;
+        SQLiteDatabase hdb = db.getWritableDatabase();
+        Cursor registros = hdb.rawQuery(query, null);
+
+        while (registros.moveToNext()) {
+            ConsumptionDevice consumptionDeviceactual = new ConsumptionDevice();
+            //INDICE DE LA COLUMNA  DE LA TABLA
+            consumptionDeviceactual.setIdhistorial(registros.getInt(0));
+            consumptionDeviceactual.setIddevice(registros.getInt(1));
+            consumptionDeviceactual.setStatus(registros.getInt(2));
+            consumptionDeviceactual.setTime(registros.getLong(3));
+            consumptionDeviceactual.setMillis(registros.getLong(4));
+
+            consumptionDevices.add(consumptionDeviceactual);
+        }
+        db.close();
+
+
+        return consumptionDevices;
     }
 
     public void statusDevice(Devices device, int status, int image) {
@@ -235,21 +250,53 @@ public class ConstructorDevices extends Application {
         SimpleDateFormat dateFormatsecond = new SimpleDateFormat("ss");
         int formattedDatesecond = Integer.parseInt(dateFormatsecond.format(datetime));
 
-        double extra = (100.0 * formattedDateyear) + formattedDatemonth - 190002.5;
+        /*double extra = (100.0 * formattedDateyear) + formattedDatemonth - 190002.5;
 
         double datejuliano = (367.0 * formattedDateyear) -
                 (Math.floor(7.0 * (formattedDateyear + Math.floor((formattedDatemonth + 9.0) / 12.0)) / 4.0)) +
                 Math.floor((275.0 * formattedDatemonth) / 9.0) +
                 formattedDateday + ((formattedDatehour + ((formattedDateminute + (formattedDatesecond / 60.0)) / 60.0)) / 24.0) +
-                1721013.5 - ((0.5 * extra) / Math.abs(extra)) + 0.5;
+                1721013.5 - ((0.5 * extra) / Math.abs(extra)) + 0.5;*/
 
+        StringBuilder reg = new StringBuilder();
 
+        if(formattedDatemonth<10){
+            mounth = "0"+formattedDatemonth;
+        }else{
+            mounth = String.valueOf(formattedDatemonth);}
+        if(formattedDateday<10){
+            day = "0"+formattedDateday;
+        }else{
+            day = String.valueOf(formattedDateday);}
+        if(formattedDatehour<10) {
+            hour = "0" + formattedDatehour;
+        }else{
+            hour = String.valueOf(formattedDatehour);}
+        if(formattedDateminute<10){
+            minute = "0"+formattedDateminute;
+        }else{
+            minute = String.valueOf(formattedDateminute);}
+        if(formattedDatesecond<10){
+            second = "0"+formattedDatesecond;
+        }else{
+            second = String.valueOf(formattedDatesecond);}
+
+        reg.append(formattedDateyear);
+        reg.append(mounth);
+        reg.append(day);
+        reg.append(hour);
+        reg.append(minute);
+        reg.append(second);
+
+        long regis = Long.parseLong((reg.toString()));
+
+        //double registro = formattedDateyear+formattedDatemonth+formattedDateday+formattedDatehour+formattedDateminute+formattedDatesecond;
 
 
         long millis = datetime.getTime();
         registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_DEVICE_ID, iddevice);
         registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_DEVICE_STATE, state);
-        registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_TIME, datejuliano);
+        registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_TIME, regis);
         registroConsumo.put(ConstanteDataBase.TABLE_HISTORY_TIME_MILIS, millis);
 
         db.insert(ConstanteDataBase.TABLE_HISTORY, null, registroConsumo);

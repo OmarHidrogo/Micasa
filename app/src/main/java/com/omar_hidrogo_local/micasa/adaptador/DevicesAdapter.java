@@ -25,6 +25,7 @@ import com.omar_hidrogo_local.micasa.MainActivity;
 import com.omar_hidrogo_local.micasa.Splash_screen;
 import com.omar_hidrogo_local.micasa.pojo.Devices;
 import com.omar_hidrogo_local.micasa.R;
+import com.omar_hidrogo_local.micasa.sharedPreferences.Preferences;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,6 +55,8 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
     Context context;
 
     private MainActivity mainActivity;
+    private Preferences preferences;
+    int conex = preferences.getmiprefConexion(MainActivity.getContext());
 
 
 
@@ -125,9 +128,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
         devicesViewHolder.btnencender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences miprefConexion = MainActivity.getContext().getSharedPreferences("mconex", Context.MODE_PRIVATE);
-                int mconex = miprefConexion.getInt("mconex", 0);
-                if(mconex == 1){
+                if(conex == 1){
                     int d = Integer.parseInt(device.getChannel());
                     int v2= d+63;
                     char asciiv = (char) v2;
@@ -171,9 +172,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
         devicesViewHolder.btnapagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences miprefConexion = MainActivity.getContext().getSharedPreferences("mconex", Context.MODE_PRIVATE);
-                int mconex = miprefConexion.getInt("mconex", 0);
-                if(mconex == 1){
+                if(conex == 1){
                 int d = Integer.parseInt(device.getChannel());
                 int v2= d+75;
                 char asciiv = (char) v2;

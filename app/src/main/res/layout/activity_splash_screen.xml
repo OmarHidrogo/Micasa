@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,18 +7,48 @@
     android:layout_height="match_parent"
     tools:context="com.omar_hidrogo_local.micasa.Splash_screen">
 
-    <include
-        android:id="@+id/action_bar"
-        layout="@layout/actionbar">
-    </include>
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_below="@+id/action_bar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colororange">
-    </android.support.design.widget.TabLayout>
+        >
+
+        <android.support.v7.widget.Toolbar
+
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colororange"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:elevation="4dp"
+            android:id="@+id/toolbarbar">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/foot"
+                android:src="@drawable/ic_home"
+                android:gravity="start"/>
+
+            <TextView
+                android:id="@+id/tvconecttdevice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/actionbar007"
+                android:layout_gravity="center"
+                android:textColor="@color/colorwhite"
+                android:textSize="15dp"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.Toolbar.Title"/>
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_below="@+id/action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colororange">
+        </android.support.design.widget.TabLayout>
+
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:layout_below="@+id/tabLayout"
@@ -29,4 +59,4 @@
 
     </android.support.v4.view.ViewPager>
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

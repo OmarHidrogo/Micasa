@@ -67,14 +67,6 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".ConstructorDevices"
-            android:parentActivityName=".MainActivity">
-            //Esto es para soporte versiones 4.0 o menores
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
             android:name=".Details_devices"
             android:parentActivityName=".MainActivity">
             //Esto es para soporte versiones 4.0 o menores
@@ -114,6 +106,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity
+            android:name=".Datos_proveedor"
+            android:parentActivityName=".MainActivity">
+            //Esto es para soporte versiones 4.0 o menores
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
     </application>
 
 </manifest>

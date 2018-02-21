@@ -1,6 +1,5 @@
 package com.omar_hidrogo_local.micasa;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -10,16 +9,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -30,9 +25,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.omar_hidrogo_local.micasa.Conunication.Network;
 import com.omar_hidrogo_local.micasa.adaptador.PageAdapter;
 import com.omar_hidrogo_local.micasa.fragment.Fragment_RecyclerView;
+import com.omar_hidrogo_local.micasa.sharedPreferences.Preferences;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,13 +36,10 @@ import java.util.UUID;
 public class Splash_screen extends AppCompatActivity {
 
     private static final String TAG = "DeviceListActivity";
-
     private static Splash_screen instance;
-
     public Splash_screen(){
         instance = this;
     }
-
     public static Context getContext(){
         return  instance;
     }
@@ -58,14 +50,10 @@ public class Splash_screen extends AppCompatActivity {
     private TabLayout tabLayout;
     private BluetoothAdapter btAdapter = null;
     public static BluetoothSocket btSocket = null;
-    // SPP UUID service - this should work for most devices
-    private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-    //private ConnectedThread mConnectedThread;
-    private Activity activity;
-
-    // String for MAC address
-    private static String address = null;
+    private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");  // SPP UUID service - this should work for most devices
+    private Activity activity; //private ConnectedThread mConnectedThread;
+    private static String address = null; // String for MAC address
 
     private int v1 =0;
     private BluetoothSocket btSocket1 = null;
@@ -80,10 +68,9 @@ public class Splash_screen extends AppCompatActivity {
 
     public int mconex;
 
-    //variable para activar retardo de ejecucion de codigo
-    private Handler mHandler = new Handler();
-
+    private Handler mHandler = new Handler(); //variable para activar retardo de ejecucion de codigo
     public  WifiManager wifiManager;
+    private Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +91,8 @@ public class Splash_screen extends AppCompatActivity {
             bar.setDisplayShowTitleEnabled(false);
         }
 
-        SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
-       mconex = miprefConexion.getInt("mconex", 0);
+       // SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
+       mconex = preferences.getmiprefConexion(getApplicationContext());
     }
 
     @Override
@@ -139,6 +126,7 @@ public class Splash_screen extends AppCompatActivity {
     private ArrayList<Fragment> agregarFragments(){
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new Fragment_RecyclerView());
+        fragments.add(new Device_consumption_log());
         return fragments;
     }
 
@@ -149,6 +137,7 @@ public class Splash_screen extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_home);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_power);
 
     }
 
@@ -161,10 +150,10 @@ public class Splash_screen extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.ccasa:
-                /*Intent intent = new Intent(this, Connection_internet.class);
-                this.startActivity(intent);*/
-                break;
+            /*case R.id.ccasa:
+                Intent intent = new Intent(this, Splash_screen.class);
+                this.startActivity(intent);
+                break;*/
             case R.id.nconexion:
                 Intent intent2 = new Intent(this, Devices_controller.class);
                 this.startActivity(intent2);
@@ -174,12 +163,19 @@ public class Splash_screen extends AppCompatActivity {
                 this.startActivity(intent3);
                 break;
             case R.id.cInternet:
-                Intent intent5 = new Intent(this, Connection_internet.class);
+                Intent intent4 = new Intent(this, Connection_internet.class);
+                this.startActivity(intent4);
+                break;
+            case R.id.datosenergia:
+                Intent intent5 = new Intent(this, Datos_proveedor.class);
                 this.startActivity(intent5);
                 break;
             case R.id.acerca:
-                Intent intent4 = new Intent(this, Acerca_de.class);
-                this.startActivity(intent4);
+                Intent intent6 = new Intent(this, Acerca_de.class);
+                this.startActivity(intent6);
+                break;
+            case R.id.close:
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -190,19 +186,21 @@ public class Splash_screen extends AppCompatActivity {
         // Check device has Bluetooth and that it is turned on
         btAdapter=BluetoothAdapter.getDefaultAdapter(); // CHECK THIS OUT THAT IT WORKS!!!
         if(btAdapter==null) {
-            Toast.makeText(getBaseContext(), "Device does not support Bluetooth", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.toast001, Toast.LENGTH_SHORT).show();
         } else {
             if (btAdapter.isEnabled()) {
                 Log.d(TAG, "...Bluetooth ON...");
                 btAdapter = BluetoothAdapter.getDefaultAdapter();       // get Bluetooth adapter
 
-                SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);  // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Bluetooth
-                address = miprefBluetooth.getString("cBluetooth", "");
+
+                //SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);  // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Bluetooth
+                //address = miprefBluetooth.getString("cBluetooth", "");
+                address =preferences.getmiprefBluetooth(MainActivity.getContext());
                 BluetoothDevice device = btAdapter.getRemoteDevice(address);
                 try {
                     btSocket = createBluetoothSocket(device);
                 } catch (IOException e) {
-                    Toast.makeText(getBaseContext(), "Se desvinculo el dispositivo bluetooth", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(),R.string.toast002, Toast.LENGTH_LONG).show();
                 }
                 // Establish the Bluetooth socket connection.
                 try
@@ -219,12 +217,12 @@ public class Splash_screen extends AppCompatActivity {
                 }
             } else {
                 //Prompt user to turn on Bluetooth
-                Log.d(TAG, "...Pregunta para Bluetooth ON...");
+                Log.d(TAG, "...Bluetooth ON...");
 
                 AlertDialog.Builder messageConnection = new AlertDialog.Builder(Splash_screen.getContext());
-                messageConnection.setMessage("La aplicacion esta configurada para conectarse por Bluetooth, desea activar el Bluetooth")
+                messageConnection.setMessage(R.string.AlertDialog02)
                         .setCancelable(false)
-                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
@@ -235,13 +233,14 @@ public class Splash_screen extends AppCompatActivity {
                                     public void run() {
                                         btAdapter = BluetoothAdapter.getDefaultAdapter();       // get Bluetooth adapter
 
-                                        SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);  // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Bluetooth
-                                        address = miprefBluetooth.getString("cBluetooth", "");
+                                        //SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);  // se inicializa preferencia donde cuardara la conexion  de la casa a controlar por Bluetooth
+                                        //address = miprefBluetooth.getString("cBluetooth", "");
+                                        address =preferences.getmiprefBluetooth(MainActivity.getContext());
                                         BluetoothDevice device = btAdapter.getRemoteDevice(address);
                                         try {
                                             btSocket = createBluetoothSocket(device);
                                         } catch (IOException e) {
-                                            Toast.makeText(getBaseContext(), "Se desvinculo el dispositivo bluetooth", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getBaseContext(), R.string.toast002, Toast.LENGTH_LONG).show();
                                         }
                                         // Establish the Bluetooth socket connection.
                                         try
@@ -263,11 +262,12 @@ public class Splash_screen extends AppCompatActivity {
                             }
 
                         })
-                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.not, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor1 = miprefConexion.edit();
+                                SharedPreferences.Editor editor1 = preferences.getSharedPreferencesmiprefConexion(getApplicationContext()).edit(); // se Extrae preferencia de conexion Internet de la clase Preferences
+                                //SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
+                                //SharedPreferences.Editor editor1 = miprefConexion.edit();
                                 editor1.putInt("mconex", 0);
                                 editor1.commit();
                                 Intent intent = new Intent(Splash_screen.this, MainActivity.class);
@@ -277,7 +277,7 @@ public class Splash_screen extends AppCompatActivity {
                             }
                         });
                 AlertDialog titulo = messageConnection.create();
-                titulo.setTitle("Alerta!");
+                titulo.setTitle(R.string.alert001);
                 titulo.show();
             }
         }
@@ -300,9 +300,9 @@ public class Splash_screen extends AppCompatActivity {
             }
         }else{
             AlertDialog.Builder messageConnection = new AlertDialog.Builder(Splash_screen.getContext());
-            messageConnection.setMessage("La aplicacion esta configurada para conectarse por WIFI, deseas activar el WIFI")
+            messageConnection.setMessage(R.string.AlertDialog03)
                     .setCancelable(false)
-                    .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             wifiManager.setWifiEnabled(true);
@@ -310,11 +310,12 @@ public class Splash_screen extends AppCompatActivity {
                         }
 
                     })
-                    .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.not, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor1 = miprefConexion.edit();
+                            SharedPreferences.Editor editor1 = preferences.getSharedPreferencesmiprefConexion(getApplicationContext()).edit(); // se Extrae preferencia de conexion Internet de la clase Preferences
+                            //SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
+                            //SharedPreferences.Editor editor1 = miprefConexion.edit();
                             editor1.putInt("mconex", 0);
                             editor1.commit();
                             Intent intent = new Intent(Splash_screen.this, MainActivity.class);
@@ -324,7 +325,7 @@ public class Splash_screen extends AppCompatActivity {
                         }
                     });
             AlertDialog titulo = messageConnection.create();
-            titulo.setTitle("Alerta!");
+            titulo.setTitle(R.string.alert001);
             titulo.show();
 
 

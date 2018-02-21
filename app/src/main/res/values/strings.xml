@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Micasa</string>
+    <!--string name="app_name">Micasa</string>
     <string name="etDeviceInternet">Escribe la direccion IP del dispositivo</string>
     <string name="etDeviceBluetooth">Escribe la direccion MAC del dispositivo</string>
     <string name="btnsavedevice">Guardar Dispositivo</string>
@@ -9,7 +9,9 @@
     <string name="econexion">Editar Conexion</string>
     <string name="ebluetooth">Bluetooth</string>
     <string name="einternet">Internet</string>
+    <string name="datosenergia">Parametros de Consumo</string>
     <string name="acerca">Acerca de:</string>
+    <string name="close">Cerrar</string>
     <string name="ccasa">Control Casa</string>
     <string name="titlecasa">Casa Inteligente</string>
     <string name="adispositivos">Agregar Dispositivos</string>
@@ -26,5 +28,7 @@
     <string name="none_paired">No hay Dispositivos Vinculados</string>
     <string name="none_paired1">No hay Dispositivos Vinculados</string>
     <string name="device_consumption">Consumo del Dispositivo</string>
+    <string name="settings_proveedor">Datos de Energia</string>
+    <string name="title_activity_device_consumption_log">Device_consumption_log</string-->
 
 </resources>

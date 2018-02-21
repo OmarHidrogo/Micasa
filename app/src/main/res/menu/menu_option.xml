@@ -6,35 +6,46 @@
 
     <item
         android:id="@+id/ccasa"
-        android:title="@string/ccasa"
+        android:title="@string/msplashscreen"
         android:orderInCategory="98">
     </item>
     <item
         android:id="@+id/nconexion"
-        android:title="@string/nconexion"
+        android:title="@string/maddevice"
         android:orderInCategory="99">
 
     </item>
     <item
-        android:title="@string/econexion"
+        android:title="@string/msettingconnection"
         android:orderInCategory="100">
         <menu>
             <item
                 android:id="@+id/cbluetooth"
-                android:title="@string/ebluetooth"
+                android:title="@string/mebluetooth"
                 android:orderInCategory="1">
             </item>
-            <item
+           <item
                 android:id="@+id/cInternet"
-                android:title="@string/einternet"
+                android:title="@string/meinternet"
                 android:orderInCategory="2">
             </item>
         </menu>
     </item>
     <item
-        android:id="@+id/acerca"
-        android:title="@string/acerca"
+        android:id="@+id/datosenergia"
+        android:title="@string/msettingsconsumption"
         android:orderInCategory="101">
+
+    </item>
+    <item
+        android:id="@+id/acerca"
+        android:title="@string/mabout"
+        android:orderInCategory="102">
+    </item>
+    <item
+        android:id="@+id/close"
+        android:title="@string/mclose"
+        android:orderInCategory="103">
     </item>
 
 </menu>

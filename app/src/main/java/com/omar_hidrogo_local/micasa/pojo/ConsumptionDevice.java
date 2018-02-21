@@ -4,23 +4,23 @@ package com.omar_hidrogo_local.micasa.pojo;
  * Created by tmhidrooma on 02/02/2018.
  */
 
-public class ConsumoDevice {
+public class ConsumptionDevice {
 
     //DECLARA VARIABLES
     private int idhistorial;
     private int iddevice;
     private int status;
-    private double time;
+    private long time;
     private long millis;
 
-    public ConsumoDevice(int iddevice, int status, double time, long millis) {
+    public ConsumptionDevice(int iddevice, int status, long time, long millis) {
         this.iddevice = iddevice;
         this.status = status;
         this.time = time;
         this.millis = millis;
     }
 
-    public ConsumoDevice() {
+    public ConsumptionDevice() {
 
     }
 
@@ -48,11 +48,11 @@ public class ConsumoDevice {
         this.status = status;
     }
 
-    public double getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(double time) {
+    public void setTime(long time) {
         this.time = time;
     }
 

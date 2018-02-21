@@ -8,168 +8,175 @@
     tools:context="com.omar_hidrogo_local.micasa.Devices_controller">
 
     <include
-        android:id="@+id/action_bar_add"
-        layout="@layout/actionbar_add_devices">
+        android:id="@+id/action_details"
+        layout="@layout/actionbar_detalles_device">
     </include>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/action_bar_add"
-        >
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Nombre Dispositivo"/>
-
-            <EditText
-                android:id="@+id/etnamedevice"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
+        android:layout_below="@id/action_details">
 
         <LinearLayout
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Selecciona Imagen"/>
-
-            <ListView
-                android:id="@+id/list_item"
-                android:layout_width="match_parent"
-                android:layout_height="60dp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_marginTop="15dp"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Canal del dispositivo"/>
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="159dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-        <LinearLayout
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Watts"/>
-
-            <EditText
-                android:id="@+id/etwatts"
-                android:layout_marginLeft="55dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Descripcion"/>
-
-            <EditText
-                android:id="@+id/etabout"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <RelativeLayout
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btnupdate"
-                    android:layout_marginTop="25dp"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Modificar Dispositivo"
-                    android:textAllCaps="false"
-                    android:background="@drawable/button_white"
-                    android:onClick="saveDevice"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"/>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tvadddevicename"/>
 
-                <Button
-                    android:id="@+id/btndelete"
-                    android:layout_marginTop="25dp"
+                <EditText
+                    android:id="@+id/etnamedevice"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Eliminar Dispositivo"
-                    android:textAllCaps="false"
-                    android:background="@drawable/button_white"
-                    android:onClick="saveDelete"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"/>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tvadddeviceselect"/>
+
+                <ListView
+                    android:id="@+id/list_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tvadddevicechannel"/>
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="159dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <LinearLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tvaddwatts"/>
+
+                <EditText
+                    android:id="@+id/etwatts"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tvadddescription"/>
+
+                <EditText
+                    android:id="@+id/etabout"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/btnupdate"
+                        android:layout_marginTop="25dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/btnchngedevice"
+                        android:textAllCaps="false"
+                        android:background="@drawable/button_white"
+                        android:onClick="saveDevice"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"/>
+
+                    <Button
+                        android:id="@+id/btndelete"
+                        android:layout_marginTop="25dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/btndeletedevice"
+                        android:textAllCaps="false"
+                        android:background="@drawable/button_white"
+                        android:onClick="saveDelete"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"/>
 
 
 
-            </RelativeLayout>
+                </RelativeLayout>
 
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
+
+
 
 </RelativeLayout>
 

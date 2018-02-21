@@ -5,8 +5,10 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +19,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.omar_hidrogo_local.micasa.sharedPreferences.Preferences;
+
 import java.util.Set;
 
 public class Device_Lists extends AppCompatActivity {
@@ -24,6 +28,7 @@ public class Device_Lists extends AppCompatActivity {
     // Debugging for LOGCAT
     private static final String TAG = "DeviceListActivity";
     private static final boolean D = true;
+    private Toolbar toolbar;
 
     // declare button for launching website and textview for connection status
     //Button tlbutton;
@@ -35,13 +40,26 @@ public class Device_Lists extends AppCompatActivity {
     // Member fields
     private BluetoothAdapter mBtAdapter;
     private ArrayAdapter<String> mPairedDevicesArrayAdapter;
-
+    private Preferences preferences;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device__list);
+
+
+        //entrar a las propiedades de la barra superios aplicacion
+        toolbar = (Toolbar) findViewById(R.id.toolbarbar);
+
+        setSupportActionBar(toolbar);
+        ActionBar bar = getSupportActionBar();
+        //quitar el titulo por defecto al actionbar
+        if (toolbar != null) {
+            bar.setDisplayHomeAsUpEnabled(true);//poner boton de regresar en la parte superior
+            bar.setDisplayShowTitleEnabled(false);
+
+        }
     }
 
     @Override
@@ -91,22 +109,17 @@ public class Device_Lists extends AppCompatActivity {
             String address = info.substring(info.length() - 17);
 
 
-            //crear Share preference
-            SharedPreferences miprefBluetooth = getSharedPreferences("cBluetooth", Context.MODE_PRIVATE);
-            SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
-            //editar preferencia
-            SharedPreferences.Editor editor = miprefBluetooth.edit();
-            SharedPreferences.Editor editor1 = miprefConexion.edit();
-            //vincular edit text donde se agragara conexion a controlar
+            //Se manda a llamar y editan las las preferencia compartidas
+            SharedPreferences.Editor edi = preferences.getSharedPreferencesmiprefBluetooth(getApplicationContext()).edit(); // se Extrae preferencia de conexion Bluettoth de la clase Preferences
+            SharedPreferences.Editor edi1 = preferences.getSharedPreferencesmiprefConexion(getApplicationContext()).edit(); //se Extrae preferencia de conexion de la clase Preferences
+
             String devicebluetooth = address;
             //guardar conexion en la preferencia
-            editor.putString("cBluetooth", devicebluetooth);
-            editor1.putInt("mconex", 1);
-            editor.commit();
-            editor1.commit();
+            edi.putString("cBluetooth", devicebluetooth);
+            edi1.putInt("mconex", 1);
+            edi.commit();
+            edi1.commit();
 
-
-            // Make an intent to start next activity while taking an extra which is the MAC address.
             Intent i = new Intent(Device_Lists.this, Splash_screen.class);
             i.putExtra(EXTRA_DEVICE_ADDRESS, address);
             startActivity(i);
@@ -117,7 +130,7 @@ public class Device_Lists extends AppCompatActivity {
         // Check device has Bluetooth and that it is turned on
         mBtAdapter=BluetoothAdapter.getDefaultAdapter(); // CHECK THIS OUT THAT IT WORKS!!!
         if(mBtAdapter==null) {
-            Toast.makeText(getBaseContext(), "Device does not support Bluetooth", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.toast007, Toast.LENGTH_SHORT).show();
         } else {
             if (mBtAdapter.isEnabled()) {
                 Log.d(TAG, "...Bluetooth ON...");

@@ -12,12 +12,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.omar_hidrogo_local.micasa.sharedPreferences.Preferences;
+
 public class Connection_internet extends AppCompatActivity {
 
     private Button btnSaveDeviceInternet;
     private EditText etDeviceInternet;
     private Toolbar toolbar;  //barra superior aplicacion
     public MainActivity mainActivity;
+    private Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,35 +37,34 @@ public class Connection_internet extends AppCompatActivity {
             bar.setDisplayHomeAsUpEnabled(true);//poner boton de regresar en la parte superior
             bar.setDisplayShowTitleEnabled(false);
             getSupportActionBar().setTitle("Editar Conexion IP");
+        }
 
-            btnSaveDeviceInternet = (Button) findViewById(R.id.btnSaveDeviceInternet);
+        btnSaveDeviceInternet = (Button) findViewById(R.id.btnSaveDeviceInternet);
 
             btnSaveDeviceInternet.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    //crear Share preference
-                    SharedPreferences miprefInternet = getSharedPreferences("cInternet", Context.MODE_PRIVATE);
-                    SharedPreferences miprefConexion = getSharedPreferences("mconex", Context.MODE_PRIVATE);
                     //editar preferencia
-                    SharedPreferences.Editor editor = miprefInternet.edit();
-                    SharedPreferences.Editor editor1 = miprefConexion.edit();
-                    //vincular edit text donde se agragara conexion a controlar
-                    etDeviceInternet = (EditText) findViewById(R.id.etDeviceInternet);
-                    //guardar conexion en la preferencia
-                    String deviceInternet = etDeviceInternet.getText().toString();
-                    editor.putString("cInternet", deviceInternet);
-                    editor1.putInt("mconex", 2);
-                    editor.commit();
-                    editor1.commit();
+                    SharedPreferences.Editor edi = preferences.getSharedPreferencesInternet(getApplicationContext()).edit(); // se Extrae preferencia de conexion Internet de la clase Preferences
+                    SharedPreferences.Editor edi1 = preferences.getSharedPreferencesmiprefConexion(getApplicationContext()).edit(); //se Extrae preferencia de conexion de la clase Preferences
 
-                    Toast.makeText(Connection_internet.this, "El dispositivo IP fue guardado", Toast.LENGTH_SHORT).show();
+                    //vincular edit text donde se agragara la direccion IP del equipo de control
+                    etDeviceInternet = (EditText) findViewById(R.id.etDeviceInternet);
+                    //guardar el valor de EditText
+                    String deviceInternet = etDeviceInternet.getText().toString();
+                    edi.putString("cInternet", deviceInternet);//se guarda la direccion IP
+                    edi1.putInt("mconex", 2);// Se guarda el valor de la conexion
+                    //editor1.putInt("mconex", 2);
+                    edi.commit(); // Se guarda en la preferencia
+                    edi1.commit(); // Se guarda en la preferencia
+
+                    Toast.makeText(Connection_internet.this, R.string.toast013, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Connection_internet.this, Splash_screen.class);
                     startActivity(intent);
                     finish();
                 }
             });
-        }
 
 
     }

@@ -68,7 +68,7 @@ public class DataBase extends SQLiteOpenHelper {
                 ConstanteDataBase.TABLE_HISTORY_ID              + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 ConstanteDataBase.TABLE_HISTORY_DEVICE_ID       + " INTEGER, "+
                 ConstanteDataBase.TABLE_HISTORY_DEVICE_STATE    + " INTEGER, "+
-                ConstanteDataBase.TABLE_HISTORY_TIME            + " REAL, "+
+                ConstanteDataBase.TABLE_HISTORY_TIME            + " INTEGER, "+
                 ConstanteDataBase.TABLE_HISTORY_TIME_MILIS      + " INTEGER "+
                 ")";
 
