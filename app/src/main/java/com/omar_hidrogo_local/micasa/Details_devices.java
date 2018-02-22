@@ -109,7 +109,7 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
                 if(state==1){
-                    Toast.makeText(Details_devices.this, R.string.toast022,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Details_devices.this, "No puedes modificar el dispositivo porque esta encendido primero tienes que apagarlo",Toast.LENGTH_SHORT).show();
                 }else{
                     AlertDialog.Builder messageConnection = new AlertDialog.Builder(Details_devices.this);
                     setTitle(R.string.alert003);
@@ -157,7 +157,7 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
                 if(state==1){
-                    Toast.makeText(Details_devices.this, R.string.toast023,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Details_devices.this, "No puedes eliminar el dispositivo porque esta encendido primero tienes que apagarlo",Toast.LENGTH_SHORT).show();
                 }else{
                     AlertDialog.Builder messageConnection = new AlertDialog.Builder(Details_devices.this);
                     setTitle(R.string.alert001);

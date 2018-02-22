@@ -52,6 +52,7 @@
     <string name="actionbar005">EDITAR CONEXION</string>
     <string name="actionbar006">BIOGRAFIA</string>
     <string name="actionbar007">CASA INTELIGENTE</string>
+    <string name="actionbar008">DATOS DEL PROVEEDOR</string>
 
     //TextView
     <string name="tvadddevicename">Nombre del Dispositivo</string>

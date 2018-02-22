@@ -94,12 +94,12 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
 
 
         final  Devices device = devices.get(position);
-
+        //String channel= activity.getResources().getString(R.string.toast015);
         //devicesViewHolder.imgFoto.setImageResource(device.getFoto());
         devicesViewHolder.tvnombredevice.setText(device.getNombre());
-        devicesViewHolder.tvchannel.setText(R.string.toast015+device.getChannel());
+        devicesViewHolder.tvchannel.setText(activity.getResources().getString(R.string.toast015)+device.getChannel());
         final int image = device.getPhoto();
-        final int status = device.getState();
+        int status = device.getState();
         switch (image){
             case 0:
                 devicesViewHolder.imgFoto.setImageResource(R.drawable.focoapagado);
@@ -122,7 +122,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
             @Override
             public void onClick(View v) {
                 if(device.getState()==1){
-                    Toast.makeText(activity, R.string.toast016+device.getNombre()+R.string.toast017 + device.getNombre(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, activity.getResources().getString(R.string.toast016)+device.getNombre()+activity.getResources().getString(R.string.toast017), Toast.LENGTH_SHORT).show();
                 }else{
                     if(conex == 1){
                         int d = Integer.parseInt(device.getChannel());
@@ -133,12 +133,13 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
                         bluettoth.cbt(vascii);
                         //bluettoth.conexion("1");*/
                         if(ConnectedThread.Success()==false) {
-                            Toast.makeText(activity, R.string.toast018 + device.getNombre(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, activity.getResources().getString(R.string.toast018) + device.getNombre(), Toast.LENGTH_SHORT).show();
                             ConstructorDevices constructorDevices = new ConstructorDevices();
-                            int status = 1;
+                            int statusv1 = 1;
                             int iddevice = device.getId();
-                            constructorDevices.statusDevice(device, status, image);
-                            constructorDevices.insertarHistorial(iddevice, status);
+                            device.setState(statusv1);
+                            constructorDevices.statusDevice(device, statusv1, image);
+                            constructorDevices.insertarHistorial(iddevice, statusv1);
                             if (image == 0) {
                                 devicesViewHolder.imgFoto.setImageResource(R.drawable.focoencendido);
                             } else
@@ -149,12 +150,13 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
 
                         }
                     }else{
-                        Toast.makeText(activity, R.string.toast018 + device.getNombre(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, activity.getResources().getString(R.string.toast018) + device.getNombre(), Toast.LENGTH_SHORT).show();
                         ConstructorDevices constructorDevices = new ConstructorDevices();
-                        int status = 1;
+                        int statusv2 = 1;
+                        device.setState(statusv2);
                         int iddevice = device.getId();
-                        constructorDevices.statusDevice(device, status, image);
-                        constructorDevices.insertarHistorial(iddevice, status);
+                        constructorDevices.statusDevice(device, statusv2, image);
+                        constructorDevices.insertarHistorial(iddevice, statusv2);
                         if (image == 0) {
                             devicesViewHolder.imgFoto.setImageResource(R.drawable.focoencendido);
                         } else
@@ -170,8 +172,8 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
         devicesViewHolder.btnapagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(device.getState()==1){
-                    Toast.makeText(activity, R.string.toast019+device.getNombre()+R.string.toast020 + device.getNombre(), Toast.LENGTH_SHORT).show();
+                if(device.getState()==0){
+                    Toast.makeText(activity, activity.getResources().getString(R.string.toast019)+device.getNombre()+activity.getResources().getString(R.string.toast020), Toast.LENGTH_SHORT).show();
                 }else{
 
                     if(conex == 1){
@@ -181,14 +183,14 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
                         String vascii= String.valueOf((asciiv));
                         Bluettoth bluettoth = new Bluettoth();
                         bluettoth.cbt(vascii);
-
                         ConstructorDevices constructorDevices = new ConstructorDevices();
+                        int statusv1 = 0;
+                        device.setState(statusv1);
                         if(ConnectedThread.Success()==false){
-                            Toast.makeText(activity,R.string.toast021+device.getNombre(),Toast.LENGTH_SHORT).show();
-                            int status =0;
+                            Toast.makeText(activity,activity.getResources().getString(R.string.toast021)+device.getNombre(),Toast.LENGTH_SHORT).show();
                             int iddevice = device.getId();
-                            constructorDevices.statusDevice(device, status, image);
-                            constructorDevices.insertarHistorial(iddevice, status);
+                            constructorDevices.statusDevice(device, statusv1, image);
+                            constructorDevices.insertarHistorial(iddevice, statusv1);
                             if(image==0){
                                 devicesViewHolder.imgFoto.setImageResource(R.drawable.focoapagado);
                             }else
@@ -201,11 +203,13 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
 
                     }else{
                         ConstructorDevices constructorDevices = new ConstructorDevices();
-                        Toast.makeText(activity,R.string.toast021+device.getNombre(),Toast.LENGTH_SHORT).show();
-                        int status =0;
+                        Toast.makeText(activity,activity.getResources().getString(R.string.toast021)+device.getNombre(),Toast.LENGTH_SHORT).show();
+                        int statusv2 = 0;
+                        device.setPhoto(image);
+                        device.setState(statusv2);
                         int iddevice = device.getId();
-                        constructorDevices.statusDevice(device, status, image);
-                        constructorDevices.insertarHistorial(iddevice, status);
+                        constructorDevices.statusDevice(device, statusv2, image);
+                        constructorDevices.insertarHistorial(iddevice, statusv2);
                         if(image==0){
                             devicesViewHolder.imgFoto.setImageResource(R.drawable.focoapagado);
                         }else

@@ -50,6 +50,7 @@
     <string name="actionbar005">EDIT CONNECTION</string>
     <string name="actionbar006">BIOGRAPHY</string>
     <string name="actionbar007">INTELLIGENT HOUSE </string>
+    <string name="actionbar008">PROVIDER DATA</string>
 
     //TextView
     <string name="tvadddevicename">Device Name</string>
