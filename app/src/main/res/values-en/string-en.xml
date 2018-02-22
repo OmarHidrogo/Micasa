@@ -32,6 +32,15 @@
     <string name="toast012">The energy provider data was saved correctly</string>
     <string name="toast013">The IP connection method was saved</string>
     <string name="toast014">The Bluetooth device was saved.</string>
+    <string name="toast015">Channel # </string>
+    <string name="toast016">You can not restart </string>
+    <string name="toast017"> because it was already on </string>
+    <string name="toast018"> It has on </string>
+    <string name="toast019"> You can not go back off </string>
+    <string name="toast020"> because it was already off </string>
+    <string name="toast021"> You have turned off the </string>
+    <string name="toast022">You can not modify the device because it is on first you have to turn it off</string>
+    <string name="toast023">You can not delete the device because it is on first you have to turn it off</string>
 
     //actionbar
     <string name="actionbar001">ADD DEVICE</string>

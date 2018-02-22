@@ -34,6 +34,15 @@
     <string name="toast012">Los datos del proveedor de energia se guardaron correctamente</string>
     <string name="toast013">El metodo de conexion IP fue guardado</string>
     <string name="toast014">El dispositivo Bluetooth fue guardado.</string>
+    <string name="toast015">Canal # </string>
+    <string name="toast016">No puedes volver a encender </string>
+    <string name="toast017"> porque ya estaba encendido </string>
+    <string name="toast018"> Has encendido el </string>
+    <string name="toast019"> No puedes volver apagar </string>
+    <string name="toast020"> porque ya estaba apagado </string>
+    <string name="toast021"> Has apagado el </string>
+    <string name="toast022">No puedes modificar el dispositivo porque esta encendido primero tienes que apagarlo</string>
+    <string name="toast023">No puedes eliminar el dispositivo porque esta encendido primero tienes que apagarlo</string>
 
     //actionbar
     <string name="actionbar001">AGREGAR DISPOSITIVO</string>

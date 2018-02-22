@@ -97,7 +97,7 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
 
         //devicesViewHolder.imgFoto.setImageResource(device.getFoto());
         devicesViewHolder.tvnombredevice.setText(device.getNombre());
-        devicesViewHolder.tvchannel.setText("Canal # "+device.getChannel());
+        devicesViewHolder.tvchannel.setText(R.string.toast015+device.getChannel());
         final int image = device.getPhoto();
         final int status = device.getState();
         switch (image){
@@ -121,16 +121,35 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
         devicesViewHolder.btnencender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(conex == 1){
-                    int d = Integer.parseInt(device.getChannel());
-                    int v2= d+63;
-                    char asciiv = (char) v2;
-                    String vascii= String.valueOf((asciiv));
-                    Bluettoth bluettoth = new Bluettoth();
-                    bluettoth.cbt(vascii);
-                    //bluettoth.conexion("1");*/
-                    if(ConnectedThread.Success()==false) {
-                        Toast.makeText(activity, " Has encendido el " + device.getNombre(), Toast.LENGTH_SHORT).show();
+                if(device.getState()==1){
+                    Toast.makeText(activity, R.string.toast016+device.getNombre()+R.string.toast017 + device.getNombre(), Toast.LENGTH_SHORT).show();
+                }else{
+                    if(conex == 1){
+                        int d = Integer.parseInt(device.getChannel());
+                        int v2= d+63;
+                        char asciiv = (char) v2;
+                        String vascii= String.valueOf((asciiv));
+                        Bluettoth bluettoth = new Bluettoth();
+                        bluettoth.cbt(vascii);
+                        //bluettoth.conexion("1");*/
+                        if(ConnectedThread.Success()==false) {
+                            Toast.makeText(activity, R.string.toast018 + device.getNombre(), Toast.LENGTH_SHORT).show();
+                            ConstructorDevices constructorDevices = new ConstructorDevices();
+                            int status = 1;
+                            int iddevice = device.getId();
+                            constructorDevices.statusDevice(device, status, image);
+                            constructorDevices.insertarHistorial(iddevice, status);
+                            if (image == 0) {
+                                devicesViewHolder.imgFoto.setImageResource(R.drawable.focoencendido);
+                            } else
+                            { devicesViewHolder.imgFoto.setImageResource(R.drawable.aireencendido);}
+
+                        }
+                        else{
+
+                        }
+                    }else{
+                        Toast.makeText(activity, R.string.toast018 + device.getNombre(), Toast.LENGTH_SHORT).show();
                         ConstructorDevices constructorDevices = new ConstructorDevices();
                         int status = 1;
                         int iddevice = device.getId();
@@ -142,22 +161,8 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
                         { devicesViewHolder.imgFoto.setImageResource(R.drawable.aireencendido);}
 
                     }
-                    else{
-
-                    }
-                }else{
-                    Toast.makeText(activity, " Has encendido el " + device.getNombre(), Toast.LENGTH_SHORT).show();
-                    ConstructorDevices constructorDevices = new ConstructorDevices();
-                    int status = 1;
-                    int iddevice = device.getId();
-                    constructorDevices.statusDevice(device, status, image);
-                    constructorDevices.insertarHistorial(iddevice, status);
-                    if (image == 0) {
-                        devicesViewHolder.imgFoto.setImageResource(R.drawable.focoencendido);
-                    } else
-                    { devicesViewHolder.imgFoto.setImageResource(R.drawable.aireencendido);}
-
                 }
+
 
             }
         });
@@ -165,45 +170,48 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.DevicesV
         devicesViewHolder.btnapagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(conex == 1){
-                int d = Integer.parseInt(device.getChannel());
-                int v2= d+75;
-                char asciiv = (char) v2;
-                String vascii= String.valueOf((asciiv));
-                Bluettoth bluettoth = new Bluettoth();
-                bluettoth.cbt(vascii);
-
-                ConstructorDevices constructorDevices = new ConstructorDevices();
-                if(ConnectedThread.Success()==false){
-                    Toast.makeText(activity," Has apagado el "+device.getNombre(),Toast.LENGTH_SHORT).show();
-                    int status =0;
-                    int iddevice = device.getId();
-                    constructorDevices.statusDevice(device, status, image);
-                    constructorDevices.insertarHistorial(iddevice, status);
-                    if(image==0){
-                        devicesViewHolder.imgFoto.setImageResource(R.drawable.focoapagado);
-                    }else
-                    {devicesViewHolder.imgFoto.setImageResource(R.drawable.aireapagado);}
-
-                }
-                else{
-
-                }
-
+                if(device.getState()==1){
+                    Toast.makeText(activity, R.string.toast019+device.getNombre()+R.string.toast020 + device.getNombre(), Toast.LENGTH_SHORT).show();
                 }else{
-                    ConstructorDevices constructorDevices = new ConstructorDevices();
-                    Toast.makeText(activity," Has apagado el "+device.getNombre(),Toast.LENGTH_SHORT).show();
-                    int status =0;
-                    int iddevice = device.getId();
-                    constructorDevices.statusDevice(device, status, image);
-                    constructorDevices.insertarHistorial(iddevice, status);
-                    if(image==0){
-                        devicesViewHolder.imgFoto.setImageResource(R.drawable.focoapagado);
-                    }else
-                    {devicesViewHolder.imgFoto.setImageResource(R.drawable.aireapagado);}
+
+                    if(conex == 1){
+                        int d = Integer.parseInt(device.getChannel());
+                        int v2= d+75;
+                        char asciiv = (char) v2;
+                        String vascii= String.valueOf((asciiv));
+                        Bluettoth bluettoth = new Bluettoth();
+                        bluettoth.cbt(vascii);
+
+                        ConstructorDevices constructorDevices = new ConstructorDevices();
+                        if(ConnectedThread.Success()==false){
+                            Toast.makeText(activity,R.string.toast021+device.getNombre(),Toast.LENGTH_SHORT).show();
+                            int status =0;
+                            int iddevice = device.getId();
+                            constructorDevices.statusDevice(device, status, image);
+                            constructorDevices.insertarHistorial(iddevice, status);
+                            if(image==0){
+                                devicesViewHolder.imgFoto.setImageResource(R.drawable.focoapagado);
+                            }else
+                            {devicesViewHolder.imgFoto.setImageResource(R.drawable.aireapagado);}
+
+                        }
+                        else{
+
+                        }
+
+                    }else{
+                        ConstructorDevices constructorDevices = new ConstructorDevices();
+                        Toast.makeText(activity,R.string.toast021+device.getNombre(),Toast.LENGTH_SHORT).show();
+                        int status =0;
+                        int iddevice = device.getId();
+                        constructorDevices.statusDevice(device, status, image);
+                        constructorDevices.insertarHistorial(iddevice, status);
+                        if(image==0){
+                            devicesViewHolder.imgFoto.setImageResource(R.drawable.focoapagado);
+                        }else
+                        {devicesViewHolder.imgFoto.setImageResource(R.drawable.aireapagado);}
+                    }
                 }
-
-
 
             }
         });

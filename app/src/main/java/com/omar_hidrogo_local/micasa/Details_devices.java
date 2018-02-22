@@ -76,7 +76,7 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
         String name = extras.getString("name");
         channel =  extras.getString("channel");
         final int photo = extras.getInt("photo");
-        int state = extras.getInt("state");
+        final int state = extras.getInt("state");
         String about = extras.getString("about");
         int watts = extras.getInt("watts");
         String wat = String.valueOf(watts);
@@ -108,40 +108,45 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
         btnupdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(state==1){
+                    Toast.makeText(Details_devices.this, R.string.toast022,Toast.LENGTH_SHORT).show();
+                }else{
+                    AlertDialog.Builder messageConnection = new AlertDialog.Builder(Details_devices.this);
+                    setTitle(R.string.alert003);
+                    messageConnection.setMessage(R.string.AlertDialog05)
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                AlertDialog.Builder messageConnection = new AlertDialog.Builder(Details_devices.this);
-                setTitle(R.string.alert003);
-                messageConnection.setMessage(R.string.AlertDialog05)
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                                    String namedevice = editText.getText().toString();
+                                    String channeldevice = spiner.getItemAtPosition(spiner.getSelectedItemPosition()).toString();
+                                    int image = Slecteditem;
+                                    String about = etabout.getText().toString();
+                                    int watts = Integer.parseInt(etwatts.getText().toString());
+                                    constructorDevices = new ConstructorDevices();
+                                    constructorDevices.updateDevices(id,namedevice, channeldevice, image, watts, about);
+                                    editText.setText("");
+                                    etabout.setText("");
+                                    etwatts.setText("");
+                                    Toast.makeText(Details_devices.this, R.string.toast010,Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(Details_devices.this, Splash_screen.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton(R.string.not, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    cancelar();
+                                }
+                            });
+                    AlertDialog titulo = messageConnection.create();
+                    titulo.setTitle(R.string.alert001);
+                    titulo.show();
+                }
 
-                                String namedevice = editText.getText().toString();
-                                String channeldevice = spiner.getItemAtPosition(spiner.getSelectedItemPosition()).toString();
-                                int image = Slecteditem;
-                                String about = etabout.getText().toString();
-                                int watts = Integer.parseInt(etwatts.getText().toString());
-                                constructorDevices = new ConstructorDevices();
-                                constructorDevices.updateDevices(id,namedevice, channeldevice, image, watts, about);
-                                editText.setText("");
-                                etabout.setText("");
-                                etwatts.setText("");
-                                Toast.makeText(Details_devices.this, R.string.toast010,Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(Details_devices.this, Splash_screen.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        })
-                        .setNegativeButton(R.string.not, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                cancelar();
-                            }
-                        });
-                AlertDialog titulo = messageConnection.create();
-                titulo.setTitle(R.string.alert001);
-                titulo.show();
+
 
             }
         });
@@ -151,34 +156,39 @@ public class Details_devices extends AppCompatActivity implements AdapterView.On
         btndelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(state==1){
+                    Toast.makeText(Details_devices.this, R.string.toast023,Toast.LENGTH_SHORT).show();
+                }else{
+                    AlertDialog.Builder messageConnection = new AlertDialog.Builder(Details_devices.this);
+                    setTitle(R.string.alert001);
+                    messageConnection.setMessage(R.string.AlertDialog06)
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                AlertDialog.Builder messageConnection = new AlertDialog.Builder(Details_devices.this);
-                setTitle(R.string.alert001);
-                messageConnection.setMessage(R.string.AlertDialog06)
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                                    constructorDevices = new ConstructorDevices();
+                                    constructorDevices.deleteDevices(id);
+                                    editText.setText("");
+                                    etabout.setText("");
+                                    Toast.makeText(Details_devices.this, R.string.toast011,Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(Details_devices.this, Splash_screen.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton(R.string.not, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    cancelar();
+                                }
+                            });
+                    AlertDialog titulo = messageConnection.create();
+                    titulo.setTitle(R.string.alert001);
+                    titulo.show();
+                }
 
-                                constructorDevices = new ConstructorDevices();
-                                constructorDevices.deleteDevices(id);
-                                editText.setText("");
-                                etabout.setText("");
-                                Toast.makeText(Details_devices.this, R.string.toast011,Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(Details_devices.this, Splash_screen.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        })
-                        .setNegativeButton(R.string.not, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                cancelar();
-                            }
-                        });
-                AlertDialog titulo = messageConnection.create();
-                titulo.setTitle(R.string.alert001);
-                titulo.show();
+
             }
         });
 
